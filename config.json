@@ -1,10 +1,10 @@
 {
   "legal": {
-    "title": "WebHemi Default Theme",
-    "description": "",
-    "version": "1.0",
+    "title": "Thomas Theme for WebHemi",
+    "description": "A complete Website / Admin / Admin Login eyecandy, responsive theme for the WebHemi application.",
+    "version": "0.0.2",
     "author": "Gabor Ivan <gixx@gixx-web.com>",
-    "homepage": "http://www.gixx-web.com",
+    "homepage": "https://github.com/Gixx/WebHemi-Themes/tree/Thomas",
     "license": "MIT"
   },
   "features": {
