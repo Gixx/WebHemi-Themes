@@ -1,0 +1,23 @@
+{% extends "admin/applications/index.twig" %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        {% if application_base_uri != '/' %}
+            {% set location = application_base_uri ~ '/applications' %}
+        {% else %}
+            {% set location = 'applications' %}
+        {% endif %}
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ location }}'">
+            <i class="material-icons">keyboard_arrow_left</i>
+        </button>
+        <span class="mdl-layout-title">View application</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="mdl-grid">
+    <div class="icon-box one-row mdl-cell mdl-cell--12-col">
+        <p>Ahhhm... not yet...</p>
+    </div>
+</div>
+{% endblock %}

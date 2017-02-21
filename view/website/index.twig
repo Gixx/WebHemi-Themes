@@ -1,0 +1,11 @@
+{% extends "layout.twig" %}
+{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
+
+{% block content %}
+    <h1>Welcome!</h1>
+    <a href="posts">Post list</a>
+    <hr>
+    {{ _FORM.renderForm(form) }}
+    <hr>
+    POST DATA: {{ dump(data) }}
+{% endblock %}

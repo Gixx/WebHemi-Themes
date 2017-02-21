@@ -1,0 +1,21 @@
+{% extends selected_module == 'Admin' ? 'admin-layout.twig' : 'layout.twig' %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href=history.back()">
+            <i class="material-icons">keyboard_arrow_left</i>
+        </button>
+        <span class="mdl-layout-title">Error 500</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid">
+        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+            <h3 class="page-header">Internal Server Error!</h3>
+            <div class="dump">
+                <pre>{{ exception }}</pre>
+            </div>
+        </div>
+    </div>
+{% endblock %}

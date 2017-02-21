@@ -1,0 +1,6 @@
+{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
+<form class="ajax" id="{{ form.getName() }}" name="{{ form.getName() }}" action="{{ form.getAction }}" method="{{ form.getMethod() }}">
+    {% for formElement in form.getElements() %}
+        {{ _FORM.renderElement(formElement) }}
+    {% endfor %}
+</form>

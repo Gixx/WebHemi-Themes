@@ -1,0 +1,23 @@
+/**
+ * WebHemi
+ *
+ * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
+ * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
+ * @link      http://www.gixx-web.com
+ */
+body {
+    background-color: #f7ecb5;
+}
+
+a {
+    color: #1b6d85;
+}
+
+a:visited {
+    color: #1b6d85;
+    text-decoration: none;
+}
+
+.element.error {
+    background: red;
+}

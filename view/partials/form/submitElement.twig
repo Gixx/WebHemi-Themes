@@ -1,0 +1,7 @@
+{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
+<div class="element button submit {{ formElement.getId() }}">
+    {% set value = formElement.getValues() %}
+    <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" id="{{ formElement.getId() }}" name="{{ formElement.getName() }}">
+        {{ formElement.getLabel() }}
+    </button>
+</div>

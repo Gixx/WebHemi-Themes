@@ -1,0 +1,134 @@
+@CHARSET "UTF-8";
+/**
+ * WebHemi
+ *
+ * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
+ * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
+ * @link      http://www.gixx-web.com
+ */
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+}
+
+body {
+    position: relative;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    outline-style:none;
+    background-size: cover !important;
+}
+
+#loginForm {
+    position: absolute;
+    top: calc(50% - 105px);
+    left: calc(50% - 160px);
+    padding: 10px;
+    background-color: rgba(240, 240, 240, 0.85);
+    z-index: 9000;
+    border-radius: 10px;
+}
+
+#loginForm h1 {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 0 20px 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#loginForm form {
+    width: 300px;
+}
+
+#loginForm form div.element {
+
+}
+
+#loginForm form legend {
+    display: none;
+}
+
+#loginForm form label {
+
+}
+
+#loginForm form label span {
+    display: none;
+}
+
+#loginForm form input[type=text],
+#loginForm form input[type=password] {
+    text-align: center;
+}
+
+#loginForm form div#formSubmitProgress {
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+#loginForm form button {
+    width: 300px;
+}
+
+#loginForm div.error {
+    padding: 0;
+    box-sizing: border-box;
+    max-height: 500px;
+    overflow: hidden;
+    color: red;
+    transition: max-height 1200ms;
+}
+
+#loginForm div.error.hide {
+    max-height: 0;
+    transition: max-height 1200ms;
+}
+
+#loginForm div.error ul {
+    margin: 0 0 10px 0;
+    padding: 0;
+    list-style: none;
+}
+
+#switcher {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1500ms;
+    background-size: cover !important;
+}
+
+#switcher.show {
+    opacity: 1;
+}
+
+#license {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font: 11px/14px Arial;
+    position: absolute;
+    text-align: right;
+    z-index: 1;
+    color: #fff;
+}
+
+#license a {
+    color: #fff;
+}
