@@ -65,10 +65,10 @@
 
                 <nav class="mdl-navigation mdl-color--blue-grey-800">
                     {% block menudash %}<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>{% endblock %}
-                    {% if isAllowed('applications') %}
+                    {% if isAllowed('admin-applications-index') %}
                     {% block menuapp %}<a class="mdl-navigation__link" href="applications"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">apps</i>Applications</a>{% endblock %}
                     {% endif %}
-                    {% if isAllowed('control-panel') %}
+                    {% if isAllowed('admin-controlpanel-index') %}
                     {% block menucontrol %}<a class="mdl-navigation__link" href="control-panel"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">tune</i>Control Panel</a>{% endblock %}
                     {% endif %}
                     {% block menuabout %}<a class="mdl-navigation__link" href="about"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">info_outline</i>About</a>{% endblock %}

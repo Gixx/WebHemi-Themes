@@ -21,3 +21,7 @@ a:visited {
 .element.error {
     background: red;
 }
+
+code {
+    color: #c62828;
+}

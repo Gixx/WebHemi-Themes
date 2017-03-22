@@ -11,7 +11,7 @@
 <div class="mdl-grid">
     {# icon box #}
     <div class="icon-box one-row mdl-cell mdl-cell--12-col">
-        {% if isAllowed('applications') %}
+        {% if isAllowed('admin-applications-index') %}
         <a href="applications" class="icon applications">
             <span class="icon-avatar">
                 <img src="{{ template_resource_path }}/img/icons/applications.svg" alt="Applications">
@@ -20,7 +20,7 @@
         </a>
         {% endif %}
 
-        {% if isAllowed('control-panel') %}
+        {% if isAllowed('admin-controlpanel-index') %}
         <a href="control-panel" class="icon control-panel">
             <span class="icon-avatar">
                 <img src="{{ template_resource_path }}/img/icons/control_panel.svg" alt="Control panel">
@@ -40,9 +40,22 @@
     </div>
     {# dump #}
     <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+        <h2>User</h2>
         <div class="dump">
             {{ dump(authenticated_user) }}
             {{ dump(authenticated_user_meta) }}
+        </div>
+        <h2>User Groups</h2>
+        <div class="dump">
+            {{ dump(user_groups) }}
+        </div>
+        <h2>User Policies</h2>
+        <div class="dump">
+            {{ dump(user_policies) }}
+        </div>
+        <h2>User Group Policiess</h2>
+        <div class="dump">
+            {{ dump(user_group_policies) }}
         </div>
     </div>
     {# piechart #}
