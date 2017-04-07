@@ -1,5 +1,7 @@
 {% extends selected_module == 'Admin' ? 'admin-layout.twig' : 'layout.twig' %}
 
+{% block title %}Error 405: Method not alloved {% if selected_module == 'Admin' %} - {{ site_title|default('Thomas Admin') }}{% endif %}{% endblock %}
+
 {% block header %}
     <div class="mdl-layout__header-row">
         <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href=history.back()">

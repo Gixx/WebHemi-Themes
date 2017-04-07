@@ -8,10 +8,10 @@
 {% block menudash %}<a class="mdl-navigation__link mdl-navigation__link--current" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>{% endblock %}
 
 {% block content %}
-<div class="mdl-grid">
+<div class="mdl-grid dashboard">
     {# icon box #}
     <div class="icon-box one-row mdl-cell mdl-cell--12-col">
-        {% if isAllowed('admin-applications-index') %}
+        {% if isAllowed('admin-applications-list') %}
         <a href="applications" class="icon applications">
             <span class="icon-avatar">
                 <img src="{{ template_resource_path }}/img/icons/applications.svg" alt="Applications">

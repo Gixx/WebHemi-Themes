@@ -1,5 +1,13 @@
 # Change log
 
+## Version 0.0.3 ##
+* Add Application list page
+* Add Control Panel index page
+* Add Theme Manager list page 
+* Fix various CSS issues
+* Fix various layout issues
+* Add Lazy Background Image Loader JavaScript component
+
 ## Version 0.0.2 ##
 * Admin login page
 * Admin basic layout

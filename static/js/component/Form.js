@@ -55,7 +55,7 @@ var Form = {
     },
 
     /**
-     * Collect and initializa Ajax Forms
+     * Collect and initialize Ajax Forms
      */
     initAjaxForms : function()
     {

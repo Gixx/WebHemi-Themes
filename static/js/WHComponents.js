@@ -15,7 +15,8 @@ function WebHemiComponents(options) {
             'Util',
             'Registry',
             'Form',
-            'ImageLoader'
+            'ImageLoader',
+            'BackgroundImageLoader'
         ],
         event: null
     };

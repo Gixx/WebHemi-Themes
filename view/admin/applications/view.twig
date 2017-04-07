@@ -1,23 +1,46 @@
 {% extends "admin/applications/index.twig" %}
 
+{% block title %}{{ 'The "' ~ application.getTitle() ~ '" application - ' ~ site_title|default('Thomas Admin') }}{% endblock %}
+
+{% set location = '' %}
+{% if application_base_uri != '/' %}
+    {% set location = application_base_uri ~ '/' %}
+{% endif %}
+{% set location = location ~ 'applications' %}
+
 {% block header %}
     <div class="mdl-layout__header-row">
-        {% if application_base_uri != '/' %}
-            {% set location = application_base_uri ~ '/applications' %}
-        {% else %}
-            {% set location = 'applications' %}
-        {% endif %}
         <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ location }}'">
             <i class="material-icons">keyboard_arrow_left</i>
         </button>
         <span class="mdl-layout-title">View application</span>
+
+        <div class="mdl-layout-spacer"></div>
+
+        {% if isAllowed('admin-applications-preferences') or isAllowed('admin-applications-delete') %}
+        <button id="menu-lower-right"
+                class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+        </button>
+        {% endif %}
+
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="menu-lower-right">
+            {% if isAllowed('admin-applications-preferences') %}
+            <li class="mdl-menu__item"><a href="{{ current_uri }}/preferences">Edit preferences</a></li>
+            {% endif %}
+            {% if not application.getReadOnly() and isAllowed('admin-applications-delete') %}
+            <li class="mdl-menu__item"><a href="{{ current_uri }}/delete">Delete</a></li>
+            {% endif %}
+        </ul>
     </div>
 {% endblock %}
 
 {% block content %}
-<div class="mdl-grid">
-    <div class="icon-box one-row mdl-cell mdl-cell--12-col">
-        <p>Ahhhm... not yet...</p>
+<div class="mdl-grid applications applications-view">
+    <div class="mdl-cell mdl-cell--12-col">
+        <h4>{{ application.getTitle() }}</h4>
+        <img width="100%" src="/data/temp/app_main.png"><br>
+        <img width="100%" src="/data/temp/app_folder.png">
     </div>
 </div>
 {% endblock %}

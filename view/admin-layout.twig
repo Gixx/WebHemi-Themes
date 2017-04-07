@@ -7,7 +7,7 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
-        <title>{{ title|default('Thomas Admin') }}</title>
+        <title>{% block title %}{{ site_title|default('Thomas Admin') }}{% endblock %}</title>
 
         <!-- Add to homescreen for Chrome on Android -->
         <meta name="mobile-web-app-capable" content="yes">
@@ -44,17 +44,21 @@
             </header>
             <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
                 <header>
-                    {% if authenticated_user_meta.avatar_type == 'file' %}
-                        {% set avatar = template_resource_path ~ authenticated_user_meta.avatar %}
+                    {% if authenticated_user_meta.avatar is empty %}
+                        {% set avatar = template_resource_path ~ '/img/avatars/a_man.svg' %}
                     {% else %}
-                        {% set avatar = template_resource_path ~ '/img/avatars/a_man.svg?' ~ authenticated_user_meta.avatar %}
+                        {% if authenticated_user_meta.avatar_type == 'file' %}
+                            {% set avatar = template_resource_path ~ authenticated_user_meta.avatar %}
+                        {% else %}
+                            {% set avatar = authenticated_user_meta.avatar %}
+                        {% endif %}
                     {% endif %}
                     <div class="avatar-image">
                         <img src="{{ avatar }}">
                     </div>
                     <div class="avatar-meta">
-                        {% if authenticated_user_meta.displayName is defined %}
-                            {% set displayName = authenticated_user_meta.displayName %}
+                        {% if authenticated_user_meta.display_name is defined %}
+                            {% set displayName = authenticated_user_meta.display_name %}
                         {% else %}
                             {% set displayName = authenticated_user.getUserName() %}
                         {% endif %}
@@ -64,14 +68,28 @@
                 </header>
 
                 <nav class="mdl-navigation mdl-color--blue-grey-800">
-                    {% block menudash %}<a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>{% endblock %}
-                    {% if isAllowed('admin-applications-index') %}
-                    {% block menuapp %}<a class="mdl-navigation__link" href="applications"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">apps</i>Applications</a>{% endblock %}
+                {% block menudash %}
+                    {% if isAllowed('admin-dashboard') %}
+                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
                     {% endif %}
+                {% endblock %}
+
+                {% block menuapp %}
+                    {% if isAllowed('admin-applications-list') %}
+                    <a class="mdl-navigation__link" href="applications"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">apps</i>Applications</a>
+                    {% endif %}
+                {% endblock %}
+
+                {% block menucontrol %}
                     {% if isAllowed('admin-controlpanel-index') %}
-                    {% block menucontrol %}<a class="mdl-navigation__link" href="control-panel"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">tune</i>Control Panel</a>{% endblock %}
+                    <a class="mdl-navigation__link" href="control-panel"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">tune</i>Control Panel</a>
                     {% endif %}
-                    {% block menuabout %}<a class="mdl-navigation__link" href="about"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">info_outline</i>About</a>{% endblock %}
+                {% endblock %}
+
+                {% block menuabout %}
+                    <a class="mdl-navigation__link" href="about"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">info_outline</i>About</a>
+                {% endblock %}
+
                     <a class="mdl-navigation__link" href="auth/logout"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">exit_to_app</i>Logout</a>
                     <div class="mdl-layout-spacer"></div>
                     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>

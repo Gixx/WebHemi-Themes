@@ -6,7 +6,7 @@
  * @link      http://www.gixx-web.com
  */
 
-var ImageLoader = {
+var BackgroundImageLoader = {
     /** @var Boolean initialized  TRUE if the component is initialized */
     initialized : false,
 
@@ -16,20 +16,20 @@ var ImageLoader = {
     init : function()
     {
         this.initialized = true;
-        console.info('  + Image Loader component loaded.');
+        console.info('  + Background Image Loader component loaded.');
 
-        this.initLazyLoadImages();
+        this.initLazyLoadBackgroundImages();
     },
 
     /**
-     * Collect and initialize Images
+     * Collect and initialize Elements
      */
-    initLazyLoadImages : function()
+    initLazyLoadBackgroundImages : function()
     {
-        var lazyLoadImages = document.querySelectorAll('img[data-src]');
+        var lazyLoadBackgroundImages = document.querySelectorAll('*[data-background-src]');
 
-        for (var i = 0, len = lazyLoadImages.length; i < len; i++) {
-            var imageHandler = new LazyLoadImage(lazyLoadImages[i]);
+        for (var i = 0, len = lazyLoadBackgroundImages.length; i < len; i++) {
+            var imageHandler = new LazyLoadBackgroundImage(lazyLoadBackgroundImages[i]);
             imageHandler.init();
         }
     }
@@ -41,21 +41,21 @@ var ImageLoader = {
  * @param HTMLElement
  * @constructor
  */
-function LazyLoadImage(HTMLElement) {
+function LazyLoadBackgroundImage(HTMLElement) {
     /** @var HTMLElement */
-    this.HTMLImage = HTMLElement;
+    this.HTMLElement = HTMLElement;
     /** @var Boolean */
     this.loaded = false;
 }
 
-LazyLoadImage.prototype = (function() {
+LazyLoadBackgroundImage.prototype = (function() {
     /**
      * Retrive the HTML element
      *
      * @returns {HTMLElement}
      */
     function getTarget() {
-        return this.HTMLImage;
+        return this.HTMLElement;
     }
 
     /**
@@ -63,8 +63,8 @@ LazyLoadImage.prototype = (function() {
      *
      * @returns {boolean}
      */
-    function isImageInViewport() {
-        var rect = this.HTMLImage.getBoundingClientRect()
+    function isElementInViewport() {
+        var rect = this.HTMLElement.getBoundingClientRect()
 
         return (
             rect.top >= 0
@@ -74,28 +74,28 @@ LazyLoadImage.prototype = (function() {
     }
 
     /**
-     * Load image
+     * Load background image
      * @param event
      */
-    function loadImage(event) {
+    function loadBackgroundImage(event) {
         if (this.loaded) {
             return;
         }
 
-        if (this.isImageInViewport()) {
-            var src = this.HTMLImage.getAttribute('data-src');
+        if (this.isElementInViewport()) {
+            var src = this.HTMLElement.getAttribute('data-background-src');
             var preload = new Image;
             var imageLoader = this;
 
             preload.onerror = function() {
-                console.warn('Image ' + src + ' cannot be loaded.');
+                console.warn('Background Image ' + src + ' cannot be loaded.');
             };
 
             preload.onload = function() {
-                imageLoader.HTMLImage.src = src;
-                imageLoader.HTMLImage.removeAttribute('data-src');
+                imageLoader.HTMLElement.style.backgroundImage = "url(" + src + ")";
+                imageLoader.HTMLElement.removeAttribute('data-background-src');
                 imageLoader.loaded = true;
-                console.info('      + a Lazy Load Image is loaded');
+                console.info('      + a Lazy Load Background Image is loaded');
             };
 
             try {
@@ -109,16 +109,16 @@ LazyLoadImage.prototype = (function() {
      */
     function init()
     {
-        window.addEventListener('scroll', loadImage.bind(this), true);
-        console.info('    + a Lazy Load Image is initialized');
-        this.loadImage();
+        window.addEventListener('scroll', loadBackgroundImage.bind(this), true);
+        console.info('    + a Lazy Load Background Image is initialized');
+        this.loadBackgroundImage();
     }
 
     return {
         /**
          * Constructor
          */
-        constructor:LazyLoadImage,
+        constructor:LazyLoadBackgroundImage,
 
         /**
          * Private method caller
@@ -138,7 +138,7 @@ LazyLoadImage.prototype = (function() {
         },
         init: function() { return this._(init)(); },
         getTarget: function() { return this._(getTarget)(); },
-        isImageInViewport: function() { return this._(isImageInViewport)(); },
-        loadImage: function() { return this._(loadImage)(); }
+        isElementInViewport: function() { return this._(isElementInViewport)(); },
+        loadBackgroundImage: function() { return this._(loadBackgroundImage)(); }
     };
 })();

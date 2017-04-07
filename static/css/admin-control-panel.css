@@ -1,0 +1,78 @@
+@CHARSET "UTF-8";
+/**
+ * WebHemi
+ *
+ * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
+ * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
+ * @link      http://www.gixx-web.com
+ */
+
+.control-panel.themes-list {
+}
+
+.control-panel.themes-list .mdl-cell {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card {
+    margin: 10px;
+    width: auto;
+    max-width: 470px;
+    min-width: 300px;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 33%;
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card .mdl-card__title {
+    height: 250px;
+    background-color: #37474f;
+    background-position: center;
+    background-size: cover;
+    background-image: attr(data-background-src url);
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card .mdl-card__title h2 {
+    padding: 3px 5px 3px 20px;
+    margin-left: -16px;
+    background-color: rgba(255,255,255,0.85);
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card .mdl-card__supporting-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 32px);
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card .mdl-card__actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    vertical-align: middle;
+    position: relative;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card .mdl-card__actions > div {
+    height: 32px;
+    margin: 0;
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card .mdl-card__actions .features .material-icons {
+    margin-top: 5px;
+    color: rgba(0,0,0,0.54);
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card .mdl-card__actions .features .material-icons.not-supported {
+    color: rgba(0,0,0,0.24);
+}
+
+.control-panel.themes-list .mdl-cell .mdl-card .mdl-card__actions .actions button {
+    color: rgba(0,0,0,0.54);
+}
+

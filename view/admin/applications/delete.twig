@@ -1,0 +1,41 @@
+{% extends "admin/applications/index.twig" %}
+
+{% block title %}{{ 'Delete "' ~ application.getTitle() ~ '" - ' ~ site_title|default('Thomas Admin') }}{% endblock %}
+
+{% set location = '' %}
+{% if application_base_uri != '/' %}
+    {% set location = application_base_uri ~ '/' %}
+{% endif %}
+{% set location = location ~ 'applications/' ~ application.getName() %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ location }}'">
+            <i class="material-icons">keyboard_arrow_left</i>
+        </button>
+        <span class="mdl-layout-title">Delete application</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid applications applications-delete">
+        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+            <h3 class="page-header">Are you sure you want to delete the `<strong>{{ application.getTitle() }}</strong>` application?</h3>
+            <p>This will permanently delete:</p>
+            <ul>
+                <li>Application instance (URL, favicon, settings etc.)</li>
+                <li>Content (articles, galleries, attachments etc.)</li>
+                <li>Comments</li>
+            </ul>
+            <p>The changes cannot be undone.</p>
+            <form action="" method="post" class="ajax">
+                <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-2">
+                    <input type="checkbox" value="1" id="switch-2" name="confirm-delete" class="mdl-switch__input">
+                    <span class="mdl-switch__label">Delete content permanently.</span>
+                </label>
+                <button type="button" onclick="location.href='{{ location }}';" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Cancel</button>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Ok</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

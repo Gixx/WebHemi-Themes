@@ -1,7 +1,7 @@
 ![Thomas Blog](static/img/logo.png)
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-![Software License](https://img.shields.io/badge/Version-0.0.2-blue.svg?style=flat-square)
+![Software License](https://img.shields.io/badge/Version-0.0.3-blue.svg?style=flat-square)
 
 Welcome to the **Thomas Theme** for the **[WebHemi](https://github.com/Gixx/WebHemi) project**. I dedicate this to my son, Thomas. 
 

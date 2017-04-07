@@ -1,0 +1,117 @@
+{% extends "admin-layout.twig" %}
+{% import '@Theme/macros/iconSpacer.twig' as spacer %}
+
+{% block title %}{{ 'Control Panel - ' ~ site_title|default('Thomas Admin') }}{% endblock %}
+
+{% block additionalcss %}
+    <link rel="stylesheet" href="{{ template_resource_path }}/css/admin-control-panel.css" />
+{% endblock %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ application_base_uri }}'">
+            <i class="material-icons">keyboard_arrow_left</i>
+        </button>
+        <span class="mdl-layout-title">Control Panel</span>
+    </div>
+{% endblock %}
+
+{% block menucontrol %}<a class="mdl-navigation__link mdl-navigation__link--current" href="applications"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">tune</i>Control Panel</a>{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid control-panel">
+        <div class="icon-box mdl-cell mdl-cell--12-col">
+            <a id="icon_settings" href="control-panel/settings" class="icon settings">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/settings.svg" alt="Settings">
+                </span>
+                <span class="icon-label">Settings</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_settings">
+                Edit global settings, fine-tune the environment.
+            </div>
+
+            <a id="icon_manage-themes" href="control-panel/themes" class="icon manage-themes">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-themes.svg" alt="Manage Themes">
+                </span>
+                <span class="icon-label">Manage themes</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_manage-themes">
+                Add / remove various user interface skins.
+            </div>
+
+            <a id="icon_add-ons" href="control-panel/add-ons" class="icon add-ons">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/add-ons.svg" alt="Manage Add-Ons">
+                </span>
+                <span class="icon-label">Manage add-ons</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_add-ons">
+                Add / remove template filters / helpers.
+            </div>
+
+            <a id="icon_manage-users" href="control-panel/users" class="icon manage-users">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-users.svg" alt="Manage Users">
+                </span>
+                <span class="icon-label">Manage users</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_manage-users">
+                Add / remove user, edit user details.
+            </div>
+
+            <a id="icon_manage-groups" href="control-panel/groups" class="icon manage-groups">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-groups.svg" alt="Manage Groups">
+                </span>
+                <span class="icon-label">Manage groups</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_manage-groups">
+                Add / remove user groups, edit user group details, assign users to groups.
+            </div>
+
+            <a id="icon_manage-resources" href="control-panel/resources" class="icon manage-resources">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-resources.svg" alt="Manage Resources">
+                </span>
+                <span class="icon-label">Manage resources</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_manage-resources">
+                Add / remove / edit general resources.
+            </div>
+
+            <a id="icon_manage-policies" href="control-panel/policies" class="icon manage-policies">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-policies.svg" alt="Manage Policies">
+                </span>
+                <span class="icon-label">Manage policies</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_manage-policies">
+                Add / remove / edit policies, assign to resources and to applications.
+            </div>
+
+            <a id="icon_manage-error-log" href="control-panel/error-log" class="icon error-log">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/error-log.svg" alt="View Error Logs">
+                </span>
+                <span class="icon-label">View error logs</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_manage-error-log">
+                View error logs.
+            </div>
+
+            <a id="icon_manage-event-log" href="control-panel/event-log" class="icon event-log">
+                <span class="icon-avatar">
+                    <img src="{{ template_resource_path }}/img/icons/control-panel/event-log.svg" alt="View Event Logs">
+                </span>
+                <span class="icon-label">View event logs</span>
+            </a>
+            <div class="mdl-tooltip" for="icon_manage-event-log">
+                View event logs.
+            </div>
+
+            {{ spacer.renderIconSpacer(10) }}
+        </div>
+    </div>
+{% endblock %}

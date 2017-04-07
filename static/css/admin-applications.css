@@ -7,10 +7,3 @@
  * @link      http://www.gixx-web.com
  */
 
-button.edit-item,
-button.add-item {
-    position: fixed;
-    bottom: 40px;
-    right: 20px;
-    z-index: 1000;
-}
