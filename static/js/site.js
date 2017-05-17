@@ -1,5 +1,5 @@
 /**
- * WebHemi
+ * Thomas theme for WebHemi
  *
  * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
@@ -7,7 +7,7 @@
  */
 
 // When the DOM is ready, we make some customization
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("ThomasComponentsLoaded", function(event) {
     hljs.configure({
         tabReplace: '    ',
     });

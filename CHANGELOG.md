@@ -1,5 +1,14 @@
 # Change log
 
+## Version 0.0.4 ##
+* Website basic layout
+* Add "stick-to-grid" scroll feature
+  * Button navigation
+  * Keyboard navigation
+  * Mousewheel/trakpad navigation
+  * Mouse/trackpad drag
+  * Touch swipe
+
 ## Version 0.0.3 ##
 * Add Application list page
 * Add Control Panel index page

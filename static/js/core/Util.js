@@ -1,5 +1,5 @@
 /**
- * WebHemi
+ * Thomas theme for WebHemi
  *
  * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
@@ -230,6 +230,7 @@ var Util = {
     addEventListener : function(elementList, eventList, callback)
     {
         var events = eventList.split(' ');
+        var bindObject = typeof arguments[3] !== 'undefined' ? arguments[3] : null;
 
         if (typeof elementList.length == 'undefined') {
             elementList = [elementList];
@@ -237,7 +238,11 @@ var Util = {
 
         for (var i = 0, len = events.length; i < len; i++) {
             for (var j = 0, els = elementList.length; j < els; j++) {
-                elementList[j].addEventListener(events[i], callback, false);
+                if (bindObject !== null) {
+                    elementList[j].addEventListener(events[i], callback.bind(bindObject), true);
+                } else {
+                    elementList[j].addEventListener(events[i], callback, false);
+                }
             }
         }
     },

@@ -1,27 +1,244 @@
 /**
- * WebHemi
+ * Thomas theme for WebHemi
  *
  * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
  * @link      http://www.gixx-web.com
  */
-body {
-    background-color: #bbd8f7;
+
+:root {
+    --thomasbook-blue: #3B5999;
+    --thomasbook-grey: #E9EBEF;
+}
+
+* {
+    position: relative;
+    box-sizing: border-box;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
+    cursor: default;
 }
 
 a {
-    color: #1b6d85;
+    cursor: pointer !important;
+    color: var(--thomasbook-blue);
 }
 
-a:visited {
-    color: #1b6d85;
-    text-decoration: none;
+pre * {
+    font-family: monospace !important;
 }
 
-.element.error {
-    background: red;
+pre.xdebug-var-dump {
+    background-color: #00BBD6;
+    overflow: scroll;
 }
 
-code {
-    color: #c62828;
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--thomasbook-grey);
+}
+
+h1 {
+    margin: 8px 0 24px 0;
+}
+
+/* Header */
+.mdl-layout__header {
+    height: 45px !important;
+    min-height: 45px !important;
+    background-color: var(--thomasbook-blue) !important;
+}
+
+.mdl-layout__header * {
+    margin: 0;
+    padding: 0;
+    line-height: 45px;
+    font-weight: bold;
+}
+
+.mdl-layout__header .mdl-layout__header-row {
+    color: white !important;
+    height: 45px;
+    margin: 0;
+    padding: 0 0 0 47px;
+}
+
+.mdl-layout__header .mdl-layout__header-row .mdl-layout-title::first-letter {
+    padding: 0 6px;
+    width: 28px;
+    font-size: 28px;
+    font-family: monospace;
+    vertical-align: middle;
+    color:rgba(0,0,0,0);
+    background-image: url('../img/icon-28x28.png');
+    background-repeat: no-repeat;
+}
+
+.mdl-layout__header .mdl-layout__drawer-button {
+    margin: 0;
+    width: 45px;
+    height: 45px;
+}
+
+@media screen and (max-width: 1024px)
+{
+    .mdl-layout__header {
+        min-height: 45px;
+    }
+
+    .mdl-layout__header-row {
+        height: 45px;
+        margin: 0;
+    }
+
+    .mdl-layout__header .mdl-layout__drawer-button {
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 1025px)
+{
+
+}
+
+/* Drawer */
+.mdl-layout__drawer {
+    border: none;
+}
+
+/* Container */
+.mdl-layout__content {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: calc(100% - 45px);
+}
+
+.mdl-layout__content .mdl-grid-x {
+    position: relative;
+    margin: 0;
+    padding: 0 !important;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+}
+
+.mdl-layout__content .mdl-grid-x div.pager {
+    display: none;
+}
+
+@media screen and (min-width: 1025px)
+{
+    .mdl-layout__content .mdl-grid-x div.pager {
+        display: block;
+        position: fixed;
+        top: calc(50% - 25px);
+        width: 80px;
+        height: 100px;
+        margin: 0;
+        padding: 20px 0;
+        background-color: rgba(0,0,0,0.3);
+        border-radius: 30px;
+        cursor: pointer;
+        opacity: 0.2;
+        transition: opacity 0.5s;
+    }
+
+    .mdl-layout__content .mdl-grid-x div.pager:hover {
+        opacity: 1;
+    }
+
+    .mdl-layout__content .mdl-grid-x div.pager.left {
+        left: -30px;
+        padding-left: 20px;
+    }
+
+    .mdl-layout__content .mdl-grid-x div.pager.right {
+        right: -30px;
+        padding-right: 20px;
+    }
+
+    .mdl-layout__content .mdl-grid-x div.pager * {
+        font-weight: bold;
+        cursor: pointer;
+        display: block;
+        height: 60px;
+        width: 60px;
+        margin: 0;
+        padding: 0;
+        color: #fff;
+        font-size: 50px;
+        line-height: 60px;
+        text-align: center;
+        text-decoration: none;
+    }
+}
+
+.mdl-layout__content .mdl-grid-x section {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: stretch;
+    align-content: stretch;
+}
+
+.mdl-layout__content .mdl-grid-x section.list.two {
+    width: 200%;
+}
+
+.mdl-layout__content .mdl-grid-x section.list.three {
+    width: 300%;
+}
+
+.mdl-layout__content .mdl-grid-x section.list.four {
+    width: 400%;
+}
+
+.mdl-layout__content .mdl-grid-x section.list.five {
+    width: 500%;
+}
+
+.mdl-layout__content .mdl-grid-x section article {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.mdl-layout__content .mdl-grid-x section article .mdl-cell {
+    padding: 10px;
+}
+
+@media screen and (max-width: 1024px)
+{
+    .mdl-layout__content .mdl-grid-x section article {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 1025px)
+{
+    .mdl-layout__content .mdl-grid-x section article {
+        width: 1000px;
+    }
 }

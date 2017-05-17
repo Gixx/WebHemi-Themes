@@ -1,5 +1,5 @@
 /**
- * WebHemi
+ * Thomas theme for WebHemi
  *
  * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 var errorMessageTimer = null;
 
 // Start using the Web Hemi Components from here
-document.addEventListener("WebHemiComponentsLoaded", function(event) {
+document.addEventListener("ThomasComponentsLoaded", function(event) {
     var handler = Form.getAjaxFormHandler('login');
 
     if (typeof handler != 'undefined') {

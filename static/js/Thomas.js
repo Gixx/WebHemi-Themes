@@ -1,28 +1,29 @@
 /**
- * WebHemi
+ * Thomas theme for WebHemi
  *
  * @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
  * @license   https://opensource.org/licenses/MIT The MIT License (MIT)
  * @link      http://www.gixx-web.com
  */
 
-function WebHemiComponents(options) {
+function ThomasComponents(options) {
     this.initialized = false;
     this.options = options;
     this.defaultOptions = {
-        path: 'component/',
+        path: 'core/',
         components: [
             'Util',
             'Registry',
             'Form',
             'ImageLoader',
-            'BackgroundImageLoader'
+            'BackgroundImageLoader',
+            'SwipePager'
         ],
         event: null
     };
 }
 
-WebHemiComponents.prototype = (function() {
+ThomasComponents.prototype = (function() {
     /**
      * Initialize components
      */
@@ -32,7 +33,7 @@ WebHemiComponents.prototype = (function() {
             return;
         }
 
-        this.defaultOptions.event = new Event('WebHemiComponentsLoaded');
+        this.defaultOptions.event = new Event('ThomasComponentsLoaded');
 
         if (typeof this.options == 'undefined') {
             this.options = {};
@@ -45,7 +46,7 @@ WebHemiComponents.prototype = (function() {
         }
 
         // correct path to absolute
-        this.options.path = document.querySelector('script[src*="WHComponents.js"]').getAttribute('src').replace(/WHComponents\.js/, '') + this.options.path;
+        this.options.path = document.querySelector('script[src*="Thomas.js"]').getAttribute('src').replace(/Thomas\.js/, '') + this.options.path;
 
         loadComponents(this);
 
@@ -115,7 +116,7 @@ WebHemiComponents.prototype = (function() {
         /**
          * Constructor
          */
-        constructor:WebHemiComponents,
+        constructor:ThomasComponents,
 
         /**
          * Private method caller
@@ -137,13 +138,13 @@ WebHemiComponents.prototype = (function() {
     }
 })();
 
-var WebHemiComponents = new WebHemiComponents();
+var ThomasComponents = new ThomasComponents();
 
 // Kindly wait for the Material Design Light library to load
 if (typeof window.componentHandler != 'undefined') {
     document.addEventListener('mdl-componentupgraded', function() {
-        WebHemiComponents.init();
+        ThomasComponents.init();
     }, false);
 } else {
-    WebHemiComponents.init();
+    ThomasComponents.init();
 }

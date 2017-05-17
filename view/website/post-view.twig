@@ -1,8 +1,18 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-    <h1 class="page-header">{{ blogPost.title }}</h1>
-    <p>On {{ blogPost.publishedAt.format('Y-m-d') }} by {{ blogPost.author.name }}</p>
-    <p>{{ blogPost.content|markdown }}</p>
-    <p>Parameter: {{ blogPost.parameter.id }}</p>
+<div class="mdl-grid-x">
+    <section>
+        <article>
+            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+                <header>
+                    <h1 class="page-header">{{ blogPost.title }}</h1>
+                    <p>On {{ blogPost.publishedAt.format('Y-m-d') }} by {{ blogPost.author.name }}</p>
+                </header>
+                <p>{{ blogPost.content|markdown }}</p>
+                <p>Parameter: {{ blogPost.parameter.id }}</p>
+            </div>
+        </article>
+    </section>
+</div>
 {% endblock %}

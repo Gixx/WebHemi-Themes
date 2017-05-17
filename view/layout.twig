@@ -6,19 +6,40 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>{% block title %}{{ site_title|default('') }}{% endblock %}</title>
+        <title>{% block title %}Thomas - {{ site_title|default('Blog') }}{% endblock %}</title>
+        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.min.css" />
+        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.font.css" />
+        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.components.ext.min.css" />
+        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.color.theme.blue-grey-red.min.css" />
+        {% block additionalcss %}{% endblock %}
         <link rel="stylesheet" href="{{ template_resource_path }}/css/site.css" />
         <link rel="stylesheet" href="{{ template_resource_path }}/css/highlight/darcula.css" />
     </head>
     <body>
-        <h1>DEFAULT THOMAS THEME</h1>
-    {% block body %}
-        <div class="container">
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+            {% block header %}
+                <div class="mdl-layout__header-row">
+                    <span class="mdl-layout-title">Thomas - {{ title|default('Blog') }}</span>
+                </div>
+            {% endblock %}
+            </header>
+            <div class="mdl-layout__drawer">
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">home</i>Main page</a>
+                    <div class="mdl-layout-spacer"></div>
+                </nav>
+            </div>
+            <main class="mdl-layout__content">
             {% block content %}
             {% endblock %}
+            </main>
         </div>
-    {% endblock %}
     </body>
-    <script type="application/javascript" src="{{ template_resource_path }}/js/highlight.pack.js"></script>
+    <script type="application/javascript" src="{{ template_resource_path }}/js/component/highlight.pack.js"></script>
+    <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
+    <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.min.js"></script>
+    <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.components.ext.min.js"></script>
+    {% block additionaljs %}{% endblock %}
     <script type="application/javascript" src="{{ template_resource_path }}/js/site.js"></script>
 </html>

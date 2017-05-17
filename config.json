@@ -8,7 +8,11 @@
     "homepage": "https://github.com/Gixx/WebHemi-Themes/tree/Thomas",
     "preview": "img/preview.png",
     "logo": "img/logo.png",
-    "license": "MIT"
+    "license": "MIT",
+    "components":{
+      "material-design-lite": "https://github.com/google/material-design-lite/blob/mdl-1.x/LICENSE",
+      "highlight.js": "https://github.com/isagalaev/highlight.js/blob/master/LICENSE"
+    }
   },
   "features": {
     "admin_support": true,
