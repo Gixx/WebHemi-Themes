@@ -7,9 +7,14 @@
  */
 
 var SwipePager = {
+    /* @var Boolean devugMode */
+    debugMode: false,
+    /* @var Array logType */
+    logType: ['info', 'log', 'warn', 'error'],
+    /* @var Number transition */
+    transition: 200,
     /* @var Boolean initialized  TRUE if the component is initialized */
     initialized : false,
-
     /* @var HTMLElement container */
     container: null,
     /* @var Number scrollBy */
@@ -23,6 +28,8 @@ var SwipePager = {
     /* @var Boolean inDrag */
     inDrag: false,
     /* @var Boolean inScroll */
+    inWheelSpin: false,
+    /* @var Boolean inWheelSpin */
     inScroll: false,
     /* @var Number dragStart */
     dragStart: 0,
@@ -32,7 +39,12 @@ var SwipePager = {
      */
     init : function ()
     {
+        if (typeof Util === 'undefined') {
+            throw new ReferenceError('The Util component is required to use this component.');
+        }
+
         try {
+
             this.container = document.getElementById('swipe-pager');
             var pages = document.querySelectorAll('#swipe-pager > article');
             var navigationButtons = document.querySelectorAll('.mdl-grid-x div.pager');
@@ -50,8 +62,27 @@ var SwipePager = {
 
             this.initialized = true;
             console.info('  + SwipePager component loaded.');
+
+            if (this.debugMode) {
+                this.log('info', '    - Debug mode on.');
+            }
         } catch (exp) {
-            console.log(exp);
+            this.log('log', exp);
+        }
+    },
+
+    /**
+     * Log into console when it is allowed.
+     *
+     * @param mode
+     */
+    log: function(mode)
+    {
+        if (this.debugMode) {
+            if (!Util.inArray(mode, this.logType)) {
+                mode = 'log';
+            }
+            console[mode].apply(null, Array.prototype.slice.call(arguments, 1));
         }
     },
 
@@ -60,11 +91,12 @@ var SwipePager = {
      */
     fixScroll: function()
     {
-        if (!this.inScroll && !this.inDrag) {
+        if (!this.inScroll && !this.inDrag && !this.inWheelSpin) {
             var pages = document.querySelectorAll('#swipe-pager > article');
             var testScrollBy = Math.floor(this.container.offsetWidth / pages.length);
 
             if (testScrollBy !== this.scrollBy) {
+                this.log('info', '      * Fix scroll after resize');
                 var multiplier = Math.floor(this.currentScrollPosition / this.scrollBy);
                 this.scrollBy = testScrollBy;
                 this.maxScrollPosition = this.container.offsetWidth - this.scrollBy;
@@ -73,6 +105,7 @@ var SwipePager = {
             }
 
             if (this.container.parentNode.scrollLeft !== this.currentScrollPosition) {
+                this.log('info', '      * Fix scroll position of ', this.container.parentNode.scrollLeft, 'vs.', this.currentScrollPosition);
                 this.scrollPageTo(this.container.parentNode.scrollLeft, true);
                 return true;
             }
@@ -94,10 +127,12 @@ var SwipePager = {
                 && event.srcElement.innerHTML.lastIndexOf('navigate_before') >= 0
             ) {
                 scrollTo -= this.scrollBy;
+                this.log('info', '      * Button: left | current pos.:', this.currentScrollPosition, ' | scroll to: ', scrollTo);
             } else if (this.currentScrollPosition < this.maxScrollPosition
                 && event.srcElement.innerHTML.lastIndexOf('navigate_next') >= 0
             ) {
                 scrollTo += this.scrollBy;
+                this.log('info', '      * Button: right | current pos.:', this.currentScrollPosition, ' | scroll to: ', scrollTo);
             }
             this.scrollPageTo(scrollTo, true);
         }
@@ -115,8 +150,10 @@ var SwipePager = {
 
             if (this.currentScrollPosition > 0 && event.key === 'ArrowLeft') {
                 scrollTo -= this.scrollBy;
+                this.log('info', '      * Key: left | current pos.:', this.currentScrollPosition, ' | scroll to: ', scrollTo);
             } else if (this.currentScrollPosition < this.maxScrollPosition && event.key === 'ArrowRight') {
                 scrollTo += this.scrollBy;
+                this.log('info', '      * Key: right | current pos.:', this.currentScrollPosition, ' | scroll to: ', scrollTo);
             }
             this.scrollPageTo(scrollTo, true);
         }
@@ -129,17 +166,33 @@ var SwipePager = {
      */
     handleWheel: function (event)
     {
+        this.inDrag = false;
+
+        if (this.container.parentNode.scrollLeft <= 0) {
+            event.preventDefault();
+            this.container.parentNode.scrollLeft = 1;
+            this.inWheelSpin = false;
+            return false;
+        }
+
+        if (this.container.parentNode.scrollLeft >= this.maxScrollPosition) {
+            event.preventDefault();
+            this.container.parentNode.scrollLeft = this.maxScrollPosition - 1;
+            this.inWheelSpin = false;
+            return false;
+        }
+
         if (!this.inScroll) {
-            var deadZone = 20;
+            var deadZone = 5;
 
             if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) {
-                this.inDrag = Math.abs(event.deltaX) > deadZone;
-
-                if (!this.inDrag) {
-                    event.preventDefault();
-                    this.fixScroll();
-                }
+                this.inWheelSpin = Math.abs(event.deltaX) > deadZone;
+                this.log('info', '      * Wheel in use');
             }
+        } else {
+            this.inWheelSpin = false;
+            event.preventDefault();
+            return false;
         }
     },
 
@@ -155,16 +208,20 @@ var SwipePager = {
                 event.preventDefault();
             } else {
                 if (event.type === 'mousedown' && this.isEventInContainer(event)) {
+                    this.log('info', '      * Drag start');
                     this.inDrag = true;
+                    this.inWheelSpin = false;
                     this.dragStart = event.clientX;
                 }
 
-                if (event.type === 'mouseup') {
+                if (event.type === 'mouseup' && event.srcElement.innerHTML.lastIndexOf('navigate_') == -1) {
+                    this.log('info', '      * Drag end');
                     this.inDrag = false;
                     this.scrollPageTo(this.container.parentNode.scrollLeft, true);
                 }
 
-                if (this.inDrag) {
+                if (event.type === 'mousemove' && this.inDrag && !this.inWheelSpin) {
+                    this.log('info', '      * Dragging...');
                     this.container.parentNode.scrollLeft = this.currentScrollPosition + (this.dragStart - event.clientX);
                 }
             }
@@ -179,10 +236,12 @@ var SwipePager = {
     handleTouch: function (event)
     {
         if (event.type === 'touchstart') {
+            this.log('info', '      * Touch start');
             this.inDrag = true;
         }
 
         if (event.type === 'touchend') {
+            this.log('info', '      * Touch end');
             this.inDrag = false;
         }
     },
@@ -219,14 +278,33 @@ var SwipePager = {
             position = this.maxScrollPosition;
         }
 
-        this.currentScrollPosition = position;
+        if (this.container.parentNode.scrollLeft !== position) {
+            this.currentScrollPosition = position;
 
-        if (smoothScroll) {
-            this.smoothScrollTo(this.currentScrollPosition, 250).catch(function(exp) {
-                // no issue, good to go
-            });
-        } else {
-            this.container.parentNode.scrollLeft = this.currentScrollPosition;
+            if (smoothScroll && !SwipePager.inScroll) {
+                this.log('warn', '      ! Smooth scroll to: ' + this.currentScrollPosition);
+                this.inScroll = true;
+                this.log('info', '        + Smooth scroll start');
+                this.smoothScrollTo(this.currentScrollPosition, this.transition)
+                    .then(function () {
+                        // scroll ends
+                        if (SwipePager.inScroll) {
+                            SwipePager.log('info', '        + Smooth scroll end');
+                            SwipePager.inScroll = false;
+                        }
+                    })
+                    .catch(function(exp) {
+                        // no issue, good to go, scroll ends
+                        if (SwipePager.inScroll) {
+                            SwipePager.log('info', '        + Smooth scroll end (abort)');
+                            SwipePager.log('error', '        [!]', exp);
+                            // SwipePager.inScroll = false;
+                        }
+                    });
+            } else {
+                this.log('warn', '      ! Instant scroll to: ' + this.currentScrollPosition);
+                this.container.parentNode.scrollLeft = this.currentScrollPosition;
+            }
         }
     },
 
@@ -267,10 +345,10 @@ var SwipePager = {
         return new Promise(function(resolve, reject) {
             var lastPosition = element.scrollLeft;
             var scrollFrame = function () {
-                if (parseInt(element.scrollLeft) !== parseInt(lastPosition)) {
-                    reject("interrupted");
-                    return false;
-                }
+                // if (parseInt(element.scrollLeft) !== parseInt(lastPosition)) {
+                //     reject("interrupted");
+                //     return false;
+                // }
 
                 var now = Date.now();
                 var point = smoothStep(startTime, endTime, now);
