@@ -2,8 +2,8 @@
 {% import '@WebHemi/macros/renderForm.twig' as _FORM %}
 
 {% block content %}
-<div class="mdl-grid-x">
-    <section id="swipe-pager" class="list five">
+<div class="mdl-grid-y">
+    <section class="wall">
         <article>
             <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
                 <h1>Welcome!</h1>
@@ -19,7 +19,5 @@
         {% include "website/article.twig" with {'index': 3} %}
         {% include "website/article.twig" with {'index': 4} %}
     </section>
-    <div class="pager left"><a href="#previous"><i class="material-icons" role="presentation">navigate_before</i></a></div>
-    <div class="pager right"><a href="#next"><i class="material-icons" role="presentation">navigate_next</i></a></div>
 </div>
 {% endblock %}

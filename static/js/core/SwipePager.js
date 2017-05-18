@@ -345,11 +345,6 @@ var SwipePager = {
         return new Promise(function(resolve, reject) {
             var lastPosition = element.scrollLeft;
             var scrollFrame = function () {
-                // if (parseInt(element.scrollLeft) !== parseInt(lastPosition)) {
-                //     reject("interrupted");
-                //     return false;
-                // }
-
                 var now = Date.now();
                 var point = smoothStep(startTime, endTime, now);
                 var frameLeft = Math.round(startPosition + (distance * point));

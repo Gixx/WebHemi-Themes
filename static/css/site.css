@@ -68,20 +68,27 @@ h1 {
 }
 
 .mdl-layout__header .mdl-layout__header-row {
+    width: 100%;
     color: white !important;
     height: 45px;
     margin: 0;
     padding: 0 0 0 47px;
 }
 
+.mdl-layout__header .mdl-layout__header-row .mdl-layout-title {
+    font-size: 15px;
+    font-weight: normal;
+}
+
 .mdl-layout__header .mdl-layout__header-row .mdl-layout-title::first-letter {
-    padding: 0 6px;
-    width: 28px;
-    font-size: 28px;
+    padding: 0 5px;
+    width: 24px;
+    font-size: 24px;
     font-family: monospace;
     vertical-align: middle;
     color:rgba(0,0,0,0);
     background-image: url('../img/icon-28x28.png');
+    background-size: 24px;
     background-repeat: no-repeat;
 }
 
@@ -107,9 +114,13 @@ h1 {
     }
 }
 
-@media screen and (min-width: 1025px)
+@media screen and (min-width: 1075px)
 {
-
+    .mdl-layout__header .mdl-layout__header-row {
+        width: 1000px;
+        margin: 0 auto;
+        padding-left: 10px;
+    }
 }
 
 /* Drawer */
@@ -136,6 +147,7 @@ h1 {
     scroll-behavior: smooth;
 }
 
+/* Container - Panorama */
 .mdl-layout__content .mdl-grid-x div.pager {
     display: none;
 }
@@ -200,6 +212,7 @@ h1 {
     align-content: stretch;
 }
 
+
 .mdl-layout__content .mdl-grid-x section.list.two {
     width: 200%;
 }
@@ -216,7 +229,28 @@ h1 {
     width: 500%;
 }
 
-.mdl-layout__content .mdl-grid-x section article {
+/* Container - waterfall */
+.mdl-layout__content .mdl-grid-y {
+    width: 1000px;
+    margin: 0 auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+@media screen and (max-width: 1024px)
+{
+    .mdl-layout__content .mdl-grid-y {
+        width: 100%;
+    }
+}
+
+.mdl-layout__content .mdl-grid-y section {
+    flex-direction: column;
+}
+
+/* Container - Article */
+
+.mdl-layout__content section article {
     padding: 0;
     margin: 0;
     width: 100%;
@@ -225,20 +259,20 @@ h1 {
     overflow-x: hidden;
 }
 
-.mdl-layout__content .mdl-grid-x section article .mdl-cell {
+.mdl-layout__content section article .mdl-cell {
     padding: 10px;
 }
 
 @media screen and (max-width: 1024px)
 {
-    .mdl-layout__content .mdl-grid-x section article {
+    .mdl-layout__content section article {
         width: 100%;
     }
 }
 
 @media screen and (min-width: 1025px)
 {
-    .mdl-layout__content .mdl-grid-x section article {
+    .mdl-layout__content section article {
         width: 1000px;
     }
 }
