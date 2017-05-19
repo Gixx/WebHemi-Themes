@@ -6,7 +6,24 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>{% block title %}Thomas - {{ site_title|default('Blog') }}{% endblock %}</title>
+        <title>{% block title %}Thomas von Fürstenfeld{% endblock %}</title>
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{{ template_resource_path }}/img/icons/thomas/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ template_resource_path }}/img/icons/thomas/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ template_resource_path }}/img/icons/thomas/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ template_resource_path }}/img/icons/thomas/favicon-16x16.png">
+        <link rel="manifest" href="{{ template_resource_path }}/img/icons/thomas/manifest.json">
+        <meta name="msapplication-config" content="{{ template_resource_path }}/img/icons/thomas/browserconfig.xml" />
+        <meta name="theme-color" content="#ffffff">
+
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.min.css" />
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.font.css" />
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.components.ext.min.css" />
@@ -20,7 +37,7 @@
             <header class="mdl-layout__header">
             {% block header %}
                 <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title">Thomas - {{ title|default('Blog') }}</span>
+                    <span class="mdl-layout-title">Thomas von Fürstenfeld</span>
                 </div>
             {% endblock %}
             </header>

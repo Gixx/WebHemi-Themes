@@ -78,6 +78,7 @@ h1 {
 .mdl-layout__header .mdl-layout__header-row .mdl-layout-title {
     font-size: 15px;
     font-weight: normal;
+    text-transform: lowercase;
 }
 
 .mdl-layout__header .mdl-layout__header-row .mdl-layout-title::first-letter {
@@ -87,9 +88,10 @@ h1 {
     font-family: monospace;
     vertical-align: middle;
     color:rgba(0,0,0,0);
-    background-image: url('../img/icon-28x28.png');
+    background-image: url('../img/icon-invert-28x28.png');
     background-size: 24px;
     background-repeat: no-repeat;
+    text-transform: uppercase;
 }
 
 .mdl-layout__header .mdl-layout__drawer-button {
