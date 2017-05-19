@@ -43,7 +43,19 @@
             </header>
             <div class="mdl-layout__drawer">
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">home</i>Main page</a>
+                {% set activeMenu = '' %}
+                {% set categories = {'posts':['Posts','chrome_reader_mode'], 'useful':['Useful infos', 'perm_device_information'], 'events':['Events', 'event_note'], 'something': ['Something']} %}
+                {% block menu %}
+                    {% block menu_main %}<a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">home</i>Main page</a>{% endblock %}
+                    <h4>Categories</h4>
+                    {% for url, data in categories %}
+                    <a class="mdl-navigation__link{% if activeMenu == url %}--current{% endif %}" href="{{ url }}"><i class="material-icons" role="presentation">{{ data[1]|default('star_border') }}</i>{{ data[0] }}</a>
+                    {% endfor %}
+                    <h4>Tags</h4>
+                    <a class="mdl-navigation__link" href="tags/php">PHP</a>
+                    <a class="mdl-navigation__link" href="tags/codign">Coding</a>
+                    <a class="mdl-navigation__link" href="tags/munich">Munich</a>
+                {% endblock %}
                     <div class="mdl-layout-spacer"></div>
                 </nav>
             </div>
