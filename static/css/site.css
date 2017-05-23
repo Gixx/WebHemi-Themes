@@ -10,6 +10,7 @@
     --thomasbook-blue: #3B5999;
     --thomasbook-lgrey: #F9FBFF;
     --thomasbook-grey: #E9EBEF;
+    --thomasbook-grey-trans: rgba(233, 235, 239, 0.9);
     --thomasbook-dgrey: #999B9F;
     --thomasbook-mgrey: #757575;
     --thomasbook-ddgrey: #494B4F;
@@ -59,22 +60,22 @@ h1 {
 
 /* Header */
 .mdl-layout__header {
-    height: 45px !important;
-    min-height: 45px !important;
+    height: 42px !important;
+    min-height: 42px !important;
     background-color: var(--thomasbook-blue) !important;
 }
 
 .mdl-layout__header * {
     margin: 0;
     padding: 0;
-    line-height: 45px;
+    line-height: 42px;
     font-weight: bold;
 }
 
 .mdl-layout__header .mdl-layout__header-row {
     width: 100%;
     color: white !important;
-    height: 45px;
+    height: 42px;
     margin: 0;
     padding: 0 0 0 47px;
 }
@@ -87,31 +88,31 @@ h1 {
 
 .mdl-layout__header .mdl-layout__header-row .mdl-layout-title::first-letter {
     padding: 0 5px;
-    width: 24px;
-    font-size: 24px;
+    width: 22px;
+    font-size: 22px;
     font-family: monospace;
     vertical-align: middle;
     color:rgba(0,0,0,0);
     background-image: url('../img/icon-invert-28x28.png');
-    background-size: 24px;
+    background-size: 22px;
     background-repeat: no-repeat;
     text-transform: uppercase;
 }
 
 .mdl-layout__header .mdl-layout__drawer-button {
     margin: 0;
-    width: 45px;
-    height: 45px;
+    width: 42px;
+    height: 42px;
 }
 
 @media screen and (max-width: 1024px)
 {
     .mdl-layout__header {
-        min-height: 45px;
+        min-height: 42px;
     }
 
     .mdl-layout__header-row {
-        height: 45px;
+        height: 42px;
         margin: 0;
     }
 
@@ -184,13 +185,15 @@ h1 {
 {
     .mdl-layout__drawer {
         top: 45px;
-        left: 50%;
+        left: calc(50% - 5px);
         z-index: 2;
-        width: 185px;
+        width: 195px;
+        padding: 0 5px;
         margin-left: -240px;
         height: calc(100% - 45px);
         box-shadow: none;
-        background-color: transparent;
+        background-color: var(--thomasbook-grey-trans);
+        overflow: visible;
     }
 
     .mdl-layout__drawer .mdl-navigation {
@@ -206,12 +209,20 @@ h1 {
         font-size: 12px !important;
         line-height: 28px !important;
         transition: border 0.5s, background-color 0.5s;
-        padding: 0 2px !important;
+        padding: 0 5px !important;
         margin: 0;
         text-decoration: none !important;
         width: 185px;
         height: 30px;
-        overflow: hidden;
+        opacity: 0.75;
+        overflow: visible;
+    }
+
+
+    .mdl-badge.mdl-badge--overlap:after {
+        left: -25px;
+        top: 0px;
+        right: auto;
     }
 
     .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover,
@@ -225,7 +236,7 @@ h1 {
     }
 
     .mdl-layout__drawer .mdl-navigation a > i.material-icons {
-        margin: 0 10px 0 0;
+        margin: 0 10px 0 -5px;
         padding: 2px;
         height: 28px;
         width: 28px;
