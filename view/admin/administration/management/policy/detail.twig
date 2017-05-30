@@ -1,0 +1,51 @@
+{% extends "admin/administration/index.twig" %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='administration/policies'">
+            <i class="material-icons">arrow_back</i>
+        </button>
+        <div class="title-wrapper">
+            <span class="mdl-layout-title">Policy: "{{ data.policy.Title }}"</span>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid">
+        <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet full-width">
+            <div id="tablecontent">
+                <table summary="Policy data" class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+                    <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Key</th>
+                        <th class="mdl-data-table__cell--non-numeric">Value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key,value in data.policy %}
+                        <tr>
+                            {% if key =='resource' %}
+                                <td class="mdl-data-table__cell--non-numeric"><nobr>Apply to resource:</nobr></td>
+                                {% if value == 'All' %}
+                                    <td class="mdl-data-table__cell--non-numeric longtext"><nobr>All</nobr></td>
+                                {% else %}
+                                    <td class="mdl-data-table__cell--non-numeric longtext"><nobr><a href="administration/resources/{{ data.resource }}">{{ value }}</a></nobr></td>
+                                {% endif %}
+                            {% else %}
+                                <td class="mdl-data-table__cell--non-numeric"><nobr>{{ key }}</nobr></td>
+                                <td class="mdl-data-table__cell--non-numeric longtext"><nobr>{{ value }}</nobr></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if not data.readonly %}
+            <button class="edit-item mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="location.href='administration/policies/edit/{{ data.policy.Name }}'">
+                <i class="material-icons">mode_edit</i>
+            </button>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

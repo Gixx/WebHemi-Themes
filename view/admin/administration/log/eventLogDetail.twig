@@ -1,0 +1,12 @@
+{% extends "admin/administration/log/accessLogDetail.twig" %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='administration/event-log'">
+            <i class="material-icons">arrow_back</i>
+        </button>
+        <div class="title-wrapper">
+            <span class="mdl-layout-title">Log: {{ params.date }} #{{ params.rowNum }}</span>
+        </div>
+    </div>
+{% endblock %}

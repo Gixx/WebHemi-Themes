@@ -1,0 +1,55 @@
+{% extends "admin/control-panel/index.twig" %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='control-panel'">
+            <i class="material-icons">keyboard_arrow_left</i>
+        </button>
+        <div class="title-wrapper">
+            <span class="mdl-layout-title">Manage groups</span>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid ">
+        {% if data %}
+        <table summary="User group list" class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-data-table mdl-js-data-table key-value-table--link">
+            <thead>
+            <tr>
+                <th class="mdl-data-table__cell--non-numeric"></th>
+                <th class="mdl-data-table__cell--non-numeric">Title</th>
+                <th class="mdl-data-table__cell--non-numeric">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for row in data %}
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">
+                        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='control-panel/groups/view/{{ row.id }}';">
+                            <i class="material-icons">info_outline</i>
+                        </button>
+                    </td>
+                    <td class="mdl-data-table__cell--non-numeric"><nobr>{{ row.title }}</nobr></td>
+                    <td class="mdl-data-table__cell--non-numeric">{{ row.description }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--3-col-phone mdl-cell--6-col-tablet">
+                <h3>We're sorry</h3>
+            </div>
+            <div class="mdl-cell mdl-cell--12-col mdl-cell--4-col-phone mdl-cell--8-col-tablet">
+                <p>No user groups available at the moment.</p>
+            </div>
+        </div>
+        {% endif %}
+        {% if isAllowed('admin-control-panel-groups-add') %}
+        <button class="add-item mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="location.href='control-panel/groups/add'">
+            <i class="material-icons">add</i>
+        </button>
+        {% endif %}
+    </div>
+{% endblock %}

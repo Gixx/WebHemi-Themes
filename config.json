@@ -36,6 +36,9 @@
     "admin-control-panel-themes-view": "admin/control-panel/themes/view.twig",
     "admin-control-panel-themes-delete": "admin/control-panel/themes/delete.twig",
 
+    "admin-control-panel-groups-list": "admin/control-panel/groups/list.twig",
+    "admin-control-panel-groups-view": "admin/control-panel/groups/view.twig",
+
     "website-index": "website/index.twig",
     "website-post-list": "website/post-list.twig",
     "website-post-view": "website/post-view.twig",

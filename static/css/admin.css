@@ -149,6 +149,25 @@ button.edit-item {
     width: 100%;
 }
 
+table.key-value-table th,
+table.key-value-table td,
+table.key-value-table--link th,
+table.key-value-table--link td {
+    width: 50%;
+}
+
+table.key-value-table--link th:nth-child(1),
+table.key-value-table--link td:nth-child(1) {
+    width: 35px;
+}
+
+table.key-value-table th:nth-last-child(1),
+table.key-value-table td:nth-last-child(1),
+table.key-value-table--link th:nth-last-child(1),
+table.key-value-table--link td:nth-last-child(1) {
+    white-space: normal !important;
+}
+
 .icon-box {
     display: flex;
     justify-content: space-between;
