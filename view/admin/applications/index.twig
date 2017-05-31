@@ -21,17 +21,21 @@
 {% block content %}
     <div class="mdl-grid applications applications-list{% if isAllowed('admin-applications-add') %} add-item{% endif %}">
         <div class="icon-box mdl-cell mdl-cell--12-col">
+            {% set allowedApps = 0 %}
             {% for applicationEntity in applications %}
-                {% set favicon = '/data/upload/favicons/' ~ applicationEntity.getName() ~ '.png' %}
-                {% if not defined(document_root ~ favicon) %}
-                    {% if applicationEntity.getName() == 'admin' %}
-                        {% set favicon = template_resource_path ~ '/img/icons/favicon-admin.svg' %}
-                    {% elseif applicationEntity.getName() == 'website' %}
-                        {% set favicon = template_resource_path ~ '/img/icons/favicon-website.svg' %}
-                    {% else %}
-                        {% set favicon = template_resource_path ~ '/img/icons/favicon-default.svg' %}
+                {% set policy = 'manage-application-' ~ applicationEntity.getName() %}
+                {% if isAllowed('admin-applications-view') and isAllowed(policy) %}
+                    {% set allowedApps = 1 %}
+                    {% set favicon = '/data/upload/favicons/' ~ applicationEntity.getName() ~ '.png' %}
+                    {% if not defined(document_root ~ favicon) %}
+                        {% if applicationEntity.getName() == 'admin' %}
+                            {% set favicon = template_resource_path ~ '/img/icons/favicon-admin.svg' %}
+                        {% elseif applicationEntity.getName() == 'website' %}
+                            {% set favicon = template_resource_path ~ '/img/icons/favicon-website.svg' %}
+                        {% else %}
+                            {% set favicon = template_resource_path ~ '/img/icons/favicon-default.svg' %}
+                        {% endif %}
                     {% endif %}
-                {% endif %}
             <a id="icon_{{ applicationEntity.getName() }}" href="applications/{{ applicationEntity.getName() }}" class="icon {{ applicationEntity.getName() }}{% if not applicationEntity.getEnabled() %} hidden{% endif %}">
                 <span class="icon-avatar">
                     <img src="{{ favicon }}" alt="{{ applicationEntity.getTitle() }}">
@@ -41,10 +45,16 @@
             <div class="mdl-tooltip" for="icon_{{ applicationEntity.getName() }}">
                 {{ applicationEntity.description }}
             </div>
+                {% endif %}
             {% endfor %}
-
             {{ spacer.renderIconSpacer(10) }}
         </div>
+        {% if allowedApps == 0 %}
+        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+            <h2>Sorry</h2>
+            <p>You don't have privilege to view any applications.</p>
+        </div>
+        {% endif %}
 
         {% if isAllowed('admin-applications-add') %}
         <button class="add-item mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="location.href='applications/add'">
