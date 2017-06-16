@@ -1,5 +1,0 @@
-{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
-<div class="element button button">
-    {% set value = formElement.getValues() %}
-    <button type="button" name="{{ formElement.getName() }}" value="{{ value[0] }}">{{ formElement.getLabel() }}</button>
-</div>

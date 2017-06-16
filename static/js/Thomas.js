@@ -35,18 +35,18 @@ ThomasComponents.prototype = (function() {
 
         this.defaultOptions.event = new Event('ThomasComponentsLoaded');
 
-        if (typeof this.options == 'undefined') {
+        if (typeof this.options === 'undefined') {
             this.options = {};
         }
 
         for (var i in this.defaultOptions) {
-            if (typeof this.options[i] == 'undefined') {
+            if (this.defaultOptions.hasOwnProperty(i) && typeof this.options[i] === 'undefined') {
                 this.options[i] = this.defaultOptions[i];
             }
         }
 
         // correct path to absolute
-        this.options.path = document.querySelector('script[src*="Thomas.js"]').getAttribute('src').replace(/Thomas\.js/, '') + this.options.path;
+        this.options.path = document.querySelector('body > script[src*="Thomas.js"]').getAttribute('src').replace(/Thomas\.js/, '') + this.options.path;
 
         loadComponents(this);
 
@@ -61,7 +61,7 @@ ThomasComponents.prototype = (function() {
     function loadComponents(componentHandler)
     {
         // there will be index upon recursive call
-        var index = typeof arguments[1] != 'undefined' ? arguments[1] : 0;
+        var index = typeof arguments[1] !== 'undefined' ? arguments[1] : 0;
 
         // Start loading components
         if (!index) {
@@ -69,11 +69,11 @@ ThomasComponents.prototype = (function() {
         }
 
         // if the component exists in the list
-        if (typeof componentHandler.options.components[index] != 'undefined') {
+        if (typeof componentHandler.options.components[index] !== 'undefined') {
             var componentName = componentHandler.options.components[index];
 
             // if the component is not loaded
-            if (typeof window[componentName] == 'undefined') {
+            if (typeof window[componentName] === 'undefined') {
                 // try to load the specified component
                 (function(sourceElement, tag) {
                     var tags = sourceElement.getElementsByTagName(tag)[0];
@@ -109,6 +109,7 @@ ThomasComponents.prototype = (function() {
         } else {
             console.info('All components are loaded.');
             document.dispatchEvent(componentHandler.options.event);
+
         }
     }
 
@@ -138,13 +139,13 @@ ThomasComponents.prototype = (function() {
     }
 })();
 
-var ThomasComponents = new ThomasComponents();
+var TComponents = new ThomasComponents();
 
 // Kindly wait for the Material Design Light library to load
-if (typeof window.componentHandler != 'undefined') {
+if (typeof window.componentHandler !== 'undefined') {
     document.addEventListener('mdl-componentupgraded', function() {
-        ThomasComponents.init();
+        TComponents.init();
     }, false);
 } else {
-    ThomasComponents.init();
+    TComponents.init();
 }

@@ -31,7 +31,7 @@ var Util = {
     /**
      * Determines whether the given argument is defined or not.
      *
-     * @param mixed      The variable to check.
+     * @param {*} [arguments] The variable to check.
      *
      * @return boolean   TRUE if defined, FALSE otherwise.
      */
@@ -43,7 +43,7 @@ var Util = {
     /**
      * Checks if the given argument is an array.
      *
-     * @param mixed      The variable to check.
+     * @param {*} [arguments] The variable to check.
      *
      * @return boolean   TRUE if Array, ELSE otherwise.
      */
@@ -55,7 +55,7 @@ var Util = {
     /**
      * Checks if the given argument is an object.
      *
-     * @param mixed      The variable to check.
+     * @param {*} [arguments] The variable to check.
      *
      * @return boolean   TRUE if Object, ELSE otherwise.
      */
@@ -67,7 +67,7 @@ var Util = {
     /**
      * Checks if the given argument is a function.
      *
-     * @param mixed      The variable to check.
+     * @param {*} [arguments] The variable to check.
      *
      * @return boolean   TRUE if Function, ELSE otherwise.
      */
@@ -79,7 +79,7 @@ var Util = {
     /**
      * Checks if the given argument is a NULL value.
      *
-     * @param mixed      The variable to check.
+     * @param {*} [arguments] The variable to check.
      *
      * @return boolean   TRUE if NULL, ELSE otherwise.
      */
@@ -102,7 +102,7 @@ var Util = {
 
         if (this.isArray(haystack)) {
             for (var i = 0; i < haystack.length; i++) {
-                 if (haystack[i] == needle) {
+                 if (haystack[i] === needle) {
                     return !(strict && haystack[i] !== needle);
                 }
             }
@@ -131,7 +131,7 @@ var Util = {
     /**
      * Clones an object
      *
-     * @param {null|Date|Array|object} obj The object to clone
+     * @param {object} obj The object to clone
      *
      * @return {object} The cloned object
      */
@@ -140,7 +140,7 @@ var Util = {
         var copy;
 
         // Handle the 3 simple types, and null or undefined
-        if (null == obj || "object" != typeof obj) return obj;
+        if (null === obj || "object" !== typeof obj) return obj;
 
         // Handle Date
         if (obj instanceof Date) {
@@ -188,28 +188,32 @@ var Util = {
      */
     ajax : function(settings)
     {
-        var url = typeof settings.url != 'undefined' ? settings.url : '/';
-        var method = typeof settings.method != 'undefined' ? settings.method : 'POST';
-        var async = typeof settings.async != 'undefined' ? settings.async : true;
-        var data = typeof settings.data != 'undefined' ? settings.data : '';
-        var successCallback = typeof settings.success != 'undefined' ? settings.success : function(data) {};
-        var failureCallback = typeof settings.failure != 'undefined' ? settings.failure : function(data) {};
+        var url = typeof settings.url !== 'undefined' ? settings.url : '/';
+        var method = typeof settings.method !== 'undefined' ? settings.method : 'POST';
+        var async = typeof settings.async !== 'undefined' ? settings.async : true;
+        var data = typeof settings.data !== 'undefined' ? settings.data : '';
+        var successCallback = typeof settings.success !== 'undefined' ? settings.success : function(data) {};
+        var failureCallback = typeof settings.failure !== 'undefined' ? settings.failure : function(data) {};
         var xhr = new XMLHttpRequest();
 
         xhr.open(method, url, async);
 
         xhr.onreadystatechange = function() {
-            if (xhr.readyState == XMLHttpRequest.DONE ) {
-                if(xhr.status == 200){
-                    successCallback(JSON.parse(xhr.responseText));
-                } else {
-                    failureCallback(JSON.parse(xhr.responseText));
+            if (xhr.readyState === XMLHttpRequest.DONE ) {
+                try {
+                    if(xhr.status === 200){
+                        successCallback(JSON.parse(xhr.responseText));
+                    } else {
+                        failureCallback(JSON.parse(xhr.responseText));
+                    }
+                } catch (exp) {
+                    console.warn('JSON parse error. Continue', exp);
                 }
             }
         };
 
         if (!data instanceof FormData) {
-            if (typeof data == 'array' || typeof data == 'object') {
+            if (typeof data === 'object') {
                 data = JSON.stringify(data);
                 xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
             } else {
@@ -232,7 +236,7 @@ var Util = {
         var events = eventList.split(' ');
         var bindObject = typeof arguments[3] !== 'undefined' ? arguments[3] : null;
 
-        if (typeof elementList.length == 'undefined') {
+        if (typeof elementList.length === 'undefined') {
             elementList = [elementList];
         }
 

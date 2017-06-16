@@ -6,7 +6,7 @@
  * @link      http://www.gixx-web.com
  */
 
-var path = resourcePAth + '/img/login/';
+var path = resourcePath + '/img/login/';
 var images = [
     '7-themes-com-7028725-green-foliage-branches.jpg',
     '7-themes-com-7033392-autumn-red-leaves.jpg',

@@ -1,0 +1,72 @@
+{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
+<div class="element checkbox{% if formElement.getErrors() %} error{% endif %}">
+    {% set range = formElement.getValueRange() %}
+    {% if range|length > 1 %}
+        <fieldset name="{{ formElement.getName() }}">
+            <legend>{{ formElement.getLabel() }}</legend>
+            <div class="toggle" id="{{ formElement.getId() }}">
+            {% set values = formElement.getValues() %}
+            {% for label, option in range %}
+                {% set selected = (option in values) or (values[option]) %}
+                <div class="toggle-list">
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="{{ formElement.getName() ~ '-' ~ option }}">
+                        <span class="mdl-checkbox__label">{{ label }}</span>
+                        <input type="hidden" name="{{ formElement.getName() }}[{{ option }}]" value="0" />
+                        <input type="checkbox" name="{{ formElement.getName() }}[{{ option }}]" id="{{ formElement.getName() ~ '-' ~ option }}" class="mdl-checkbox__input" value="1"{% if selected %}checked="checked"{% endif %} />
+                    </label>
+                </div>
+            {% endfor %}
+            </div>
+        </fieldset>
+        {% if options.addSelectAll|default(false) %}
+        <div class="select_all">
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" id="{{ formElement.getId() }}-select-all" for="{{ formElement.getId() }}-select-all-check">
+                <input type="checkbox" name="{{ formElement.getName() }}" id="{{ formElement.getId() }}-select-all-check" class="mdl-checkbox__input" value="1" />
+                <span class="mdl-checkbox__label">Select all / none</span>
+            </label>
+        </div>
+        <script type="application/javascript">
+            document.addEventListener('ThomasComponentsLoaded', function() {
+                componentHandler.upgradeDom();
+                var checkboxes = document.querySelectorAll('#{{ formElement.getId() }} .toggle-list > label.mdl-checkbox');
+                var toggleAll = document.querySelector('#{{ formElement.getId() }}-select-all');
+
+                Util.addEventListener(checkboxes, 'change', function() {
+                    checkToggleAllState();
+                });
+
+                Util.addEventListener([toggleAll], 'change', function() {
+                    var toggle = toggleAll.classList.contains('is-checked');
+
+                    for (var i = 0, num = checkboxes.length; i < num; i++) {
+                        checkboxes[i].children[2].checked = toggle;
+                        checkboxes[i].MaterialCheckbox.checkToggleState();
+                    }
+                });
+
+                function checkToggleAllState()
+                {
+                    var toggle = true;
+                    for (var i = 0, num = checkboxes.length; i < num; i++) {
+                        toggle = toggle && checkboxes[i].children[2].checked;
+                    }
+                    toggleAll.children[0].checked = toggle;
+                    toggleAll.MaterialCheckbox.checkToggleState();
+                }
+
+                checkToggleAllState();
+            }, false);
+        </script>
+        {% endif %}
+    {% else %}
+        {% set value = formElement.getValues() %}
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="{{ formElement.getId() }}">
+            <input type="hidden" name="{{ formElement.getName() }}" value="0" />
+            <input type="checkbox" name="{{ formElement.getName() }}" id="{{ formElement.getId() }}" class="mdl-checkbox__input" value="1"{% if value[0] %} checked="checked"{% endif %} />
+            <span class="mdl-checkbox__label">{{ formElement.getLabel() }}</span>
+        </label>
+    {% endif %}
+    {% if formElement.getErrors() %}
+        {{ _FORM.renderErrorBlock(formElement.getErrors()) }}
+    {% endif %}
+</div>

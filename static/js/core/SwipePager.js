@@ -214,7 +214,7 @@ var SwipePager = {
                     this.dragStart = event.clientX;
                 }
 
-                if (event.type === 'mouseup' && event.srcElement.innerHTML.lastIndexOf('navigate_') == -1) {
+                if (event.type === 'mouseup' && event.srcElement.innerHTML.lastIndexOf('navigate_') === -1) {
                     this.log('info', '      * Drag end');
                     this.inDrag = false;
                     this.scrollPageTo(this.container.parentNode.scrollLeft, true);

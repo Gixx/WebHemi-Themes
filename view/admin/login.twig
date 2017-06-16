@@ -18,11 +18,12 @@
     <body>
         <div id="loginForm">
             {% if loginForm %}
-                {{ _FORM.renderForm(loginForm) }}
+                {% set options = {'isAjax': true, 'addSelectAll': true, 'templates': {'id_login_test': 'inputSwitchElement'}} %}
+                {{ _FORM.renderForm(loginForm, options) }}
             {% endif %}
         </div>
         <script type="application/javascript">
-            var resourcePAth = '{{ template_resource_path }}';
+            var resourcePath = '{{ template_resource_path }}';
         </script>
         <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
         <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.min.js"></script>

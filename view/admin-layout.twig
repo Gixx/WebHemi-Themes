@@ -106,10 +106,10 @@
             {% set stat = getStat() %}
             Rendered in {{ stat.duration }} seconds. Memory usage: {{ stat.memory }}.
         </footer>
-        <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
         <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.min.js"></script>
+        <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/mdl-selectfield.min.js"></script>
         <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.components.ext.min.js"></script>
+        <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
         {% block additionaljs %}{% endblock %}
-        <script type="application/javascript" src="{{ template_resource_path }}/js/admin.js"></script>
     </body>
 </html>

@@ -1,5 +1,15 @@
 # Change log
 
+## Version 0.0.5 ##
+* Refactor Form rendering and partial templates.
+* Add separated support for MDL Checkbox (`inputCheckboxElement.twig`) and MDL Switch (`inputSwitchElement.twig`).
+* Add Form customization options:
+  * `templates[]` - "form element ID" : "template name" pairs to override the type-based rendering with custom rendering,
+  * `isAjax` - to add `ajax` CSS class to the form which will make the form submitted over XML HTTP Request,
+  * `addSelectAll` - for form elements which supports this option (checkbox and switch so far) can have a toggle button to select/deselect all the groupped elements.
+* Clean up files
+* Update to MDL 1.3.0
+
 ## Version 0.0.4 ##
 * Website basic layout
 * Add "stick-to-grid" scroll feature

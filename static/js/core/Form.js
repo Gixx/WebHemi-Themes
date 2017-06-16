@@ -103,7 +103,7 @@ AjaxForm.prototype = (function() {
 
         var targetUrl = this.HTMLForm.getAttribute('action');
 
-        if ('' == targetUrl) {
+        if ('' === targetUrl) {
             targetUrl = location.href;
         }
         var formData = new FormData(this.HTMLForm);
@@ -140,7 +140,7 @@ AjaxForm.prototype = (function() {
         /**
          * Last chance to make changes before submit
          *
-         * @param Event event
+         * @param {Event} event
          * @return boolean
          */
         onBeforeSubmit : function(event)
@@ -170,7 +170,7 @@ AjaxForm.prototype = (function() {
 
         /**
          * Private method caller
-         * @param {requestCallback} callback
+         * @param {Function} callback
          * @returns {Function}
          * @private
          */

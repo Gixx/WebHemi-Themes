@@ -57,15 +57,16 @@ body {
 }
 
 #loginForm form legend {
-    display: none;
+    color: #607d8b;
+    font-size: 12px;
+    top: 4px;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
 }
 
 #loginForm form label {
 
-}
-
-#loginForm form label span {
-    display: none;
 }
 
 #loginForm form input[type=text],
