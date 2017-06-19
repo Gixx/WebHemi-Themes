@@ -11,7 +11,8 @@
                 <h1>Welcome!</h1>
                 <a href="posts">Post list</a>
                 <hr>
-                {{ _FORM.renderForm(form) }}
+                {% set options = {'addSelectAll': true, 'templates': {'id_test_accept': 'inputSwitchElement'}} %}
+                {{ _FORM.renderForm(form, options) }}
                 <hr>
                 POST DATA: {{ dump(data) }}
             </div>

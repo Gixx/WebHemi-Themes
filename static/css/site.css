@@ -7,7 +7,7 @@
  */
 
 :root {
-    --thomasbook-blue: #3B5999;
+    --thomasbook-blue: rgb(59, 89, 153);
     --thomasbook-lgrey: #F9FBFF;
     --thomasbook-grey: #E9EBEF;
     --thomasbook-grey-trans: rgba(233, 235, 239, 0.9);
@@ -33,8 +33,10 @@ pre * {
 }
 
 pre.xdebug-var-dump {
-    background-color: #00BBD6;
+    background-color: var(--thomasbook-blue);
+    color: var(--thomasbook-lgrey);
     overflow: scroll;
+    padding: 10px;
 }
 
 html {
@@ -60,22 +62,22 @@ h1 {
 
 /* Header */
 .mdl-layout__header {
-    height: 42px !important;
-    min-height: 42px !important;
+    height: 38px !important;
+    min-height: 38px !important;
     background-color: var(--thomasbook-blue) !important;
 }
 
 .mdl-layout__header * {
     margin: 0;
     padding: 0;
-    line-height: 42px;
+    line-height: 38px;
     font-weight: bold;
 }
 
 .mdl-layout__header .mdl-layout__header-row {
     width: 100%;
     color: white !important;
-    height: 42px;
+    height: 38px;
     margin: 0;
     padding: 0 0 0 47px;
 }
@@ -101,18 +103,18 @@ h1 {
 
 .mdl-layout__header .mdl-layout__drawer-button {
     margin: 0;
-    width: 42px;
-    height: 42px;
+    width: 38px;
+    height: 38px;
 }
 
 @media screen and (max-width: 1024px)
 {
     .mdl-layout__header {
-        min-height: 42px;
+        min-height: 38px;
     }
 
     .mdl-layout__header-row {
-        height: 42px;
+        height: 38px;
         margin: 0;
     }
 
@@ -165,6 +167,12 @@ h1 {
         margin: 0;
         display: block;
         color: var(--thomasbook-ddgrey) !important;
+    }
+
+    .mdl-badge.mdl-badge--overlap:after {
+        right: 5px;
+        top: 15px;
+        left: auto;
     }
 
     .mdl-layout__drawer .mdl-navigation .mdl-navigation__link--current {
@@ -366,7 +374,6 @@ h1 {
 }
 
 /* Container - Article */
-
 .mdl-layout__content section article {
     padding: 0;
     margin: 0;

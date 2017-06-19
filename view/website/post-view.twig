@@ -1,5 +1,10 @@
 {% extends "layout.twig" %}
 
+{% block menu %}
+    {% set activeMenu = 'posts' %}
+    {{ parent() }}
+{% endblock %}
+
 {% block content %}
 <div class="mdl-grid-x">
     <section>

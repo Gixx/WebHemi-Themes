@@ -1,0 +1,28 @@
+{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
+<div class="element radio{% if formElement.getErrors() %} error{% endif %}">
+    {% set range = formElement.getValueRange() %}
+    {% if range|length > 1 %}
+        <fieldset name="{{ formElement.getName() }}">
+            <legend>{{ formElement.getLabel() }}</legend>
+            <div class="radio-group" id="{{ formElement.getId() }}">
+            {% set values = formElement.getValues() %}
+            {% for label, option in range %}
+                {% set selected = (option in values) or (values[option]) %}
+                <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="{{ formElement.getId() ~ '-' ~ option }}">
+                    <input type="radio" id="{{ formElement.getId() ~ '-' ~ option }}" class="mdl-radio__button" name="{{ formElement.getName() }}" value="{{ option }}" {% if selected %}checked="checked"{% endif %}>
+                    <span class="mdl-radio__label">{{ label }}</span>
+                </label>
+            {% endfor %}
+            </div>
+        </fieldset>
+    {% else %}
+        {% set value = formElement.getValues() %}
+        <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="{{ formElement.getId() }}">
+            <input type="radio" id="{{ formElement.getId() }}" class="mdl-radio__button" name="{{ formElement.getName() }}" value="{{ value[0] }}">
+            <span class="mdl-radio__label">{{ formElement.getLabel() }}</span>
+        </label>
+    {% endif %}
+    {% if formElement.getErrors() %}
+        {{ _FORM.renderErrorBlock(formElement.getErrors()) }}
+    {% endif %}
+</div>

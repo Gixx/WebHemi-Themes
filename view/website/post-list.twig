@@ -1,5 +1,13 @@
 {% extends "layout.twig" %}
 
+{% block title %}{{ parent() }} - Posts{% endblock %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title">Thomas von Fürstenfeld - Posts</span>
+    </div>
+{% endblock %}
+
 {% block menu %}
     {% set activeMenu = 'posts' %}
     {{ parent() }}
