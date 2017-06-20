@@ -12,4 +12,9 @@ document.addEventListener("ThomasComponentsLoaded", function(event) {
         tabReplace: '    ',
     });
     hljs.initHighlighting();
+
+    var moods = document.querySelectorAll('span.mood');
+    for (var i = 0, num = moods.length; i < num; i++) {
+        moods[i].innerHTML = emojione.toImage(moods[i].innerText);
+    }
 });

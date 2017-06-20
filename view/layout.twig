@@ -31,7 +31,8 @@
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.thomas.customs.css" />
         {% block additionalcss %}{% endblock %}
         <link rel="stylesheet" href="{{ template_resource_path }}/css/site.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/highlight/github.css" />
+        <link rel="stylesheet" href="{{ template_resource_path }}/css/component/emojione.min.css" />
+        <link rel="stylesheet" href="{{ template_resource_path }}/css/component/highlight.github.css" />
     </head>
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -45,18 +46,16 @@
             <div class="mdl-layout__drawer">
                 <div class="drawer-container">
                     <nav class="mdl-navigation">
-                        {% set activeMenu = '' %}
-                        {% set categories = {'posts':['Posts','chrome_reader_mode'], 'useful':['Useful infos', 'perm_device_information'], 'events':['Events', 'event_note'], 'something': ['Something']} %}
                         {% block menu %}
                             {% block menu_main %}<a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">home</i>Main page</a>{% endblock %}
                             <h4>Categories</h4>
-                            {% for url, data in categories %}
-                                <a class="mdl-navigation__link{% if activeMenu == url %}--current{% endif %}" href="{{ url }}"><i class="material-icons" role="presentation">{{ data[1]|default('star_border') }}</i>{{ data[0] }}</a>
+                            {% for category in categories %}
+                                <a class="mdl-navigation__link{% if activeMenu == category.url %}--current{% endif %}{% if category.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ category.new }}{% endif %}" href="category/{{ category.url }}"><i class="material-icons" role="presentation">{{ category.icon|default('star_border') }}</i>{{ category.title }}</a>
                             {% endfor %}
                             <h4>Tags</h4>
-                            <a class="mdl-navigation__link mdl-badge mdl-badge--overlap" data-badge="1" href="tags/php">PHP</a>
-                            <a class="mdl-navigation__link mdl-badge mdl-badge--overlap" data-badge="83" href="tags/codign">Coding</a>
-                            <a class="mdl-navigation__link" href="tags/munich">Munich</a>
+                            {% for tag in tags %}
+                                <a class="mdl-navigation__link{% if activeMenu == tag.url %}--current{% endif %}{% if tag.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ tag.new }}{% endif %}" href="tag/{{ tag.url }}">{{ tag.title }}</a>
+                            {% endfor %}
                         {% endblock %}
                         <div class="mdl-layout-spacer"></div>
                     </nav>
@@ -69,6 +68,7 @@
             </main>
         </div>
     </body>
+    <script type="application/javascript" src="{{ template_resource_path }}/js/component/emojione.min.js"></script>
     <script type="application/javascript" src="{{ template_resource_path }}/js/component/highlight.pack.js"></script>
     <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
     <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.min.js"></script>
