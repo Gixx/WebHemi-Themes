@@ -39,7 +39,7 @@
             <header class="mdl-layout__header">
             {% block header %}
                 <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title">Thomas von Fürstenfeld</span>
+                    <span class="mdl-layout-title"><span class="thomas">Thomas von Fürstenfeld</span></span>
                 </div>
             {% endblock %}
             </header>
@@ -47,14 +47,21 @@
                 <div class="drawer-container">
                     <nav class="mdl-navigation">
                         {% block menu %}
-                            {% block menu_main %}<a class="mdl-navigation__link" href=""><i class="material-icons" role="presentation">home</i>Main page</a>{% endblock %}
+                            {% block menu_main %}<a class="home mdl-navigation__link" href="">Main page</a>{% endblock %}
                             <h4>Categories</h4>
-                            {% for category in categories %}
-                                <a class="mdl-navigation__link{% if activeMenu == category.url %}--current{% endif %}{% if category.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ category.new }}{% endif %}" href="category/{{ category.url }}"><i class="material-icons" role="presentation">{{ category.icon|default('star_border') }}</i>{{ category.title }}</a>
+                            {% for category in getCategories() %}
+                                <a class="category category-{{ category.url }} mdl-navigation__link{% if activeMenu == category.url %}--current{% endif %}{% if category.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ category.new }}{% endif %}" href="category/{{ category.url }}">{{ category.title }}</a>
                             {% endfor %}
-                            <h4>Tags</h4>
-                            {% for tag in tags %}
-                                <a class="mdl-navigation__link{% if activeMenu == tag.url %}--current{% endif %}{% if tag.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ tag.new }}{% endif %}" href="tag/{{ tag.url }}">{{ tag.title }}</a>
+                            {% set tags = getTags() %}
+                            {% if tags is not empty %}
+                                <h4>Tags</h4>
+                                {% for tag in tags %}
+                                    <a class="tag tag-{{ tag.url }} mdl-navigation__link{% if activeMenu == tag.url %}--current{% endif %}{% if tag.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ tag.new }}{% endif %}" href="tag/{{ tag.url }}">{{ tag.title }}</a>
+                                {% endfor %}
+                            {% endif %}
+                            <h4>Archive</h4>
+                            {% for date in getDates() %}
+                                <a class="date date-{{ date.url }} mdl-navigation__link{% if activeMenu == date.url %}--current{% endif %}{% if date.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ date.new }}{% endif %}" href="archive/{{ date.url }}">{{ date.title }}</a>
                             {% endfor %}
                         {% endblock %}
                         <div class="mdl-layout-spacer"></div>

@@ -12,7 +12,7 @@
         </div>
     {% else %}
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">Thomas von Fürstenfeld - Page not found</span>
+            <span class="mdl-layout-title"><span class="thomas">Thomas von Fürstenfeld</span> - Page not found</span>
         </div>
     {% endif %}
 {% endblock %}
@@ -33,7 +33,7 @@
                 <article>
                     <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
                         <header>
-                            <h1 class="page-header">Page Not Found!</h1>
+                            <h1 class="page-header">{{ exception.getMessage() }}</h1>
                         </header>
                         {{ dump(exception) }}
                     </div>

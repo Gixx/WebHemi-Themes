@@ -42,6 +42,7 @@
     "website-index": "website/index.twig",
     "website-post-list": "website/post-list.twig",
     "website-post-view": "website/post-view.twig",
+    "website-user": "website/user.twig",
 
     "error-401": "error/401.twig",
     "error-403": "error/403.twig",

@@ -1,0 +1,20 @@
+{% extends "layout.twig" %}
+
+{% block header %}
+    <div class="mdl-layout__header-row">
+        <span class="mdl-layout-title"><span class="thomas">Thomas von Fürstenfeld</span> - {{ userMeta.display_name.getMetaData() }}</span>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid-x">
+        <section>
+            <article>
+                <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+                    {{ dump(user) }}
+                    {{ dump(userMeta) }}
+                </div>
+            </article>
+        </section>
+    </div>
+{% endblock %}
