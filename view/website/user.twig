@@ -1,5 +1,7 @@
 {% extends "layout.twig" %}
 
+{% block title %}{{ userMeta.display_name.getMetaData() }} - {{ parent() }}{% endblock %}
+
 {% block header %}
     <div class="mdl-layout__header-row">
         <span class="mdl-layout-title"><span class="thomas">Thomas von Fürstenfeld</span> - {{ userMeta.display_name.getMetaData() }}</span>

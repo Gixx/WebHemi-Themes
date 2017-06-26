@@ -1,5 +1,7 @@
 {% extends "layout.twig" %}
 
+{% block title %}{{ blogPost.title }} - {{ parent() }}{% endblock %}
+
 {% block header %}
     <div class="mdl-layout__header-row">
         <span class="mdl-layout-title"><span class="thomas">Thomas von Fürstenfeld</span> - {{ blogPost.title }}</span>

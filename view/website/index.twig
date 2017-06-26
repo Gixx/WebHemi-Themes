@@ -14,9 +14,9 @@
                 {% endif %}
                 <div class="preview">
                     {% if fixPost.illustration is not empty %}
-                        <a href="{{ fixPost.path }}" class="illustration"><img src="{{ fixPost.illustration }}"></a>
+                        <div class="illustration"><img src="{{ fixPost.illustration }}"></div>
                     {% endif %}
-                    <h2><a href="{{ fixPost.path }}">{{ fixPost.title }}</a></h2>
+                    <h2>{{ fixPost.title }}</h2>
                     <p>
                         {{ fixPost.contentLead }}
                         <span class="author"><a href="user/{{ fixPost.author.username }}" alt="{{ fixPost.author.name }}">{{ fixPost.author.name }}</a></span>
