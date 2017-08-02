@@ -1,5 +1,10 @@
 {
- "name": "App",
+ "name": "Thomas Theme for WebHemi",
+ "short_name": "Thomas",
+ "start_url": ".",
+ "display": "standalone",
+ "background_color": "#fff",
+ "description": "A complete Website / Admin / Admin Login eyecandy, responsive theme for the WebHemi application.",
  "icons": [
   {
    "src": "android-icon-36x36.png",

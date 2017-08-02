@@ -11,7 +11,8 @@
     "license": "MIT",
     "components":{
       "material-design-lite": "https://github.com/google/material-design-lite/blob/mdl-1.x/LICENSE",
-      "highlight.js": "https://github.com/isagalaev/highlight.js/blob/master/LICENSE"
+      "highlight.js": "https://github.com/isagalaev/highlight.js/blob/master/LICENSE",
+      "emojione.js": "https://raw.githubusercontent.com/emojione/emojione/master/LICENSE.md"
     }
   },
   "features": {
