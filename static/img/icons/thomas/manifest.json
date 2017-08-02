@@ -4,6 +4,7 @@
  "start_url": ".",
  "display": "standalone",
  "background_color": "#fff",
+ "theme_color": "#3B5999",
  "description": "A complete Website / Admin / Admin Login eyecandy, responsive theme for the WebHemi application.",
  "icons": [
   {
