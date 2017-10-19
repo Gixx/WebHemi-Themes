@@ -23,7 +23,7 @@
     <div class="mdl-cell mdl-cell--12-col">
         {% for theme in themes %}
         <div id="theme_{{ theme.name }}" class="mdl-card mdl-shadow--4dp">
-            <div class="mdl-card__title mdl-card--expand" {% if theme.preview %}data-background-src="{{ theme.preview }}"{% endif %}>
+            <div class="mdl-card__title mdl-card--expand" {% if theme.preview|default(false) %}data-background-src="{{ theme.preview }}"{% endif %}>
                 <h2 class="mdl-card__title-text">{{ theme.title }}</h2>
             </div>
             <div class="mdl-card__supporting-text">
@@ -48,7 +48,6 @@
             </div>
         </div>
         {% endfor %}
-
         {{ cardspacer.renderCardSpacer(3) }}
 
         {% if isAllowed('admin-control-panel-themes-add') %}

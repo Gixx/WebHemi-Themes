@@ -29,17 +29,19 @@
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.components.ext.min.css" />
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.color.theme.thomas-blue-pink.min.css" />
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.thomas.customs.css" />
-        {% block additionalcss %}{% endblock %}
+        {% block additionalcss %}
+            {# add or include <link rel="stylesheet"> or <style> elements. #}
+        {% endblock %}
         <link rel="stylesheet" href="{{ template_resource_path }}/css/site.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/component/emojione.min.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/component/highlight.github.css" />
+        <link rel="stylesheet" href="{{ template_resource_path }}/css/library/emojione.min.css" />
+        <link rel="stylesheet" href="{{ template_resource_path }}/css/library/highlight.github.css" />
     </head>
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
             <header class="mdl-layout__header">
             {% block header %}
                 <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title"><span class="thomas">Thomas von Fürstenfeld</span></span>
+                    <span class="mdl-layout-title"><a href="" class="thomas">Thomas von Fürstenfeld</a></span>
                 </div>
             {% endblock %}
             </header>
@@ -70,16 +72,22 @@
                 </div>
             </div>
             <main class="mdl-layout__content">
-            {% block content %}
-            {% endblock %}
+                {% block content %}
+                    {# extend this block in templates. #}
+                {% endblock %}
             </main>
         </div>
+        {% block dialog %}
+            {# add or include <dialog> elements. #}
+        {% endblock %}
+        <script type="application/javascript" src="{{ template_resource_path }}/js/library/emojione.min.js"></script>
+        <script type="application/javascript" src="{{ template_resource_path }}/js/library/highlight.pack.js"></script>
+        <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
+        <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.min.js"></script>
+        <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.components.ext.min.js"></script>
+        {% block additionaljs %}
+            {# add or include <script> elements. #}
+        {% endblock %}
+        <script type="application/javascript" src="{{ template_resource_path }}/js/site.js"></script>
     </body>
-    <script type="application/javascript" src="{{ template_resource_path }}/js/component/emojione.min.js"></script>
-    <script type="application/javascript" src="{{ template_resource_path }}/js/component/highlight.pack.js"></script>
-    <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
-    <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.min.js"></script>
-    <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.components.ext.min.js"></script>
-    {% block additionaljs %}{% endblock %}
-    <script type="application/javascript" src="{{ template_resource_path }}/js/site.js"></script>
 </html>

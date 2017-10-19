@@ -1,9 +1,8 @@
-{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
-<div class="element input text {{ formElement.getId() }}{% if formElement.getErrors() %} has-error{% endif %}">
+<div class="element textarea {{ formElement.getId() }}{% if formElement.getErrors() %} has-error{% endif %}">
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
         <label class="mdl-textfield__label" for="{{ formElement.getId() }}">{{ formElement.getLabel() }}</label>
         {% set value = formElement.getValues() %}
-        <input class="mdl-textfield__input" type="number" id="{{ formElement.getId() }}" name="{{ formElement.getName() }}" value="{{ value[0] }}" />
+        <textarea class="mdl-textfield__input" type="text" id="{{ formElement.getId() }}" name="{{ formElement.getName() }}">{{ value[0] }}</textarea>
     </div>
     {% if formElement.getErrors() %}
         {{ _FORM.renderErrorBlock(formElement.getErrors()) }}

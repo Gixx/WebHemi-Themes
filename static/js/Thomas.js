@@ -6,146 +6,159 @@
  * @link      http://www.gixx-web.com
  */
 
-function ThomasComponents(options) {
-    this.initialized = false;
-    this.options = options;
-    this.defaultOptions = {
-        path: 'core/',
-        components: [
-            'Util',
-            'Registry',
-            'Form',
-            'ImageLoader',
-            'BackgroundImageLoader',
-            'SwipePager'
-        ],
-        event: null
+if (typeof ThomasOptions === 'undefined') {
+    var ThomasOptions = {
+        verbose: true
     };
 }
 
-ThomasComponents.prototype = (function() {
-    /**
-     * Initialize components
-     */
-    function init()
-    {
-        if (this.initialized) {
-            return;
-        }
+/**
+ * Thomas Component Framework.
+ */
+var Thomas = function(options)
+{
+    "use strict";
 
-        this.defaultOptions.event = new Event('ThomasComponentsLoaded');
+    /** @type {boolean} */
+    var initialized = false;
+    /** @type {Object} */
+    var defaultOptions = {
+        path: 'components/',
+        components: [
+            'Util'
+            ,'Registry'
+            ,'Dialog'
+            ,'ProgressDialog'
+            ,'LazyLoadImage'
+            ,'LazyLoadBackgroundImage'
+            ,'Form'
+            ,'BackgroundImageRotator'
+            // ,'Folding'
+            // ,'SwipePager'
+        ],
+        verbose: true,
+        event: new Event('ThomasComponentsLoaded')
+    };
 
-        if (typeof this.options === 'undefined') {
-            this.options = {};
-        }
-
-        for (var i in this.defaultOptions) {
-            if (this.defaultOptions.hasOwnProperty(i) && typeof this.options[i] === 'undefined') {
-                this.options[i] = this.defaultOptions[i];
-            }
-        }
-
-        // correct path to absolute
-        this.options.path = document.querySelector('body > script[src*="Thomas.js"]').getAttribute('src').replace(/Thomas\.js/, '') + this.options.path;
-
-        loadComponents(this);
-
-        this.initialized = true;
+    if (typeof options === 'undefined') {
+        options = {};
     }
 
-    /**
-     * Iterate through the components list and load each if possible.
-     *
-     * @param componentHandler
-     */
-    function loadComponents(componentHandler)
-    {
-        // there will be index upon recursive call
-        var index = typeof arguments[1] !== 'undefined' ? arguments[1] : 0;
+    // Complete the missing option elements.
+    for (var i in defaultOptions) {
+        if (defaultOptions.hasOwnProperty(i) && typeof options[i] === 'undefined') {
+            options[i] = defaultOptions[i];
+        }
+    }
 
-        // Start loading components
-        if (!index) {
-            console.info('Start loading components...');
+    // Correct component path.
+    options.path = document.querySelector('body > script[src*="Thomas.js"]')
+        .getAttribute('src').replace(/Thomas\.js/, '') + options.path;
+
+    // Control the console activity for the components.
+    ThomasOptions.verbose = options.verbose;
+
+    /**
+     * Loads the compoments one after another.
+     *
+     * @param {number} index
+     */
+    var loadComponents = function(index)
+    {
+        if (typeof index === 'undefined') {
+            index = 0;
         }
 
-        // if the component exists in the list
-        if (typeof componentHandler.options.components[index] !== 'undefined') {
-            var componentName = componentHandler.options.components[index];
+        if (typeof options.components[index] !== 'undefined') {
+            var componentName = options.components[index];
 
             // if the component is not loaded
             if (typeof window[componentName] === 'undefined') {
-                // try to load the specified component
-                (function(sourceElement, tag) {
-                    var tags = sourceElement.getElementsByTagName(tag)[0];
-                    var newTag = sourceElement.createElement(tag);
+                // get some kind of XMLHttpRequest
+                var xhr = new XMLHttpRequest();
+                // open and send a synchronous request
+                xhr.open('GET', options.path + componentName + '.js', true);
 
-                    newTag.async = 1;
-                    tags.parentNode.insertBefore(newTag, tags);
+                xhr.onreadystatechange = function()
+                {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        try {
+                            if (xhr.status === 200) {
+                                var newScriptTag = document.createElement('script');
+                                newScriptTag.setAttribute('type', 'text/javascript');
 
-                    newTag.onload = newTag.onreadystatechange = function( _, isAbort ) {
-                        if(isAbort || !newTag.readyState || /loaded|complete/.test(newTag.readyState) ) {
-                            newTag.onload = newTag.onreadystatechange = null;
-                            newTag = undefined;
+                                // This is a very very mean and tricky way to actually catch the exceptions in the
+                                // Ajax requested script...
+                                newScriptTag.text = 'try {'+"\n"+xhr.responseText
+                                    +"\n"+componentName+'.init();'
+                                    +"\n"+'} catch (exp) { window.Thomas.loadError("'+componentName+'", exp); }';
 
-                            if(!isAbort) {
-                                window[componentName].init();
-                                loadComponents(componentHandler, index + 1);
+                                document.getElementsByTagName('head')[0].appendChild(newScriptTag);
+
+                                loadComponents(index + 1);
+                            } else {
+                                console.log(xhr.status);
                             }
+                        } catch (exp) {
+                            options.verbose && console.log(exp);
                         }
-                    };
+                    }
+                };
 
-                    newTag.src = componentHandler.options.path + componentName + '.js';
-                }(document, 'script'));
-            }
-            // if the component is loaded but not initialized
-            else if (!window[componentName].initialized){
-                window[componentName].init();
-                loadComponents(componentHandler, index + 1);
-            }
-            // skip to the next component
-            else {
-                loadComponents(componentHandler, index + 1);
+                xhr.send('');
             }
         } else {
-            console.info('All components are loaded.');
-            document.dispatchEvent(componentHandler.options.event);
-
+            setTimeout(function(){
+                options.verbose && console.groupEnd();
+                options.verbose && console.info(
+                    '%c✔%c All components are loaded.',
+                    'color:green; font-weight:bold;',
+                    'color:black; font-weight:bold;'
+                );
+                document.dispatchEvent(options.event);
+            }, 500);
         }
-    }
+    };
+
+    options.verbose && console.clear();
+    options.verbose && console.info(
+        '%cWelcome to the Thomas Component Framework!',
+        'color:black; font-weight:bold;font-size:20px'
+    );
+    options.verbose && console.group(
+        '%c  looking for components...',
+        'color:#cecece'
+    );
 
     return {
-        /**
-         * Constructor
-         */
-        constructor:ThomasComponents,
+        constructor: Thomas,
 
         /**
-         * Private method caller
-         * @param callback
-         * @returns {Function}
-         * @private
+         * Initialize the component handler by loading the components.
          */
-        _:function(callback){
-
-            // instance referer
-            var self = this;
-
-            // callback that will be used
-            return function(){
-                return callback.apply(self, arguments);
-            };
+        init : function()
+        {
+            loadComponents(0);
         },
-        init: function() { return this._(init)(); }
-    }
-})();
 
-var TComponents = new ThomasComponents();
+        /**
+         * Informs about component load error.
+         *
+         * @param {string} componentName
+         * @param {ReferenceError} error
+         */
+        loadError : function(componentName, error)
+        {
+            var errorMsg = error.toString().split("\n")[0];
+            options.verbose && console.info(
+                '%c✖%c the '+componentName+' component cannot be loaded: %c'+ errorMsg,
+                'color:red',
+                'color:black',
+                'text-decoration:underline;font-style:italic'
+            );
+        }
+    };
+};
 
-// Kindly wait for the Material Design Light library to load
-if (typeof window.componentHandler !== 'undefined') {
-    document.addEventListener('mdl-componentupgraded', function() {
-        TComponents.init();
-    }, false);
-} else {
-    TComponents.init();
-}
+window['Thomas'] = new Thomas(ThomasOptions);
+Thomas.init();

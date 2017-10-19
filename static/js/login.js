@@ -6,81 +6,16 @@
  * @link      http://www.gixx-web.com
  */
 
-var path = resourcePath + '/img/login/';
-var images = [
-    '7-themes-com-7028725-green-foliage-branches.jpg',
-    '7-themes-com-7033392-autumn-red-leaves.jpg',
-    '7-themes-com-7038256-autumn-colors-leaves.jpg',
-    '7-themes-com-7041505-tree-red-leaves.jpg',
-    '7-themes-com-7041410-magnolia-flowers.jpg'
-];
-var cache = [];
-var min = 0;
-var max = images.length - 2;
-var loadedIndex = Math.floor(Math.random()*(max - min + 1) + min);
-
-function getBackgroundStyle(imageSrc)
-{
-    return "linear-gradient(to bottom, #000 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,0) 70%,#000 100%), url('"+imageSrc+"') center center no-repeat";
-}
-
-// When the DOM is ready, we make some customization
-document.addEventListener("DOMContentLoaded", function(event) {
-    // Pre-loading the images after the page is rendered
-    for (var i = 0; i < images.length; i++) {
-        cache[i] = document.createElement('img');
-        cache[i].src = path + images[i];
-    }
-
-    document.body.style.background = getBackgroundStyle(path + images[loadedIndex]);
-
-    // create background switcher element with different image as the body's
-    var switcher = document.createElement('div');
-    switcher.setAttribute('id', 'switcher');
-    document.body.appendChild(switcher);
-
-    // create license element
-    var license = document.createElement('div');
-    license.setAttribute('id', 'license');
-    license.innerHTML = 'Images: <a href="http://7-themes.com" target="_blank">7-themes.com</a>';
-    document.body.appendChild(license);
-
-    // get transition duration for the switcher
-    var sleep = parseFloat(window.getComputedStyle(switcher).transitionDuration) * 1000;
-    // set an interval of 10 second + animation time for a clear view of the background
-    var interval = sleep + 10100;
-
-    // start the background switcher loop
-    setInterval(function() {
-        // increment/reset background index
-        if(++loadedIndex >= images.length) {
-            loadedIndex = 0;
-        }
-        switcher.style.background = getBackgroundStyle(path + images[loadedIndex]);
-        // run (CSS) transition
-        switcher.classList.add('show');
-
-        // wait for the css transition
-        setTimeout(function(){
-            // set the switcher's background for the body as well
-            document.body.style.background = getBackgroundStyle(path + images[loadedIndex]);
-            // "reset" the switcher
-            switcher.classList.remove('show');
-        }, sleep + 100);
-    }, interval);
-});
-
-var errorMessageTimer = null;
-
 // Start using the Web Hemi Components from here
 document.addEventListener("ThomasComponentsLoaded", function(event) {
-    var handler = Form.getAjaxFormHandler('login');
+    if (typeof document.getElementById('login').component !== 'undefined') {
+        var handler = document.getElementById('login').component;
 
-    if (typeof handler != 'undefined') {
         // Add progress indicator and set inputs inactive
-        handler.onBeforeSubmit = function(event) {
+        handler.onBeforeSubmit(function(event)
+        {
             // add MDL progressbar
-            if (typeof componentHandler != 'undefined') {
+            if (typeof componentHandler !== 'undefined') {
                 var submitButton = event.target.querySelector('button[type=submit]');
                 var progressBar = document.createElement('div');
                 progressBar.setAttribute('id','formSubmitProgress');
@@ -92,8 +27,8 @@ document.addEventListener("ThomasComponentsLoaded", function(event) {
             }
 
             // Disable elements
-            document.getElementById('id_login_identification').setAttribute('disabled',true);
-            document.getElementById('id_login_password').setAttribute('disabled',true);
+            document.getElementById('id_login_identification').setAttribute('readonly',true);
+            document.getElementById('id_login_password').setAttribute('readonly',true);
             document.getElementById('id_login_submit').setAttribute('disabled',true);
 
             var errorElements = document.querySelectorAll('form div.error');
@@ -104,24 +39,28 @@ document.addEventListener("ThomasComponentsLoaded", function(event) {
             }
 
             return true;
-        };
+        });
 
         // On error remove progress, set inputs active
-        handler.onFailure = function() {
+        handler.onFailure(function()
+        {
             var progress = document.getElementById('formSubmitProgress');
             if (progress) {
                 progress.parentNode.removeChild(progress);
             }
 
             // Enable elements
-            document.getElementById('id_login_identification').removeAttribute('disabled',true);
-            document.getElementById('id_login_password').removeAttribute('disabled',true);
+            document.getElementById('id_login_identification').removeAttribute('readonly',true);
+            document.getElementById('id_login_password').removeAttribute('readonly',true);
             document.getElementById('id_login_submit').removeAttribute('disabled',true);
-        };
+        });
 
         // On response remove progress, set inputs active and handle the response
-        handler.onSuccess = function(data) {
-            if (typeof DOMAIN == 'undefined') {
+        handler.onSuccess(function(data)
+        {
+            data = JSON.parse(data);
+
+            if (typeof DOMAIN === 'undefined') {
                 var DOMAIN = location.href.replace(/\/auth\/login/, '');
             }
 
@@ -139,11 +78,11 @@ document.addEventListener("ThomasComponentsLoaded", function(event) {
             }
 
             // Enable elements
-            document.getElementById('id_login_identification').removeAttribute('disabled',true);
-            document.getElementById('id_login_password').removeAttribute('disabled',true);
+            document.getElementById('id_login_identification').removeAttribute('readonly',true);
+            document.getElementById('id_login_password').removeAttribute('readonly',true);
             document.getElementById('id_login_submit').removeAttribute('disabled',true);
 
-            if (typeof dataErrors.length != 'undefined' && dataErrors.length == 0) {
+            if (typeof dataErrors.length !== 'undefined' && dataErrors.length === 0) {
                 location.href = DOMAIN;
             } else {
                 // remove all previous errors
@@ -151,7 +90,9 @@ document.addEventListener("ThomasComponentsLoaded", function(event) {
 
                 if (errorElements.length > 0) {
                     for (i in errorElements) {
-                        errorElements[i].parentNode.removeChild(errorElements[i]);
+                        if (errorElements.hasOwnProperty(i)) {
+                            errorElements[i].parentNode.removeChild(errorElements[i]);
+                        }
                     }
                 }
 
@@ -184,7 +125,7 @@ document.addEventListener("ThomasComponentsLoaded", function(event) {
                                     errorElement.classList.add('hide');
                                 }
 
-                                if (errorBlock == null) {
+                                if (errorBlock === null) {
                                     errorBlock = document.querySelector('#' + formId + ' div.element.' + elementId + ' div.error ul');
                                 }
 
@@ -206,15 +147,15 @@ document.addEventListener("ThomasComponentsLoaded", function(event) {
                 errorElements = document.querySelectorAll('form div.error.hide');
 
                 if (errorElements.length > 0) {
-                    for (var i = 0, len = errorElements.length; i < len; i++) {
+                    for (i = 0, len = errorElements.length; i < len; i++) {
                         errorElements[i].classList.remove('hide');
                     }
                 }
             }
-        };
+        });
 
         // Remove error messages upon input events
-        Util.addEventListener(document.querySelectorAll('#loginForm input'), 'focus select change', function(){
+        Util.addEventListeners(document.querySelectorAll('#loginForm input'), 'focus select change', function(){
             var errorElements = document.querySelectorAll('form div.error');
 
             if (errorElements.length > 0) {

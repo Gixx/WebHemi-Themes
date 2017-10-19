@@ -15,13 +15,13 @@
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.color.theme.blue-grey-red.min.css" />
         <link rel="stylesheet" href="{{ template_resource_path }}/css/login.css" />
     </head>
-    <body>
-        <div id="loginForm">
+    <body data-background-set-speed="4000" data-background-set-source="{{ template_resource_path }}/img/login" data-background-set="7-themes-com-7028725-green-foliage-branches.jpg,7-themes-com-7033392-autumn-red-leaves.jpg,7-themes-com-7038256-autumn-colors-leaves.jpg,7-themes-com-7041410-magnolia-flowers.jpg,7-themes-com-7041505-tree-red-leaves.jpg">
+        <main id="loginForm">
             {% if loginForm %}
-                {% set options = {'isAjax': true, 'addSelectAll': true, 'templates': {'id_login_test': 'inputSwitchElement'}} %}
+                {% set options = {'isAjax': true} %}
                 {{ _FORM.renderForm(loginForm, options) }}
             {% endif %}
-        </div>
+        </main>
         <script type="application/javascript">
             var resourcePath = '{{ template_resource_path }}';
         </script>

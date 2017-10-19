@@ -1,5 +1,5 @@
 {% import '@WebHemi/macros/renderForm.twig' as _FORM %}
-<div class="element input range{% if formElement.getErrors() %} error{% endif %}">
+<div class="element input range{% if formElement.getErrors() %} has-error{% endif %}">
     <div class="mdl-slider__field">
         <label for="{{ formElement.getId() }}" class="mdl-slider__label"><span>{{ formElement.getLabel() }}</span></label>
         {% set value = formElement.getValues() %}

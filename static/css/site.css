@@ -57,6 +57,13 @@ h1 {
     margin: 8px 0 24px 0;
 }
 
+p {
+    text-align: justify;
+    hyphens: auto;
+    -ms-hyphens: auto;
+    -webkit-hyphens: auto;
+}
+
 /* Header */
 :root {
     --header-height: 38px;
@@ -97,6 +104,8 @@ h1 {
     text-transform: lowercase;
     overflow: hidden;
     vertical-align: -14px;
+    text-decoration: none;
+    color: white;
 }
 
 .mdl-layout__header .mdl-layout__header-row .mdl-layout-title .thomas::first-letter {
@@ -110,6 +119,7 @@ h1 {
     background-size: 22px;
     background-repeat: no-repeat;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
 .mdl-layout__header .mdl-layout__drawer-button {

@@ -30,7 +30,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.components.ext.min.css" />
         <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.color.theme.blue-grey-red.min.css" />
-        {% block additionalcss %}{% endblock %}
+        {% block additionalcss %}
+            {# add or include <link rel="stylesheet"> or <style> elements. #}
+        {% endblock %}
         <link rel="stylesheet" href="{{ template_resource_path }}/css/admin.css" />
     </head>
     <body>
@@ -98,6 +100,7 @@
             <main class="mdl-layout__content mdl-color--grey-100">
                 <div class="content">
                     {% block content %}
+                        {# extend this block in templates. #}
                     {% endblock %}
                 </div>
             </main>
@@ -106,10 +109,17 @@
             {% set stat = getStat() %}
             Rendered in {{ stat.duration }} seconds. Memory usage: {{ stat.memory }}.
         </footer>
+
+        {% block dialog %}
+            {# add or include <dialog> elements. #}
+        {% endblock %}
         <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.min.js"></script>
         <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/mdl-selectfield.min.js"></script>
         <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.components.ext.min.js"></script>
+        <script type="application/javascript" src="{{ template_resource_path }}/js/library/dialog-polyfill.js"></script>
         <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
-        {% block additionaljs %}{% endblock %}
+        {% block additionaljs %}
+            {# add or include <script> elements. #}
+        {% endblock %}
     </body>
 </html>

@@ -1,3 +1,4 @@
+{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
 {% extends "admin/applications/index.twig" %}
 
 {% block title %}{{ 'Add new application - ' ~ site_title|default('Thomas Admin') }}{% endblock %}
@@ -19,8 +20,9 @@
 
 {% block content %}
     <div class="mdl-grid applications applications-add">
-        <div class="mdl-cell mdl-cell--12-col">
-            <p>Ahhhm... not yet...</p>
+        <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
+            {% set formOptions = {'templates': {'id_application_is_enabled': 'inputSwitchElement'}} %}
+            {{ _FORM.renderform(form, formOptions) }}
         </div>
     </div>
 {% endblock %}
