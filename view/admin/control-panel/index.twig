@@ -4,12 +4,12 @@
 {% block title %}{{ 'Control Panel - ' ~ site_title|default('Thomas Admin') }}{% endblock %}
 
 {% block additionalcss %}
-    <link rel="stylesheet" href="{{ template_resource_path }}/css/admin-control-panel.css" />
+    <link rel="stylesheet" href="{{ application.resourcePath }}/css/admin-control-panel.css" />
 {% endblock %}
 
 {% block header %}
     <div class="mdl-layout__header-row">
-        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ application_base_uri }}'">
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href=' {{ application.baseUri }}'">
             <i class="material-icons">keyboard_arrow_left</i>
         </button>
         <span class="mdl-layout-title">Control Panel</span>
@@ -23,7 +23,7 @@
         <div class="icon-box mdl-cell mdl-cell--12-col">
             <a id="icon_settings" href="control-panel/settings" class="icon settings">
                 <span class="icon-avatar">
-                    <img src="{{ template_resource_path }}/img/icons/control-panel/settings.svg" alt="Settings">
+                    <img src="{{ application.resourcePath }}/img/icons/control-panel/settings.svg" alt="Settings">
                 </span>
                 <span class="icon-label">Settings</span>
             </a>
@@ -33,7 +33,7 @@
 
             <a id="icon_manage-themes" href="control-panel/themes" class="icon manage-themes">
                 <span class="icon-avatar">
-                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-themes.svg" alt="Manage Themes">
+                    <img src="{{ application.resourcePath }}/img/icons/control-panel/manage-themes.svg" alt="Manage Themes">
                 </span>
                 <span class="icon-label">Manage themes</span>
             </a>
@@ -43,7 +43,7 @@
 
             <a id="icon_add-ons" href="control-panel/add-ons" class="icon add-ons">
                 <span class="icon-avatar">
-                    <img src="{{ template_resource_path }}/img/icons/control-panel/add-ons.svg" alt="Manage Add-Ons">
+                    <img src="{{ application.resourcePath }}/img/icons/control-panel/add-ons.svg" alt="Manage Add-Ons">
                 </span>
                 <span class="icon-label">Manage add-ons</span>
             </a>
@@ -53,7 +53,7 @@
 
             <a id="icon_manage-users" href="control-panel/users" class="icon manage-users">
                 <span class="icon-avatar">
-                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-users.svg" alt="Manage Users">
+                    <img src="{{ application.resourcePath }}/img/icons/control-panel/manage-users.svg" alt="Manage Users">
                 </span>
                 <span class="icon-label">Manage users</span>
             </a>
@@ -63,7 +63,7 @@
 
             <a id="icon_manage-groups" href="control-panel/groups" class="icon manage-groups">
                 <span class="icon-avatar">
-                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-groups.svg" alt="Manage Groups">
+                    <img src="{{ application.resourcePath }}/img/icons/control-panel/manage-groups.svg" alt="Manage Groups">
                 </span>
                 <span class="icon-label">Manage groups</span>
             </a>
@@ -73,7 +73,7 @@
 
             <a id="icon_manage-resources" href="control-panel/resources" class="icon manage-resources">
                 <span class="icon-avatar">
-                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-resources.svg" alt="Manage Resources">
+                    <img src="{{ application.resourcePath }}/img/icons/control-panel/manage-resources.svg" alt="Manage Resources">
                 </span>
                 <span class="icon-label">Manage resources</span>
             </a>
@@ -83,7 +83,7 @@
 
             <a id="icon_manage-policies" href="control-panel/policies" class="icon manage-policies">
                 <span class="icon-avatar">
-                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-policies.svg" alt="Manage Policies">
+                    <img src="{{ application.resourcePath }}/img/icons/control-panel/manage-policies.svg" alt="Manage Policies">
                 </span>
                 <span class="icon-label">Manage policies</span>
             </a>
@@ -93,7 +93,7 @@
 
             <a id="icon_manage-logs" href="control-panel/logs" class="icon logs">
                 <span class="icon-avatar">
-                    <img src="{{ template_resource_path }}/img/icons/control-panel/manage-logs.svg" alt="View Logs">
+                    <img src="{{ application.resourcePath }}/img/icons/control-panel/manage-logs.svg" alt="View Logs">
                 </span>
                 <span class="icon-label">View logs</span>
             </a>

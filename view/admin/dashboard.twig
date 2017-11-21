@@ -2,7 +2,7 @@
 {% import '@Theme/macros/iconSpacer.twig' as spacer %}
 
 {% block additionalcss %}
-<link rel="stylesheet" href="{{ template_resource_path }}/css/admin-dashboard.css" />
+<link rel="stylesheet" href="{{ application.resourcePath }}/css/admin-dashboard.css" />
 {% endblock %}
 
 {% block menudash %}<a class="mdl-navigation__link mdl-navigation__link--current" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>{% endblock %}
@@ -14,7 +14,7 @@
         {% if isAllowed('admin-applications-list') %}
         <a href="applications" class="icon applications">
             <span class="icon-avatar">
-                <img src="{{ template_resource_path }}/img/icons/applications.svg" alt="Applications">
+                <img src="{{ application.resourcePath }}/img/icons/applications.svg" alt="Applications">
             </span>
             <span class="icon-label">Applications</span>
         </a>
@@ -23,7 +23,7 @@
         {% if isAllowed('admin-controlpanel-index') %}
         <a href="control-panel" class="icon control-panel">
             <span class="icon-avatar">
-                <img src="{{ template_resource_path }}/img/icons/control_panel.svg" alt="Control panel">
+                <img src="{{ application.resourcePath }}/img/icons/control_panel.svg" alt="Control panel">
             </span>
             <span class="icon-label">Control panel</span>
         </a>
@@ -31,7 +31,7 @@
 
         <a href="about" class="icon about">
             <span class="icon-avatar">
-                <img src="{{ template_resource_path }}/img/icons/about.svg" alt="About">
+                <img src="{{ application.resourcePath }}/img/icons/about.svg" alt="About">
             </span>
             <span class="icon-label">About</span>
         </a>

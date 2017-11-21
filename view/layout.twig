@@ -1,93 +1,129 @@
+{##
+ # Thomas theme for WebHemi
+ #
+ # @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
+ # @license   https://opensource.org/licenses/MIT The MIT License (MIT)
+ # @link      http://www.gixx-web.com
+ #}
 {% import '@WebHemi/macros/renderForm.twig' as _FORM %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ application.language|default('en') }}">
     <head>
-        <base href="{% if application_base_uri != '/' %}{{ application_base_uri }}{% endif %}/" />
+        <base href="{%  if application.baseUri != '/' %} {{ application.baseUri }}{% endif %}/" />
         <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
+        <meta name="author" content="{{ application.author|default('') }}" />
+        <meta name="description" content="{{ application.description|default('') }}" />
+        <meta name="subject" content="{{ application.subject|default('') }}" />
+        <meta name="language" content="{{ application.language|default('en') }}" />
+        <meta name="copyright" content="{{ application.copyright|default('') }}">
+        <meta name='robots' content='index,follow' />
+        <meta name="theme-color" content="#3B5999">
         <title>{% block title %}Thomas von Fürstenfeld{% endblock %}</title>
-        <link rel="apple-touch-icon" sizes="57x57" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="{{ template_resource_path }}/img/icons/thomas/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192"  href="{{ template_resource_path }}/img/icons/thomas/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ template_resource_path }}/img/icons/thomas/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="{{ template_resource_path }}/img/icons/thomas/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ template_resource_path }}/img/icons/thomas/favicon-16x16.png">
-        <link rel="manifest" href="{{ template_resource_path }}/img/icons/thomas/manifest.json">
-        <meta name="msapplication-config" content="{{ template_resource_path }}/img/icons/thomas/browserconfig.xml" />
-        <meta name="theme-color" content="#ffffff">
-
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.min.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.font.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.components.ext.min.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.color.theme.thomas-blue-pink.min.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/material.design.lite/material.thomas.customs.css" />
+        <link rel=”me” type="text/html" href=”{{ application.authorLink|default('') }}” />
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{{ application.resourcePath }}/img/icons/thomas/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ application.resourcePath }}/img/icons/thomas/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ application.resourcePath }}/img/icons/thomas/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ application.resourcePath }}/img/icons/thomas/favicon-16x16.png">
+        <link rel="manifest" href="{{ application.resourcePath }}/img/icons/thomas/manifest.json">
+        <meta name="msapplication-config" content="{{ application.resourcePath }}/img/icons/thomas/browserconfig.xml" />
         {% block additionalcss %}
             {# add or include <link rel="stylesheet"> or <style> elements. #}
         {% endblock %}
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/site.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/library/emojione.min.css" />
-        <link rel="stylesheet" href="{{ template_resource_path }}/css/library/highlight.github.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" />
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/site.css" />
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/library/emojione.min.css" />
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/library/highlight.github.css" />
     </head>
     <body>
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-            <header class="mdl-layout__header">
+        <header>
             {% block header %}
-                <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title"><a href="" class="thomas">Thomas von Fürstenfeld</a></span>
-                </div>
-            {% endblock %}
-            </header>
-            <div class="mdl-layout__drawer">
-                <div class="drawer-container">
-                    <nav class="mdl-navigation">
-                        {% block menu %}
-                            {% block menu_main %}<a class="home mdl-navigation__link" href="">Main page</a>{% endblock %}
-                            <h4>Categories</h4>
-                            {% for category in getCategories() %}
-                                <a class="category category-{{ category.url }} mdl-navigation__link{% if activeMenu == category.url %}--current{% endif %}{% if category.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ category.new }}{% endif %}" href="category/{{ category.url }}">{{ category.title }}</a>
-                            {% endfor %}
-                            {% set tags = getTags() %}
-                            {% if tags is not empty %}
-                                <h4>Tags</h4>
-                                {% for tag in tags %}
-                                    <a class="tag tag-{{ tag.url }} mdl-navigation__link{% if activeMenu == tag.url %}--current{% endif %}{% if tag.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ tag.new }}{% endif %}" href="tag/{{ tag.url }}">{{ tag.title }}</a>
-                                {% endfor %}
-                            {% endif %}
-                            <h4>Archive</h4>
-                            {% for date in getDates() %}
-                                <a class="date date-{{ date.url }} mdl-navigation__link{% if activeMenu == date.url %}--current{% endif %}{% if date.new|default(0) > 0 %} mdl-badge mdl-badge--overlap" data-badge="{{ date.new }}{% endif %}" href="archive/{{ date.url }}">{{ date.title }}</a>
-                            {% endfor %}
-                        {% endblock %}
-                        <div class="mdl-layout-spacer"></div>
-                    </nav>
-                    <div class="eye-candy--blur"><div></div></div>
-                </div>
+            <div class="container">
+                <a href="#" class="nav material-icons">menu</a>
+                <h1><a href="" class="thomas">Thomas von Fürstenfeld</a></h1>
             </div>
-            <main class="mdl-layout__content">
-                {% block content %}
-                    {# extend this block in templates. #}
+            {% endblock %}
+        </header>
+
+        <nav>
+            <div class="container">
+                <section>
+                    {% block menu_main %}<a class="home current" href="">{{ 'News Feed'|t }}</a>{% endblock %}
+                </section>
+
+                {% block menuBox %}
+                    <section>
+                        <h2>{{ 'Categories'|t }}</h2>
+                        <ul>
+                            {% for category in getCategories() %}
+                                <li><a class="category category-{{ category.url }}{% if activeMenu == category.url %} current{% endif %}" href="category/{{ category.url }}">{{ category.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </section>
                 {% endblock %}
-            </main>
-        </div>
+
+                {% block tagBox %}
+                    {% set tags = getTags() %}
+                    {% if tags is not empty %}
+                    <section>
+                        <h2>{{ "Tags"|t }}</h2>
+                        <ul>
+                            {% for tag in tags %}
+                                <li><a class="tag tag-{{ tag.url }}{% if activeMenu == tag.url %} current{% endif %}" href="tag/{{ tag.url }}">{{ tag.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                    {% endif %}
+                {% endblock %}
+
+                {% block archiveBox %}
+                    <section>
+                        <h2>{{ 'Archive'|t }}</h2>
+                        <ul>
+                            {% for date in getDates() %}
+                                <li><a class="date date-{{ date.url }}{% if activeMenu == date.url %} current{% endif %}" href="archive/{{ date.url }}">{{ date.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                {% endblock %}
+            </div>
+        </nav>
+
+        <main>
+            {% block content %}
+                {# extend this block in templates. #}
+            {% endblock %}
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>{{ 'Copyright &copy; %d. All rights reserved.'|t(2017)|raw }} Thomas von Fürstenfeld.</p>
+            </div>
+        </footer>
+
         {% block dialog %}
             {# add or include <dialog> elements. #}
         {% endblock %}
-        <script type="application/javascript" src="{{ template_resource_path }}/js/library/emojione.min.js"></script>
-        <script type="application/javascript" src="{{ template_resource_path }}/js/library/highlight.pack.js"></script>
-        <script type="application/javascript" src="{{ template_resource_path }}/js/Thomas.js"></script>
-        <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.min.js"></script>
-        <script type="application/javascript" src="{{ template_resource_path }}/js/material.design.lite/material.components.ext.min.js"></script>
         {% block additionaljs %}
             {# add or include <script> elements. #}
         {% endblock %}
-        <script type="application/javascript" src="{{ template_resource_path }}/js/site.js"></script>
+        <script type="application/javascript" src="{{ application.resourcePath }}/js/library/stickyfill.min.js"></script>
+        <script type="application/javascript" src="{{ application.resourcePath }}/js/library/emojione.min.js"></script>
+        <script type="application/javascript" src="{{ application.resourcePath }}/js/library/highlight.pack.js"></script>
+        <script type="application/javascript" src="{{ application.resourcePath }}/js/Thomas.js"></script>
+        <script type="application/javascript" src="{{ application.resourcePath }}/js/site.js"></script>
     </body>
 </html>

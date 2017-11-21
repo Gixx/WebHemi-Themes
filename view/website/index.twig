@@ -1,37 +1,35 @@
 {% extends "layout.twig" %}
 {% import '@WebHemi/macros/renderForm.twig' as _FORM %}
 
-{% block menu_main %}<a class="home mdl-navigation__link--current" href="">Main page</a>{% endblock %}
+{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+
+{% block header %}
+    <div class="container">
+        <a href="#" class="nav material-icons">menu</a>
+        <h1><a href="" class="thomas">Thomas von Fürstenfeld</a></h1>
+    </div>
+{% endblock %}
 
 {% block content %}
-<div class="mdl-grid-y">
-    <section class="wall">
-        {% if fixPost %}
-        <article>
-            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-                {% if fixPost.summary is not empty %}
-                    <p class="summary">{{ fixPost.summary }}</p>
-                {% endif %}
-                <div class="preview">
-                    {% if fixPost.illustration is not empty %}
-                        <div class="illustration"><img src="{{ fixPost.illustration }}"></div>
-                    {% endif %}
-                    <h2>{{ fixPost.title }}</h2>
-                    <p>
-                        {{ fixPost.contentLead }}
-                        <span class="author"><a href="user/{{ fixPost.author.username }}" alt="{{ fixPost.author.name }}">{{ fixPost.author.name }}</a></span>
-                    </p>
-                </div>
-            </div>
-        </article>
-        {% endif %}
+    {% if fixPost %}
+        <section>
+            <article>
+                <h2>{{ fixPost.title }}</h2>
+                <p class="summary">
+                    {{ fixPost.contentLead }}
+                </p>
+                <p class="author"><a href="user/{{ fixPost.author.username }}" alt="{{ fixPost.author.name }}">{{ fixPost.author.name }}</a></p>
+            </article>
+        </section>
+    {% endif %}
+
+    <section>
         {% for blogPost in blogPosts %}
-        <article>
-            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-                <div class="author">
+            <article>
+                <div class="header">
                     {% set avatar = blogPost.author.avatar %}
                     {% if not fileExists(avatar) %}
-                        {% set avatar = template_resource_path ~ '/img/avatars/a_man.svg' %}
+                        {% set avatar =  application.resourcePath ~ '/img/avatars/a_man.svg' %}
                     {% endif %}
                     <a class="avatar" href="user/{{ blogPost.author.username }}" alt="{{ blogPost.author.name }}"><img src="{{ avatar }}"></a>
                     <p class="meta">
@@ -41,41 +39,52 @@
                             <span class="mood">:{{ blogPost.author.mood[1]|default('slight_smile') }}: {{ blogPost.author.mood[0] }}</span>
                         {% endif %}
                         <br>
-                        <span class="date">{{ blogPost.publishedAt|date("F d., H:i") }}</span>
+
+                        {% if blogPost.publishedAt.isToday() %}
+                            {% set publishDate = 'Today'|t ~ ', ' ~ blogPost.publishedAt.format('T') %}
+                        {% elseif blogPost.publishedAt.isCurrentYear() %}
+                            {% set publishDate = blogPost.publishedAt.format('BDT') %}
+                        {% else %}
+                            {% set publishDate = blogPost.publishedAt.format('Y4BDT') %}
+                        {% endif %}
+                        <span class="date">{{ 'Published at: %s'|t(publishDate)|raw }},</span>
 
                         {% if blogPost.location is not empty %}
-                            <span class="location">from {{ blogPost.location }}</span>
+                            <span class="location">{{ 'In the area of %s'|t(blogPost.location)|raw }}</span>
                         {% endif %}
                         <br>
-                        <span class="category">Posted in
+
+                        <span class="category">
+                            {% set categoryLink = '' %}
                             {% for url,title in blogPost.category %}
-                            <a href="category/{{ url }}">{{ title }}</a>
+                                {% set categoryLink = '<a href="category/' ~ url ~'">' ~ title ~ '</a>' %}
                             {% endfor %}
-                        </span>
+                            {{ 'In category of %s'|t(categoryLink)|raw }}
+                            </span>
 
                         {% if blogPost.tags|length > 0 %}
-                        <span class="taglist">with tags
-                            {% for url,title in blogPost.tags %}
-                                <a href="tag/{{ url }}">#{{ title }}</a>
-                            {% endfor %}
-                        </span>
+                            {% set tagList = '' %}
+                            <span class="taglist">,
+                                {% for url,title in blogPost.tags %}
+                                    {% set tagList = tagList ~ '<a href="tag/' ~ url ~ '">#' ~ title ~ '</a> ' %}
+                                {% endfor %}
+                                {{ 'with tags: %s'|t(tagList)|raw }}
+                            </span>
                         {% endif %}
                     </p>
                 </div>
                 {% if blogPost.summary is not empty %}
-                <p class="summary">{{ blogPost.summary }}</p>
+                    <p class="summary">{{ blogPost.summary }}</p>
                 {% endif %}
                 <div class="preview">
                     {% if blogPost.illustration is not empty %}
-                    <a href="{{ blogPost.path }}" class="illustration"><img src="{{ template_resource_path }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}"></a>
+                        <a href="{{ blogPost.path }}"><img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}"></a>
                     {% endif %}
                     <h2><a href="{{ blogPost.path }}">{{ blogPost.title }}</a></h2>
                     <p>{{ blogPost.contentLead }}</p>
                 </div>
-                <p class="readmore"><a href="{{ blogPost.path }}">Tovább...</a></p>
-            </div>
-        </article>
+                <a class="more" href="{{ blogPost.path }}">{{ 'Read more...'|t }}</a>
+            </article>
         {% endfor %}
     </section>
-</div>
 {% endblock %}

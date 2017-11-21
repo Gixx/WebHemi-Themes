@@ -3,29 +3,40 @@
 {% block title %}{{ blogPost.title }} - {{ parent() }}{% endblock %}
 
 {% block header %}
-    <div class="mdl-layout__header-row">
-        <span class="mdl-layout-title"><a href="" class="thomas">Thomas von Fürstenfeld</a> - {{ blogPost.title }}</span>
+    <div class="container">
+        <a href="#" class="nav material-icons">menu</a>
+        <h1><a href="" class="thomas">Thomas von Fürstenfeld</a> - {{ blogPost.title }}</h1>
     </div>
 {% endblock %}
 
-{% block menu %}
-    {% set activeMenu = 'posts' %}
+{% block menu_main %}<a class="home" href="">{{ 'News Feed'|t }}</a>{% endblock %}
+
+{% block menuBox %}
+    {% for categoryName, categoryTitle in blogPost.category %}
+        {% set activeMenu = categoryName|default('posts') %}
+    {% endfor %}
     {{ parent() }}
 {% endblock %}
 
 {% block content %}
-<div class="mdl-grid-x">
     <section>
         <article>
-            <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-                <header>
-                    <h1 class="page-header">{{ blogPost.title }}</h1>
-                    <p>On {{ blogPost.publishedAt.format('Y-m-d') }} by {{ blogPost.author.name }}</p>
-                </header>
-                <p>{{ blogPost.content|markdown }}</p>
-                <p>Parameter: {{ blogPost.parameter.id }}</p>
-            </div>
+            <header>
+                <h2>{{ blogPost.title }}{{ blogPost.category.key }}</h2>
+                {% if blogPost.publishedAt.isToday() %}
+                    {% set publishDate = 'Today'|t ~ ', ' ~ blogPost.publishedAt.format('T') %}
+                {% elseif blogPost.publishedAt.isCurrentMonth() %}
+                    {% set publishDate = blogPost.publishedAt.format('BDT') %}
+                {% else %}
+                    {% set publishDate = blogPost.publishedAt.format('Y4BDT') %}
+                {% endif %}
+                <p><span class="date">{{ 'Published at: %s'|t(publishDate) }}</span> | <a href="user/{{ blogPost.author.username }}" alt="{{ blogPost.author.name }}">{{ blogPost.author.name }}</a></p>
+                {% if blogPost.illustration is not empty %}
+                    <img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}">
+                {% endif %}
+            </header>
+            <p>{{ blogPost.contentLead }}</p>
+            <p>{{ blogPost.content|markdown }}</p>
         </article>
     </section>
-</div>
 {% endblock %}

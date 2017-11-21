@@ -4,12 +4,12 @@
 {% block title %}{{ 'Applications - ' ~ site_title|default('Thomas Admin') }}{% endblock %}
 
 {% block additionalcss %}
-    <link rel="stylesheet" href="{{ template_resource_path }}/css/admin-applications.css" />
+    <link rel="stylesheet" href="{{ application.resourcePath }}/css/admin-applications.css" />
 {% endblock %}
 
 {% block header %}
     <div class="mdl-layout__header-row">
-        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ application_base_uri }}'">
+        <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href=' {{ application.baseUri }}'">
             <i class="material-icons">keyboard_arrow_left</i>
         </button>
         <span class="mdl-layout-title">Applications</span>
@@ -27,13 +27,13 @@
                 {% if isAllowed('admin-applications-view') and isAllowed(policy) %}
                     {% set allowedApps = 1 %}
                     {% set favicon = '/data/upload/favicons/' ~ applicationEntity.getName() ~ '.png' %}
-                    {% if not defined(document_root ~ favicon) %}
+                    {% if not defined( application.documentRoot ~ favicon) %}
                         {% if applicationEntity.getName() == 'admin' %}
-                            {% set favicon = template_resource_path ~ '/img/icons/favicon-admin.svg' %}
+                            {% set favicon =  application.resourcePath ~ '/img/icons/favicon-admin.svg' %}
                         {% elseif applicationEntity.getName() == 'website' %}
-                            {% set favicon = template_resource_path ~ '/img/icons/favicon-website.svg' %}
+                            {% set favicon =  application.resourcePath ~ '/img/icons/favicon-website.svg' %}
                         {% else %}
-                            {% set favicon = template_resource_path ~ '/img/icons/favicon-default.svg' %}
+                            {% set favicon =  application.resourcePath ~ '/img/icons/favicon-default.svg' %}
                         {% endif %}
                     {% endif %}
             <a id="icon_{{ applicationEntity.getName() }}" href="applications/{{ applicationEntity.getName() }}" class="icon {{ applicationEntity.getName() }}{% if not applicationEntity.getEnabled() %} hidden{% endif %}">

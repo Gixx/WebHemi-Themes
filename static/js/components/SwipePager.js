@@ -74,7 +74,7 @@ var SwipePager = {
     /**
      * Log into console when it is allowed.
      *
-     * @param mode
+     * @param {String} mode
      */
     log: function(mode)
     {
@@ -115,7 +115,7 @@ var SwipePager = {
     /**
      * Handles button navigation.
      *
-     * @param event
+     * @param {Event} event
      */
     handleButton: function (event)
     {
@@ -141,7 +141,7 @@ var SwipePager = {
     /**
      * Handles keyboard navigation.
      *
-     * @param event
+     * @param {Event} event
      */
     handleKey: function (event)
     {
@@ -162,7 +162,7 @@ var SwipePager = {
     /**
      * Handles mousewheel scroll as well as touchpad scroll.
      *
-     * @param event
+     * @param {Event} event
      */
     handleWheel: function (event)
     {
@@ -199,7 +199,7 @@ var SwipePager = {
     /**
      * Handles mouse drag event.
      *
-     * @param event
+     * @param {Event} event
      */
     handleDrag: function (event)
     {
@@ -231,7 +231,7 @@ var SwipePager = {
     /**
      * Handles touch screen event.
      *
-     * @param event
+     * @param {Event} event
      */
     handleTouch: function (event)
     {
@@ -249,13 +249,15 @@ var SwipePager = {
     /**
      * Checks if the event is triggered in the container.
      *
-     * @param event
+     * @param {Event} event
      * @returns {boolean}
      */
     isEventInContainer: function (event)
     {
-        for (var i in event.path) {
-            if (typeof event.path[i].isEqualNode !== 'undefined' && event.path[i].isEqualNode(this.container)) {
+        var path = Util.getEventPath(event);
+
+        for (var i in path) {
+            if (typeof path[i].isEqualNode !== 'undefined' && path[i].isEqualNode(this.container)) {
                 return true;
             }
         }
@@ -265,7 +267,7 @@ var SwipePager = {
 
     /**
      * Scrolls the container to the new position.
-     * @param position
+     * @param {Number} position
      */
     scrollPageTo: function (position)
     {
@@ -311,8 +313,8 @@ var SwipePager = {
     /**
      * Performs a smooth scroll to position.
      *
-     * @param position
-     * @param duration
+     * @param {Number} position
+     * @param {Number} duration
      * @returns {*}
      */
     smoothScrollTo: function(position, duration) {

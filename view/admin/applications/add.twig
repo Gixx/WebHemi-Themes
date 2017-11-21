@@ -4,8 +4,8 @@
 {% block title %}{{ 'Add new application - ' ~ site_title|default('Thomas Admin') }}{% endblock %}
 
 {% set location = '' %}
-{% if application_base_uri != '/' %}
-    {% set location = application_base_uri ~ '/' %}
+{%  if application.baseUri != '/' %}
+    {% set location =  application.baseUri ~ '/' %}
 {% endif %}
 {% set location = location ~ 'applications' %}
 

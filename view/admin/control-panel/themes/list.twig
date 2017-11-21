@@ -4,8 +4,8 @@
 {% block title %}{{ 'Manage Themes - ' ~ site_title|default('Thomas Admin') }}{% endblock %}
 
 {% set location = '' %}
-{% if application_base_uri != '/' %}
-    {% set location = application_base_uri ~ '/' %}
+{%  if application.baseUri != '/' %}
+    {% set location =  application.baseUri ~ '/' %}
 {% endif %}
 {% set location = location ~ 'control-panel' %}
 
@@ -36,11 +36,11 @@
                     <i class="material-icons {% if not theme.feature_admin %}not-supported{% endif %}">security</i>
                 </div>
                 <div class="actions">
-                    <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ current_uri }}/{{ theme.name }}'">
+                    <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ application.currentUri }}/{{ theme.name }}'">
                         <i class="material-icons">visibility</i>
                     </button>
                     {% if not theme.read_only %}
-                    <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ current_uri }}/{{ theme.name }}/delete'">
+                    <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href='{{ application.currentUri }}/{{ theme.name }}/delete'">
                         <i class="material-icons">delete</i>
                     </button>
                     {% endif %}
@@ -51,7 +51,7 @@
         {{ cardspacer.renderCardSpacer(3) }}
 
         {% if isAllowed('admin-control-panel-themes-add') %}
-            <button class="add-item mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="location.href='{{ current_uri }}/add'">
+            <button class="add-item mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="location.href='{{ application.currentUri }}/add'">
                 <i class="material-icons">add</i>
             </button>
         {% endif %}
