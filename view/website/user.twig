@@ -2,6 +2,8 @@
 
 {% block title %}{{ userMeta.display_name.getMetaData() }} - {{ parent() }}{% endblock %}
 
+{% block additionalBodyAttributes %}class="blog-post"{% endblock %}
+
 {% block header %}
     <div class="container">
         <a href="#" class="nav material-icons">menu</a>
@@ -9,11 +11,13 @@
     </div>
 {% endblock %}
 
-{% block menu_main %}
-    <ul>
-        <li><a class="home" href="">{{ 'News Feed'|t }}</a></li>
-        <li><a class="user current" href="{{ '[URL]'|tagParser }}">{{ 'User'|t }}</a></li>
-    </ul>
+{% block navMainBox %}
+    <section>
+        <ul>
+            <li><a class="home" href="">{{ 'News Feed'|t }}</a></li>
+            <li><a class="user current" href="{{ '[URL]'|tagParser }}">{{ 'User'|t }}</a></li>
+        </ul>
+    </section>
 {% endblock %}
 
 {% block content %}

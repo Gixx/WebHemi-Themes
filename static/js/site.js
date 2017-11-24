@@ -26,41 +26,20 @@ document.addEventListener("ThomasComponentsLoaded", function(event) {
             e.preventDefault();
 
             var drawerElementTag = e.target.classList[0];
-            document.querySelector('body > '+drawerElementTag).classList.toggle('open');
-        });
-    });
-
-    document.addEventListener('click', function(event) {
-        var path = Util.getEventPath(event);
-
-        for (var i = 0, num = path.length; i < num; i++) {
-            if (typeof path[i].tagName === 'undefined') {
-                continue;
-            }
-
-            if (path[i].tagName.toLowerCase() === 'div' &&
-                path[i].classList.contains('container')
-            ){
-                if (typeof path[i+1] !== 'undefined' &&
-                    (path[i+1].tagName.toLowerCase() === 'nav' || path[i+1].tagName.toLowerCase() === 'aside') &&
-                    path[i+1].classList.contains('open')
-                ) {
-                    break;
-                }
-            }
-
-            if ((path[i].tagName.toLowerCase() === 'nav' || path[i].tagName.toLowerCase() === 'aside') &&
-                path[i].classList.contains('open')
-            ) {
-                var menu = path[i];
-                event.preventDefault();
+            var menu = document.querySelector('body > '+drawerElementTag);
+            if (menu.classList.contains('open')) {
                 menu.classList.remove('open');
                 menu.classList.add('closing');
                 setTimeout(function(){
                     menu.classList.remove('closing');
                 }, 1000);
-                break;
+            } else {
+                menu.classList.add('opening');
+                setTimeout(function(){
+                    menu.classList.remove('opening');
+                    menu.classList.add('open');
+                }, 1000);
             }
-        }
+        });
     });
 });

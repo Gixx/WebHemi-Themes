@@ -7,4 +7,7 @@
     </div>
 {% endblock %}
 
-{% block menu_main %}<a class="home" href="">{{ 'News Feed'|t }}</a>{% endblock %}
+{% block navMainBox %}
+    {% set isMainActive = false %}
+    {{ parent() }}
+{% endblock %}

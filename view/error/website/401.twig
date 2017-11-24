@@ -1,0 +1,40 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    {{ 'Error 401: Unauthorized'|t }} - {{ parent() }}
+{% endblock %}
+
+{% block additionalBodyAttributes %}class="blog-post error"{% endblock %}
+
+{% block header %}
+    <div class="container">
+        <a href="#" class="nav material-icons">menu</a>
+        <h1><a href="" class="thomas">Thomas von Fürstenfeld</a> - {{ 'Error 401: Unauthorized'|t }}</h1>
+    </div>
+{% endblock %}
+
+{% block navMainBox %}
+    {% set isMainActive = false %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <section class="post">
+        <article>
+            <header>
+                <h1>{{ 'Error 401: Unauthorized'|t }}</h1>
+            </header>
+
+            {% set websiteLink = '<a href="http://' ~ application.domain ~ '">' ~ application.domain ~ '</a>' %}
+            <div class="body">
+                {{ '<p>You have attempted to access a page for which you are not authorized. This page will automatically redirect to the %s Home Page in 10 seconds or click the following link to manually redirect this page to %s.</p>'|t(application.domain, websiteLink)|raw }}
+            </div>
+        </article>
+    </section>
+{% endblock %}
+
+{% block additionaljs %}
+    <script type="application/javascript">
+        //setTimeout(function(){ location.href='http://{{ application.domain }}'; }, 10000);
+    </script>
+{% endblock %}

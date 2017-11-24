@@ -1,7 +1,13 @@
 {% extends "layout.twig" %}
 {% import '@WebHemi/macros/renderForm.twig' as _FORM %}
 
-{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+{% block title %}
+    {% if tite is empty %}
+        {{ parent() }}
+    {% else %}
+        {{ title }} - {{ parent() }}
+    {% endif %}
+{% endblock %}
 
 {% block header %}
     <div class="container">
@@ -12,28 +18,30 @@
 
 {% block content %}
     {% if fixPost %}
-        <section>
+        <section class="post">
             <article>
-                <h2>{{ fixPost.title }}</h2>
-                <p class="summary">
-                    {{ fixPost.contentLead }}
-                </p>
+                <header>
+                    <h1>{{ fixPost.title }}</h1>
+                </header>
+                <p class="lead">{{ fixPost.contentLead }}</p>
                 <p class="author"><a href="user/{{ fixPost.author.username }}" alt="{{ fixPost.author.name }}">{{ fixPost.author.name }}</a></p>
             </article>
         </section>
     {% endif %}
 
-    <section>
+    <section class="list">
         {% for blogPost in blogPosts %}
             <article>
-                <div class="header">
+                <header>
                     {% set avatar = blogPost.author.avatar %}
                     {% if not fileExists(avatar) %}
                         {% set avatar =  application.resourcePath ~ '/img/avatars/a_man.svg' %}
                     {% endif %}
                     <a class="avatar" href="user/{{ blogPost.author.username }}" alt="{{ blogPost.author.name }}"><img src="{{ avatar }}"></a>
                     <p class="meta">
-                        <span class="user"><a href="user/{{ blogPost.author.username }}" alt="{{ blogPost.author.name }}">{{ blogPost.author.name }}</a></span>
+
+                        {% set authorLink = '<a href="user/' ~ blogPost.author.username ~ '" alt="' ~ blogPost.author.name ~ '">' ~ blogPost.author.name ~ '</a>' %}
+                        <span class="user">{{ 'Author: %s'|t(authorLink)|raw }}</span>
 
                         {% if blogPost.author.mood is not empty %}
                             <span class="mood">:{{ blogPost.author.mood[1]|default('slight_smile') }}: {{ blogPost.author.mood[0] }}</span>
@@ -72,17 +80,20 @@
                             </span>
                         {% endif %}
                     </p>
-                </div>
+                </header>
+
                 {% if blogPost.summary is not empty %}
                     <p class="summary">{{ blogPost.summary }}</p>
                 {% endif %}
+
                 <div class="preview">
                     {% if blogPost.illustration is not empty %}
-                        <a href="{{ blogPost.path }}"><img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}"></a>
+                        <a href="{{ blogPost.path }}"><img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}"  title="{{ blogPost.title }}"></a>
                     {% endif %}
-                    <h2><a href="{{ blogPost.path }}">{{ blogPost.title }}</a></h2>
+                    <h1><a href="{{ blogPost.path }}" title="{{ blogPost.title }}">{{ blogPost.title }}</a></h1>
                     <p>{{ blogPost.contentLead }}</p>
                 </div>
+
                 <a class="more" href="{{ blogPost.path }}">{{ 'Read more...'|t }}</a>
             </article>
         {% endfor %}

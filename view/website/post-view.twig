@@ -1,6 +1,14 @@
 {% extends "layout.twig" %}
 
-{% block title %}{{ blogPost.title }} - {{ parent() }}{% endblock %}
+{% block title %}
+    {% if blogPost.title is empty %}
+        {{ parent() }}
+    {% else %}
+        {{ blogPost.title }} - {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block additionalBodyAttributes %}class="blog-post"{% endblock %}
 
 {% block header %}
     <div class="container">
@@ -9,9 +17,12 @@
     </div>
 {% endblock %}
 
-{% block menu_main %}<a class="home" href="">{{ 'News Feed'|t }}</a>{% endblock %}
+{% block navMainBox %}
+    {% set isMainActive = false %}
+    {{ parent() }}
+{% endblock %}
 
-{% block menuBox %}
+{% block navMenuBox %}
     {% for categoryName, categoryTitle in blogPost.category %}
         {% set activeMenu = categoryName|default('posts') %}
     {% endfor %}
@@ -19,24 +30,47 @@
 {% endblock %}
 
 {% block content %}
-    <section>
+    <section class="post">
         <article>
             <header>
-                <h2>{{ blogPost.title }}{{ blogPost.category.key }}</h2>
+                <h1>{{ blogPost.title }}{{ blogPost.category.key }}</h1>
+            </header>
+
+            <p class="meta">
                 {% if blogPost.publishedAt.isToday() %}
                     {% set publishDate = 'Today'|t ~ ', ' ~ blogPost.publishedAt.format('T') %}
-                {% elseif blogPost.publishedAt.isCurrentMonth() %}
-                    {% set publishDate = blogPost.publishedAt.format('BDT') %}
+                {% elseif blogPost.publishedAt.isCurrentYear() %}
+                    {% set publishDate = blogPost.publishedAt.format('bDT') %}
                 {% else %}
-                    {% set publishDate = blogPost.publishedAt.format('Y4BDT') %}
+                    {% set publishDate = blogPost.publishedAt.format('Y4bDT') %}
                 {% endif %}
-                <p><span class="date">{{ 'Published at: %s'|t(publishDate) }}</span> | <a href="user/{{ blogPost.author.username }}" alt="{{ blogPost.author.name }}">{{ blogPost.author.name }}</a></p>
-                {% if blogPost.illustration is not empty %}
-                    <img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}">
+                    {% set publishDate = blogPost.publishedAt.format('Y4bDT') %}
+                <span class="date">{{ publishDate }}</span>
+            </p>
+
+            <p class="lead">
+                {{ blogPost.contentLead }}
+            {% if blogPost.illustration is not empty %}
+                <br>
+                <img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}">
+            {% endif %}
+            </p>
+
+            <div class="body">
+                {{ blogPost.content|markdown }}
+            </div>
+
+            <div class="footer">
+                {% set avatar = blogPost.author.avatar %}
+                {% if not fileExists(avatar) %}
+                    {% set avatar =  application.resourcePath ~ '/img/avatars/a_man.svg' %}
                 {% endif %}
-            </header>
-            <p>{{ blogPost.contentLead }}</p>
-            <p>{{ blogPost.content|markdown }}</p>
+                <a class="author" href="user/{{ blogPost.author.username }}" alt="{{ blogPost.author.name }}"><img src="{{ avatar }}"></a>
+                <h5>{{ 'About the author'|t }}</h5>
+                <div class="details">
+                    {{ dump(blogPost.author) }}
+                </div>
+            </div>
         </article>
     </section>
 {% endblock %}

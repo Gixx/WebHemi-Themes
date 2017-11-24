@@ -43,12 +43,12 @@
             {# add or include <link rel="stylesheet"> or <style> elements. #}
         {% endblock %}
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i|Libre+Baskerville:400,700|Roboto+Mono:300,400,700" />
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/site.css" />
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/library/emojione.min.css" />
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/library/highlight.github.css" />
     </head>
-    <body>
+    <body {% block additionalBodyAttributes %}{% endblock %}>
         <header>
             {% block header %}
             <div class="container">
@@ -60,11 +60,16 @@
 
         <nav>
             <div class="container">
-                <section>
-                    {% block menu_main %}<a class="home current" href="">{{ 'News Feed'|t }}</a>{% endblock %}
-                </section>
+                {% set isMainActive = true %}
+                {% block navMainBox %}
+                    <section>
+                        <ul>
+                            <li><a class="home{% if isMainActive %} current{% endif %}" href="">{{ 'News Feed'|t }}</a></li>
+                        </ul>
+                    </section>
+                {% endblock %}
 
-                {% block menuBox %}
+                {% block navMenuBox %}
                     <section>
                         <h2>{{ 'Categories'|t }}</h2>
                         <ul>
@@ -75,7 +80,7 @@
                     </section>
                 {% endblock %}
 
-                {% block tagBox %}
+                {% block navTagBox %}
                     {% set tags = getTags() %}
                     {% if tags is not empty %}
                     <section>
@@ -89,7 +94,7 @@
                     {% endif %}
                 {% endblock %}
 
-                {% block archiveBox %}
+                {% block navArchiveBox %}
                     <section>
                         <h2>{{ 'Archive'|t }}</h2>
                         <ul>
@@ -110,7 +115,8 @@
 
         <footer>
             <div class="container">
-                <p>{{ 'Copyright &copy; %d. All rights reserved.'|t(2017)|raw }} Thomas von Fürstenfeld.</p>
+                {% set year = 'now'|date('Y') %}
+                <p>{{ 'Copyright &copy; %d. All rights reserved.'|t(year)|raw }} Thomas von Fürstenfeld.</p>
             </div>
         </footer>
 
