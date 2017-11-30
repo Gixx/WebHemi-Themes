@@ -74,7 +74,7 @@
                         <h2>{{ 'Categories'|t }}</h2>
                         <ul>
                             {% for category in getCategories() %}
-                                <li><a class="category category-{{ category.url }}{% if activeMenu == category.url %} current{% endif %}" href="category/{{ category.url }}">{{ category.title }}</a></li>
+                                <li><a class="category category-{{ category.name }}{% if activeMenu == category.name %} current{% endif %}" href="{{ category.path }}/{{ category.name }}">{{ category.title }}</a></li>
                             {% endfor %}
                         </ul>
                     </section>
@@ -87,7 +87,7 @@
                         <h2>{{ "Tags"|t }}</h2>
                         <ul>
                             {% for tag in tags %}
-                                <li><a class="tag tag-{{ tag.url }}{% if activeMenu == tag.url %} current{% endif %}" href="tag/{{ tag.url }}">{{ tag.title }}</a></li>
+                                <li><a class="tag tag-{{ tag.name }}{% if activeMenu == tag.name %} current{% endif %}" href="{{ tag.path }}/{{ tag.name }}">{{ tag.title }}</a></li>
                             {% endfor %}
                         </ul>
                     </section>
@@ -95,14 +95,17 @@
                 {% endblock %}
 
                 {% block navArchiveBox %}
+                    {% set dates = getDates() %}
+                    {% if dates is not empty %}
                     <section>
                         <h2>{{ 'Archive'|t }}</h2>
                         <ul>
-                            {% for date in getDates() %}
-                                <li><a class="date date-{{ date.url }}{% if activeMenu == date.url %} current{% endif %}" href="archive/{{ date.url }}">{{ date.title }}</a></li>
+                            {% for date in dates %}
+                                <li><a class="date date-{{ date.name }}{% if activeMenu == date.name %} current{% endif %}" href="{{ date.path }}/{{ date.name }}">{{ date.dateTime.format('Y4B') }}</a></li>
                             {% endfor %}
                         </ul>
                     </section>
+                    {% endif %}
                 {% endblock %}
             </div>
         </nav>

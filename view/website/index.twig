@@ -20,11 +20,7 @@
     {% if fixPost %}
         <section class="post">
             <article>
-                <header>
-                    <h1>{{ fixPost.title }}</h1>
-                </header>
-                <p class="lead">{{ fixPost.contentLead }}</p>
-                <p class="author"><a href="user/{{ fixPost.author.username }}" alt="{{ fixPost.author.name }}">{{ fixPost.author.name }}</a></p>
+                {{ fixPost|markdown }}
             </article>
         </section>
     {% endif %}
@@ -34,13 +30,13 @@
             <article>
                 <header>
                     {% set avatar = blogPost.author.avatar %}
-                    {% if not fileExists(avatar) %}
+                    {% if avatar is empty %}
                         {% set avatar =  application.resourcePath ~ '/img/avatars/a_man.svg' %}
                     {% endif %}
-                    <a class="avatar" href="user/{{ blogPost.author.username }}" alt="{{ blogPost.author.name }}"><img src="{{ avatar }}"></a>
+                    <a class="avatar" href="{{ blogPost.author.url }}" alt="{{ blogPost.author.name }}"><img src="{{ avatar }}"></a>
                     <p class="meta">
 
-                        {% set authorLink = '<a href="user/' ~ blogPost.author.username ~ '" alt="' ~ blogPost.author.name ~ '">' ~ blogPost.author.name ~ '</a>' %}
+                        {% set authorLink = '<a href="' ~ blogPost.author.url ~ '" alt="' ~ blogPost.author.name ~ '">' ~ blogPost.author.name ~ '</a>' %}
                         <span class="user">{{ 'Author: %s'|t(authorLink)|raw }}</span>
 
                         {% if blogPost.author.mood is not empty %}
@@ -63,18 +59,15 @@
                         <br>
 
                         <span class="category">
-                            {% set categoryLink = '' %}
-                            {% for url,title in blogPost.category %}
-                                {% set categoryLink = '<a href="category/' ~ url ~'">' ~ title ~ '</a>' %}
-                            {% endfor %}
+                            {% set categoryLink = '<a href="' ~ blogPost.category.url ~'">' ~ blogPost.category.title ~ '</a>' %}
                             {{ 'In category of %s'|t(categoryLink)|raw }}
                             </span>
 
                         {% if blogPost.tags|length > 0 %}
                             {% set tagList = '' %}
                             <span class="taglist">,
-                                {% for url,title in blogPost.tags %}
-                                    {% set tagList = tagList ~ '<a href="tag/' ~ url ~ '">#' ~ title ~ '</a> ' %}
+                                {% for tag in blogPost.tags %}
+                                    {% set tagList = tagList ~ '<a href="' ~ tag.url ~ '">#' ~ tag.title ~ '</a> ' %}
                                 {% endfor %}
                                 {{ 'with tags: %s'|t(tagList)|raw }}
                             </span>

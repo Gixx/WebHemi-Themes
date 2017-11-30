@@ -23,9 +23,7 @@
 {% endblock %}
 
 {% block navMenuBox %}
-    {% for categoryName, categoryTitle in blogPost.category %}
-        {% set activeMenu = categoryName|default('posts') %}
-    {% endfor %}
+    {% set activeMenu = blogPost.category.url|default('posts') %}
     {{ parent() }}
 {% endblock %}
 
@@ -33,7 +31,7 @@
     <section class="post">
         <article>
             <header>
-                <h1>{{ blogPost.title }}{{ blogPost.category.key }}</h1>
+                <h1>{{ blogPost.title }}</h1>
             </header>
 
             <p class="meta">
@@ -57,12 +55,12 @@
             </p>
 
             <div class="body">
-                {{ blogPost.content|markdown }}
+                {{ blogPost.contentBody|markdown }}
             </div>
 
             <div class="footer">
                 {% set avatar = blogPost.author.avatar %}
-                {% if not fileExists(avatar) %}
+                {% if avatar is empty %}
                     {% set avatar =  application.resourcePath ~ '/img/avatars/a_man.svg' %}
                 {% endif %}
                 <a class="author" href="user/{{ blogPost.author.username }}" alt="{{ blogPost.author.name }}"><img src="{{ avatar }}"></a>
