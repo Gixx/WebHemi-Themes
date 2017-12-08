@@ -1,0 +1,47 @@
+{##
+ # Thomas theme for WebHemi
+ #
+ # @copyright 2012 - 2017 Gixx-web (http://www.gixx-web.com)
+ # @license   https://opensource.org/licenses/MIT The MIT License (MIT)
+ # @link      http://www.gixx-web.com
+ #}
+{% extends 'layout.twig' %}
+
+{% block title %}
+    {{ type|default('List')|t ~ ': ' ~ title }} - {{ parent() }}
+{% endblock %}
+
+{% block additionalBodyAttributes %}class="blog-post"{% endblock %}
+
+{% block header %}
+    <div class="container">
+        <a href="#" class="nav material-icons">menu</a>
+        <h1><a href="" class="thomas">Thomas von Fürstenfeld</a> - {{ type|default('List')|t ~ ': ' ~ title }}</h1>
+    </div>
+{% endblock %}
+
+{% block navMainBox %}
+    {% set isMainActive = false %}
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    <section class="post">
+        <article>
+            <header>
+                <h1>{{ 'No publications are available.'|t }}</h1>
+            </header>
+
+            {% set websiteLink = '<a href="http://' ~ application.domain ~ '">' ~ application.domain ~ '</a>' %}
+            <div class="body">
+                {{ '<p>We are sorry. Although this page exists, but there is not any data to present at the moment.</p>
+                <p>Please try the following:</p>
+                <ul>
+                    <li>Choose another link from the menu.</li>
+                    <li>Open the %s home page, and then look for links to the information you want.</li>
+                    <li>Click the Back button to try another link.</li>
+                </ul>'|t(websiteLink)|raw }}
+            </div>
+        </article>
+    </section>
+{% endblock %}

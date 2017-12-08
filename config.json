@@ -3,16 +3,18 @@
     "name": "thomas",
     "title": "Thomas Theme",
     "description": "A complete Website / Admin / Admin Login eyecandy, responsive theme for the WebHemi application.",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Gabor Ivan",
     "homepage": "https://github.com/Gixx/WebHemi-Themes/tree/Thomas",
     "preview": "img/preview.png",
     "logo": "img/logo.png",
     "license": "MIT",
-    "components":{
-      "material-design-lite": "https://github.com/google/material-design-lite/blob/mdl-1.x/LICENSE",
-      "highlight.js": "https://github.com/isagalaev/highlight.js/blob/master/LICENSE",
-      "emojione.js": "https://raw.githubusercontent.com/emojione/emojione/master/LICENSE.md"
+    "components": {
+      "google/material-design-lite": "https://github.com/google/material-design-lite/blob/master/LICENSE",
+      "isagalaev/highlight.js": "https://github.com/isagalaev/highlight.js/blob/master/LICENSE",
+      "emojione/emojione": "https://github.com/emojione/emojione/blob/master/LICENSE.md",
+      "GoogleChrome/dialog-polyfill": "https://github.com/GoogleChrome/dialog-polyfill/blob/master/LICENSE",
+      "wilddeer/stickyfill": "https://github.com/wilddeer/stickyfill/blob/master/LICENSE"
     }
   },
   "features": {
@@ -42,9 +44,11 @@
 
     "website-index": "website/index.twig",
     "website-post-list": "website/post-list.twig",
+    "website-post-list-empty": "website/post-list-empty.twig",
     "website-post-view": "website/post-view.twig",
     "website-user": "website/user.twig",
 
+    "error-400": "error/400.twig",
     "error-401": "error/401.twig",
     "error-403": "error/403.twig",
     "error-404": "error/404.twig",

@@ -1,20 +1,20 @@
 {% extends 'admin-layout.twig' %}
 
-{% block title %}Error 500: Internal Server Error - {{ site_title|default('Thomas Admin') }}{% endblock %}
+{% block title %}Error 400: Bad Request - {{ site_title|default('Thomas Admin') }}{% endblock %}
 
 {% block header %}
     <div class="mdl-layout__header-row">
         <button class="mdl-button mdl-js-button mdl-button--icon" onclick="location.href=history.back()">
             <i class="material-icons">keyboard_arrow_left</i>
         </button>
-        <span class="mdl-layout-title">Error 500</span>
+        <span class="mdl-layout-title">Error 400</span>
     </div>
 {% endblock %}
 
 {% block content %}
     <div class="mdl-grid">
         <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col">
-            <h3 class="page-header">Internal Server Error!</h3>
+            <h3 class="page-header">Bad Request!</h3>
             <div class="dump">
                 <pre>{{ exception }}</pre>
             </div>

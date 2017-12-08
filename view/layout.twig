@@ -5,7 +5,6 @@
  # @license   https://opensource.org/licenses/MIT The MIT License (MIT)
  # @link      http://www.gixx-web.com
  #}
-{% import '@WebHemi/macros/renderForm.twig' as _FORM %}
 <!DOCTYPE html>
 <html lang="{{ application.language|default('en') }}">
     <head>
@@ -74,7 +73,7 @@
                         <h2>{{ 'Categories'|t }}</h2>
                         <ul>
                             {% for category in getCategories() %}
-                                <li><a class="category category-{{ category.name }}{% if activeMenu == category.name %} current{% endif %}" href="{{ category.path }}/{{ category.name }}">{{ category.title }}</a></li>
+                                <li><a class="category category-{{ category.name }}{% if 'Categories' == page.type|default('') and activeMenu == category.name %} current{% endif %}" href="{{ category.path }}/{{ category.name }}/index.html">{{ category.title }}</a></li>
                             {% endfor %}
                         </ul>
                     </section>
@@ -87,7 +86,7 @@
                         <h2>{{ "Tags"|t }}</h2>
                         <ul>
                             {% for tag in tags %}
-                                <li><a class="tag tag-{{ tag.name }}{% if activeMenu == tag.name %} current{% endif %}" href="{{ tag.path }}/{{ tag.name }}">{{ tag.title }}</a></li>
+                                <li><a class="tag tag-{{ tag.name }}{% if 'Tags' == page.type|default('') and activeMenu == tag.name %} current{% endif %}" href="{{ tag.path }}/{{ tag.name }}/index.html">{{ tag.title }}</a></li>
                             {% endfor %}
                         </ul>
                     </section>
@@ -101,7 +100,7 @@
                         <h2>{{ 'Archive'|t }}</h2>
                         <ul>
                             {% for date in dates %}
-                                <li><a class="date date-{{ date.name }}{% if activeMenu == date.name %} current{% endif %}" href="{{ date.path }}/{{ date.name }}">{{ date.dateTime.format('Y4B') }}</a></li>
+                                <li><a class="date date-{{ date.name }}{% if 'Archive' == page.type|default('') and activeMenu == date.name %} current{% endif %}" href="{{ date.path }}/{{ date.name }}/index.html">{{ date.dateTime.format('Y4B') }}</a></li>
                             {% endfor %}
                         </ul>
                     </section>
