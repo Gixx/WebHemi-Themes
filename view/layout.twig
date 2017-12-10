@@ -46,6 +46,16 @@
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/site.css" />
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/library/emojione.min.css" />
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/library/highlight.github.css" />
+        <script type="application/javascript">
+            if (!(window.CSS && window.CSS.supports && window.CSS.supports('--fake-var', 0))) {
+                {% if defined('@Theme/error/not-supported-' ~ application.language|default('en') ~ '.html') %}
+                    {% set redirect = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-' ~ application.language|default('en') ~ '.html'  %}
+                {% else %}
+                    {% set redirect = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-en.html'  %}
+                {% endif %}
+                location.href = '{{ redirect }}';
+            }
+        </script>
     </head>
     <body {% block additionalBodyAttributes %}{% endblock %}>
         <header>
