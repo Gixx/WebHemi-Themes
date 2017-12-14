@@ -37,7 +37,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.components.ext.min.css" />
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.color.theme.blue-grey-red.min.css" />
-        {% block additionalcss %}
+        {% block additionalHeadElements %}
             {# add or include <link rel="stylesheet"> or <style> elements. #}
         {% endblock %}
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/admin.css" />
@@ -125,7 +125,7 @@
         <script type="application/javascript" src="{{ application.resourcePath }}/js/material.design.lite/material.components.ext.min.js"></script>
         <script type="application/javascript" src="{{ application.resourcePath }}/js/library/dialog-polyfill.min.js"></script>
         <script type="application/javascript" src="{{ application.resourcePath }}/js/Thomas.js"></script>
-        {% block additionaljs %}
+        {% block additionalFootContent %}
             {# add or include <script> elements. #}
         {% endblock %}
     </body>

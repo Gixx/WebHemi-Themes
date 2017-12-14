@@ -25,8 +25,7 @@
                 <h1>{{ 'Error 403: Forbidden'|t }}</h1>
             </header>
 
-            {% set websiteLink = '<a href="http://' ~ application.domain ~ '">' ~ application.domain ~ '</a>' %}
-            {% set currentLink = application.domain ~ application.currentUri %}
+            {% set websiteLink = '<a href="' ~ application.domainAddress ~ '">' ~ application.domainName ~ '</a>' %}
             <div class="body">
                 {{  '<p>Sorry! You don\'t have access permissions for this page:</p>
                 <blockquote><p>%s</p></blockquote>
@@ -36,7 +35,7 @@
                     <li>If you typed the page address in the Address bar, make sure that it is spelled correctly.</li>
                     <li>Open the %s home page, and then look for links to the information you want.</li>
                     <li>Click the Back button to try another link.</li>
-                </ul>'|t(currentLink, websiteLink)|raw }}
+                </ul>'|t(application.address, websiteLink)|raw }}
             </div>
         </article>
     </section>

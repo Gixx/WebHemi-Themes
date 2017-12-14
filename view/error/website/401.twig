@@ -25,16 +25,16 @@
                 <h1>{{ 'Error 401: Unauthorized'|t }}</h1>
             </header>
 
-            {% set websiteLink = '<a href="http://' ~ application.domain ~ '">' ~ application.domain ~ '</a>' %}
+            {% set websiteLink = '<a href="' ~ application.domainAddress ~ '">' ~ application.domainName ~ '</a>' %}
             <div class="body">
-                {{ '<p>You have attempted to access a page for which you are not authorized. This page will automatically redirect to the %s Home Page in 10 seconds or click the following link to manually redirect this page to %s.</p>'|t(application.domain, websiteLink)|raw }}
+                {{ '<p>You have attempted to access a page for which you are not authorized. This page will automatically redirect to the %s Home Page in 10 seconds or click the following link to manually redirect this page to %s.</p>'|t(application.domainName, websiteLink)|raw }}
             </div>
         </article>
     </section>
 {% endblock %}
 
-{% block additionaljs %}
+{% block additionalFootContent %}
     <script type="application/javascript">
-        setTimeout(function(){ location.href='http://{{ application.domain }}'; }, 10000);
+        setTimeout(function(){ location.href='{{ application.domainAddress }}'; }, 10000);
     </script>
 {% endblock %}

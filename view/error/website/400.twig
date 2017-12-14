@@ -25,7 +25,7 @@
                 <h1>{{ 'Error 400: Bad Request'|t }}</h1>
             </header>
 
-            {% set websiteLink = '<a href="http://' ~ application.domain ~ '">' ~ application.domain ~ '</a>' %}
+            {% set websiteLink = '<a href="' ~ application.domainAddress ~ '">' ~ application.domainName ~ '</a>' %}
             <div class="body">
                 {{ '<p>The link that you try to visit seems to be broken or invalid.</p>
                 <p>Please try the following:</p>

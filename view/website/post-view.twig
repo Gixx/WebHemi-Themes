@@ -17,6 +17,37 @@
 
 {% block additionalBodyAttributes %}class="blog-post"{% endblock %}
 
+{% block additionalHeadElements %}
+    <meta property="og:locale" content="{{ application.locale|default('en_GB') }}" />
+    <meta property="og:site_name" content="Thomas von Fürstenfeld" />
+    <meta property="og:title" content="{{ blogPost.title }}"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:description" content="{{ blogPost.contentLead }}"/>
+    <meta property="og:url" content="{{ application.address }}" />
+    {% if blogPost.illustration is not empty %}
+    <meta property="og:image" content="{{ application.domainAddress ~ blogPost.illustration }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    {% endif %}
+    {% if blogPost.author.fb_username is not empty %}
+    <meta property="fb:admins" content="{{ blogPost.author.fb_username }}" />
+    {% endif %}
+    {% if blogPost.author.fb_profile is not empty %}
+    <meta property="article:author" content="{{ blogPost.author.fb_profile }}" />
+    {% endif %}
+
+    <meta name="twitter:title" content="{{ blogPost.title }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {% if blogPost.author.twitter_id is not empty %}
+    <meta name="twitter:creator" content="@{{ blogPost.author.twitter_id }}" />
+    {% endif %}
+    <meta name="twitter:description" content="{{ blogPost.contentLead }}" />
+    {% if blogPost.illustration is not empty %}
+    <meta name="twitter:image" content="{{ application.domainAddress ~ blogPost.illustration }}" />
+    {% endif %}
+
+{% endblock %}
+
 {% block header %}
     <div class="container">
         <a href="#" class="nav material-icons">menu</a>

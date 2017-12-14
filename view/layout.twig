@@ -38,8 +38,8 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ application.resourcePath }}/img/icons/thomas/favicon-16x16.png">
         <link rel="manifest" href="{{ application.resourcePath }}/img/icons/thomas/manifest.json">
         <meta name="msapplication-config" content="{{ application.resourcePath }}/img/icons/thomas/browserconfig.xml" />
-        {% block additionalcss %}
-            {# add or include <link rel="stylesheet"> or <style> elements. #}
+        {% block additionalHeadElements %}
+            {# add or include <link rel="stylesheet"> or <style> or <meta> elements. #}
         {% endblock %}
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i|Libre+Baskerville:400,700|Roboto+Mono:300,400,700" />
@@ -48,8 +48,8 @@
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/library/highlight.github.css" />
         <script type="application/javascript">
             if (!(window.CSS && window.CSS.supports && window.CSS.supports('--fake-var', 0))) {
-                {% if defined('@Theme/error/not-supported-' ~ application.language|default('en') ~ '.html') %}
-                    {% set redirect = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-' ~ application.language|default('en') ~ '.html'  %}
+                {% if defined('@Theme/error/not-supported-' ~ application.language ~ '.html') %}
+                    {% set redirect = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-' ~ application.language ~ '.html'  %}
                 {% else %}
                     {% set redirect = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-en.html'  %}
                 {% endif %}
@@ -135,7 +135,7 @@
         {% block dialog %}
             {# add or include <dialog> elements. #}
         {% endblock %}
-        {% block additionaljs %}
+        {% block additionalFootContent %}
             {# add or include <script> elements. #}
         {% endblock %}
         <script type="application/javascript" src="{{ application.resourcePath }}/js/library/stickyfill.min.js"></script>

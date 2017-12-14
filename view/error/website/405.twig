@@ -25,7 +25,7 @@
                 <h1>{{ 'Error 405: Method Not Allowed'|t }}</h1>
             </header>
 
-            {% set websiteLink = '<a href="http://' ~ application.domain ~ '">' ~ application.domain ~ '</a>' %}
+            {% set websiteLink = '<a href="' ~ application.domainAddress ~ '">' ~ application.domainName ~ '</a>' %}
             <div class="body">
                 {{ '<p>The method you are using to access the page is not allowed.</p>
                 <p>Please try the following:</p>
