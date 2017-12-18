@@ -27,18 +27,18 @@
         {% for blogPost in blogPosts %}
             <article>
                 <header>
-                    {% set avatar = blogPost.author.avatar %}
+                    {% set avatar = blogPost.author.meta.avatar %}
                     {% if avatar is empty %}
                         {% set avatar =  application.resourcePath ~ '/img/avatars/a_man.svg' %}
                     {% endif %}
-                    <a class="avatar" href="{{ blogPost.author.url }}/index.html" alt="{{ blogPost.author.name }}"><img src="{{ avatar }}"></a>
+                    <a class="avatar" href="{{ blogPost.author.url }}/index.html" alt="{{ blogPost.author.meta.displayName|default(blogPost.author.userName) }}"><img src="{{ avatar }}"></a>
                     <p class="meta">
 
-                        {% set authorLink = '<a href="' ~ blogPost.author.url ~ '/index.html" alt="' ~ blogPost.author.name ~ '">' ~ blogPost.author.name ~ '</a>' %}
+                        {% set authorLink = '<a href="' ~ blogPost.author.url ~ '/index.html" alt="' ~ blogPost.author.meta.displayName|default(blogPost.author.userName) ~ '">' ~ blogPost.author.meta.displayName|default(blogPost.author.userName) ~ '</a>' %}
                         <span class="user">{{ 'Author: %s'|t(authorLink)|raw }}</span>
 
-                        {% if blogPost.author.mood is not empty %}
-                            <span class="mood">:{{ blogPost.author.mood[1]|default('slight_smile') }}: {{ blogPost.author.mood[0] }}</span>
+                        {% if blogPost.meta.authorMoodKey is not empty %}
+                            <span class="mood">:{{ blogPost.meta.authorMoodKey }}: {{ blogPost.meta.authorMoodName|t }}</span>
                         {% endif %}
                         <br>
 
@@ -51,13 +51,13 @@
                         {% endif %}
                         <span class="date">{{ 'Published at: %s'|t(publishDate)|raw }},</span>
 
-                        {% if blogPost.location is not empty %}
-                            <span class="location">{{ 'In the area of %s'|t(blogPost.location)|raw }}</span>
+                        {% if blogPost.meta.location is not empty %}
+                            <span class="location">{{ 'In the area of %s'|t(blogPost.meta.location)|raw }}</span>
                         {% endif %}
                         <br>
 
                         <span class="category">
-                            {% set categoryLink = '<a href="' ~ blogPost.category.url ~'">' ~ blogPost.category.title ~ '</a>' %}
+                            {% set categoryLink = '<a href="' ~ blogPost.category.url ~'/index.html">' ~ blogPost.category.title ~ '</a>' %}
                             {{ 'In category of %s'|t(categoryLink)|raw }}
                             </span>
 
@@ -65,7 +65,7 @@
                             {% set tagList = '' %}
                             <span class="taglist">,
                                 {% for tag in blogPost.tags %}
-                                    {% set tagList = tagList ~ '<a href="' ~ tag.url ~ '">#' ~ tag.title ~ '</a> ' %}
+                                    {% set tagList = tagList ~ '<a href="' ~ tag.url ~ '/index.html">#' ~ tag.title ~ '</a> ' %}
                                 {% endfor %}
                                 {{ 'with tags: %s'|t(tagList)|raw }}
                             </span>
@@ -78,8 +78,8 @@
                 {% endif %}
 
                 <div class="preview">
-                    {% if blogPost.illustration is not empty %}
-                        <a href="{{ blogPost.path }}"><img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}"  title="{{ blogPost.title }}"></a>
+                    {% if blogPost.meta.illustration is not empty %}
+                        <a href="{{ blogPost.path }}"><img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.meta.illustration }}"  title="{{ blogPost.title }}"></a>
                     {% endif %}
                     <h1><a href="{{ blogPost.path }}" title="{{ blogPost.title }}">{{ blogPost.title }}</a></h1>
                     <p>{{ blogPost.contentLead }}</p>

@@ -7,45 +7,40 @@
  #}
 {% extends "layout.twig" %}
 
-{% block title %}
-    {% if blogPost.title is empty %}
-        {{ parent() }}
-    {% else %}
-        {{ blogPost.title }} - {{ parent() }}
-    {% endif %}
-{% endblock %}
+{% block title %}{% if blogPost.title is not empty %}{{ blogPost.title }} - {% endif %}Thomas von Fürstenfeld{% endblock %}
 
 {% block additionalBodyAttributes %}class="blog-post"{% endblock %}
 
 {% block additionalHeadElements %}
+    <meta name="author" content="{{ blogPost.author.meta.displayName|default(blogPost.author.userName) }}" />
+    <meta name="description" content="{{ blogPost.meta.description|default(application.description) }}" />
+    <meta name="subject" content="{{ blogPost.meta.subject|default(application.subject) }}" />
+    <meta name="keywords" content="{{ blogPost.meta.keywords|default(application.keywords) }}" />
+    <!-- facebook share -->
     <meta property="og:locale" content="{{ application.locale|default('en_GB') }}" />
     <meta property="og:site_name" content="Thomas von Fürstenfeld" />
-    <meta property="og:title" content="{{ blogPost.title }}"/>
+    <meta property="og:title" content="{% if blogPost.title is not empty %}{{ blogPost.title }} - {% endif %}Thomas von Fürstenfeld"/>
     <meta property="og:type" content="article"/>
     <meta property="og:description" content="{{ blogPost.contentLead }}"/>
     <meta property="og:url" content="{{ application.address }}" />
-    {% if blogPost.illustration is not empty %}
-    <meta property="og:image" content="{{ application.domainAddress ~ blogPost.illustration }}" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="1200" />
+    {% if blogPost.meta.share_image is not empty %}
+    <meta property="og:image" content="{{ application.domainAddress ~ blogPost.meta.share_image }}" />
+    <meta property="og:image:width" content="600" />
+    <meta property="og:image:height" content="600" />
     {% endif %}
-    {% if blogPost.author.fb_username is not empty %}
-    <meta property="fb:admins" content="{{ blogPost.author.fb_username }}" />
+    {% if blogPost.author.meta.socialNetworks.Facebook is not empty %}
+    <meta property="article:author" content="{{ blogPost.author.meta.socialNetworks.Facebook }}" />
     {% endif %}
-    {% if blogPost.author.fb_profile is not empty %}
-    <meta property="article:author" content="{{ blogPost.author.fb_profile }}" />
-    {% endif %}
-
+    <!-- twitter share -->
     <meta name="twitter:title" content="{{ blogPost.title }}" />
     <meta name="twitter:card" content="summary_large_image" />
     {% if blogPost.author.twitter_id is not empty %}
     <meta name="twitter:creator" content="@{{ blogPost.author.twitter_id }}" />
     {% endif %}
     <meta name="twitter:description" content="{{ blogPost.contentLead }}" />
-    {% if blogPost.illustration is not empty %}
-    <meta name="twitter:image" content="{{ application.domainAddress ~ blogPost.illustration }}" />
+    {% if blogPost.meta.share_image is not empty %}
+    <meta name="twitter:image" content="{{ application.domainAddress ~ blogPost.meta.share_image }}" />
     {% endif %}
-
 {% endblock %}
 
 {% block header %}
@@ -85,9 +80,9 @@
             </p>
             <p class="lead">
                 {{ blogPost.contentLead }}
-            {% if blogPost.illustration is not empty %}
+            {% if blogPost.meta.illustration is not empty %}
                 <br>
-                <img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.illustration }}">
+                <img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.meta.illustration }}">
             {% endif %}
             </p>
 
@@ -95,17 +90,19 @@
                 {{ blogPost.contentBody|markdown }}
             </div>
 
+            {% if blogPost.author.meta.introduction is not empty %}
             <div class="footer">
-                {% set avatar = blogPost.author.avatar %}
+                {% set avatar = blogPost.author.meta.avatar %}
                 {% if avatar is empty %}
                     {% set avatar =  application.resourcePath ~ '/img/avatars/a_man.svg' %}
                 {% endif %}
-                <a class="author" href="{{ blogPost.author.url }}/index.html" alt="{{ blogPost.author.name }}"><img src="{{ avatar }}"></a>
+                <a class="author" href="{{ blogPost.author.url }}/index.html" alt="{{ blogPost.author.meta.displayName|default(blogPost.author.userName) }}"><img src="{{ avatar }}"></a>
                 <h5>{{ 'About the author'|t }}</h5>
                 <div class="details">
-                    {{ dump(blogPost.author) }}
+                    {{ blogPost.author.meta.introduction|markdown }}
                 </div>
             </div>
+            {% endif %}
         </article>
     </section>
 {% endblock %}

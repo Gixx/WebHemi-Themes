@@ -571,12 +571,50 @@ body > main > section.post > article > div.body blockquote p {
     text-align: left;
 }
 
+body.blog-post > main > section.post > article > div.body figure {
+    margin: 1rem 0;
+    padding: 0;
+    text-align: center;
+}
+
+body.blog-post > main > section.post > article > div.body figure img {
+    display: inline-block;
+}
+
+body.blog-post > main > section.post > article > div.body figure figcaption {
+    width: 100%;
+    line-height: var(--size-large-line);
+    font-weight: 100;
+    font-style: italic;
+    font-size: var(--size-small);
+}
+
 body > main > section.post > article > div.body li {
     margin-bottom: 0.2rem;
 }
 
 body.blog-post > main > section.post > article > div.body li p {
     text-indent: 0;
+}
+
+/**
+ * User list cover
+ */
+body.user-list > div.cover {
+    grid-area: cover;
+    background-size: cover;
+    background-position: 0 50%;
+    margin-top: -10px;
+    margin-bottom: 43px;
+    position: relative;
+}
+
+/**
+ * User list info
+ */
+body.user-list > div.info {
+    grid-area: info;
+    background: red;
 }
 
 /**
@@ -800,7 +838,7 @@ body > footer {
  */
 @media (min-width: 64.0626em)
 {
-    body:not(.blog-post) {
+    body {
         grid-template-columns: auto 18rem 50rem 31rem auto;
         grid-template-rows: var(--header-height) auto 0;
         grid-template-areas:
@@ -816,6 +854,16 @@ body > footer {
                 "header header header header"
                 ". nav main ."
                 ". . footer .";
+    }
+
+    body.user-list {
+        grid-template-columns: auto 34rem 50rem 15rem auto;
+        grid-template-rows: var(--header-height) 31.5rem auto 5rem;
+        grid-template-areas:
+                "header header header header header"
+                ". cover cover . . "
+                ". nav main . ."
+                ". . footer . .";
     }
 
     /* HEADER */
@@ -838,6 +886,55 @@ body > footer {
         display: none;
     }
 
+    /**
+     * User list cover
+     */
+    body.user-list > div.cover > img {
+        display: block;
+        position: absolute;
+        z-index: 800;
+        bottom: -22px;
+        left: 1.5rem;
+        background-color: var(--thomasbook-white);
+        border: 0.1rem solid var(--thomasbook-grey);
+        padding: 0.4rem;
+        margin: 0;
+        width: 16.7rem;
+        height: 16.7rem;
+    }
+
+    body.user-list > div.cover > div.navbar {
+        background-color: var(--thomasbook-white);
+        border: 0.1rem solid var(--thomasbook-grey);
+        border-radius: 0 0  0.3rem 0.3rem;
+        margin-bottom: 0;
+        padding: 1.2rem;
+        display: block;
+        position: absolute;
+        z-index: 700;
+        left: 0;
+        bottom: -4.3rem;
+        height: 4.3rem;
+        width: 100%;
+    }
+
+    body.user-list > div.cover > h1 {
+        display: block;
+        position: absolute;
+        z-index: 750;
+        bottom: 0;
+        left: 0;
+        height: 6rem;
+        width: 100%;
+        padding: 1rem 0 0 20rem;
+        margin: 0;
+        font-weight: 100;
+        color: var(--thomasbook-white);
+        font-family: var(--font-sans-serif);
+        line-height: 5rem;
+        background: linear-gradient(to bottom, rgba(76,76,76,0) 0%,rgba(19,19,19,0.5) 100%);
+    }
+
     /* MENU */
     body > nav > .container {
         margin-top: -10rem;
@@ -847,8 +944,20 @@ body > footer {
         height: min-content;
     }
 
+    body.user-list > nav > .container {
+        margin-top: 0;
+    }
+
     body > nav > .container > section {
         margin-bottom: 0.5rem;
+    }
+
+    body > nav > .info > article {
+        background-color: var(--thomasbook-white);
+        border: 0.1rem solid var(--thomasbook-grey);
+        border-radius: 0.3rem;
+        margin-bottom: 1rem;
+        padding: 1.2rem;
     }
 
     /* CONTENT */
@@ -957,6 +1066,10 @@ body > footer {
         padding-right: 10rem;
     }
 
+    body.blog-post > main > section.post > article > div.body figure {
+        padding-right: 10rem;
+    }
+
     body.blog-post > main > section.post > article > div.body blockquote {
         padding: 0 0 0 10rem;
         margin: 0 0 0 -10rem;
@@ -1050,6 +1163,10 @@ body > footer {
         z-index: 100;
         top: 6rem;
         height: 0;
+    }
+
+    body.user-list > footer .container {
+        margin-top: 0;
     }
 
     body > footer .container p {

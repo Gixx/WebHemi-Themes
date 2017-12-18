@@ -1,1 +1,1 @@
-{% extends selected_module == 'Admin' ? 'error/admin/400.twig' : 'error/website/400.twig' %}
+{% extends application.selectedModule == 'Admin' ? 'error/admin/400.twig' : 'error/website/400.twig' %}

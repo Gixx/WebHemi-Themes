@@ -8,20 +8,34 @@
 <!DOCTYPE html>
 <html lang="{{ application.language|default('en') }}">
     <head>
-        <base href="{%  if application.baseUri != '/' %} {{ application.baseUri }}{% endif %}/" />
+        <base href="{%  if application.baseUri != '/' %}{{ application.baseUri }}{% endif %}/" />
+        <title>{% block title %}{% if page.type is not empty %}{{ page.type|t }}: {% endif %}{% if page.title is not empty %}{{ page.title }} - {% endif %}Thomas von Fürstenfeld{% endblock %}</title>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0" />
-        <meta name="author" content="{{ application.author|default('') }}" />
-        <meta name="description" content="{{ application.description|default('') }}" />
-        <meta name="subject" content="{{ application.subject|default('') }}" />
         <meta name="language" content="{{ application.language|default('en') }}" />
-        <meta name="copyright" content="{{ application.copyright|default('') }}">
         <meta name='robots' content='index,follow' />
         <meta name="theme-color" content="#3B5999">
-        <title>{% block title %}Thomas von Fürstenfeld{% endblock %}</title>
+        <meta name="copyright" content="{{ application.copyright|default('') }}">
+        {% block additionalHeadElements %}
+            {# add or include <link> or <style> or <meta> elements. #}
+            <meta name="description" content="{{ application.description }}" />
+            <meta name="subject" content="{{ application.subject }}" />
+            <meta name="keywords" content="{{ application.keywords }}" />
+            <!-- facebook share -->
+            <meta property="og:locale" content="{{ application.locale|default('en_GB') }}" />
+            <meta property="og:site_name" content="Thomas von Fürstenfeld" />
+            <meta property="og:title" content="{% if page.type is not empty %}{{ page.type|t }}: {% endif %}{% if page.title is not empty %}{{ page.title }} - {% endif %}Thomas von Fürstenfeld" />
+            <meta property="og:type" content="article"/>
+            <meta property="og:description" content="{{ application.description }}"/>
+            <meta property="og:url" content="{{ application.address }}" />
+            <!-- twitter share -->
+            <meta name="twitter:title" content="{% if page.type is not empty %}{{ page.type|t }}: {% endif %}{% if page.title is not empty %}{{ page.title }} - {% endif %}Thomas von Fürstenfeld" />
+            <meta name="twitter:card" content="summary" />
+            <meta name="twitter:description" content="{{ application.description }}" />
+        {% endblock %}
         <link rel=”me” type="text/html" href=”{{ application.authorLink|default('') }}” />
         <link rel="apple-touch-icon" sizes="57x57" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="{{ application.resourcePath }}/img/icons/thomas/apple-icon-60x60.png">
@@ -38,9 +52,6 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ application.resourcePath }}/img/icons/thomas/favicon-16x16.png">
         <link rel="manifest" href="{{ application.resourcePath }}/img/icons/thomas/manifest.json">
         <meta name="msapplication-config" content="{{ application.resourcePath }}/img/icons/thomas/browserconfig.xml" />
-        {% block additionalHeadElements %}
-            {# add or include <link rel="stylesheet"> or <style> or <meta> elements. #}
-        {% endblock %}
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i|Libre+Baskerville:400,700|Roboto+Mono:300,400,700" />
         <link rel="stylesheet" href="{{ application.resourcePath }}/css/site.css" />
@@ -49,11 +60,11 @@
         <script type="application/javascript">
             if (!(window.CSS && window.CSS.supports && window.CSS.supports('--fake-var', 0))) {
                 {% if defined('@Theme/error/not-supported-' ~ application.language ~ '.html') %}
-                    {% set redirect = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-' ~ application.language ~ '.html'  %}
+                    {% set notSupportedLink = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-' ~ application.language ~ '.html'  %}
                 {% else %}
-                    {% set redirect = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-en.html'  %}
+                    {% set notSupportedLink = application.resourcePath|replace({'static' : 'view'}) ~ '/error/not-supported-en.html'  %}
                 {% endif %}
-                location.href = '{{ redirect }}';
+                location.href = '{{ notSupportedLink }}';
             }
         </script>
     </head>
