@@ -2,18 +2,18 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <base href="{%  if application.baseUri != '/' %} {{ application.baseUri }}{% endif %}/" />
+        <base href="{%  if application.baseUri != '/' %} {{ application.baseUri }}{% endif %}/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=0">
         <title>{{ site_title|default('Thomas Admin') }}</title>
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.min.css" />
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.font.css" />
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.components.ext.min.css" />
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.color.theme.blue-grey-red.min.css" />
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/login.css" />
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.min.css">
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.font.css">
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.components.ext.min.css">
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.color.theme.blue-grey-red.min.css">
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/login.css">
     </head>
     <body data-background-set-speed="4000" data-background-set-source="{{ application.resourcePath }}/img/login" data-background-set="7-themes-com-7028725-green-foliage-branches.jpg,7-themes-com-7033392-autumn-red-leaves.jpg,7-themes-com-7038256-autumn-colors-leaves.jpg,7-themes-com-7041410-magnolia-flowers.jpg,7-themes-com-7041505-tree-red-leaves.jpg">
         <main id="loginForm">

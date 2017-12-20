@@ -31,10 +31,10 @@
                     {% if avatar is empty %}
                         {% set avatar =  application.resourcePath ~ '/img/avatars/a_man.svg' %}
                     {% endif %}
-                    <a class="avatar" href="{{ blogPost.author.url }}/index.html" alt="{{ blogPost.author.meta.displayName|default(blogPost.author.userName) }}"><img src="{{ avatar }}"></a>
+                    <a class="avatar" href="{{ blogPost.author.url }}/index.html"><img src="{{ avatar }}" alt="{{ blogPost.author.meta.displayName|default(blogPost.author.userName) }}"></a>
                     <p class="meta">
 
-                        {% set authorLink = '<a href="' ~ blogPost.author.url ~ '/index.html" alt="' ~ blogPost.author.meta.displayName|default(blogPost.author.userName) ~ '">' ~ blogPost.author.meta.displayName|default(blogPost.author.userName) ~ '</a>' %}
+                        {% set authorLink = '<a href="' ~ blogPost.author.url ~ '/index.html">' ~ blogPost.author.meta.displayName|default(blogPost.author.userName) ~ '</a>' %}
                         <span class="user">{{ 'Author: %s'|t(authorLink)|raw }}</span>
 
                         {% if blogPost.meta.authorMoodKey is not empty %}
@@ -79,7 +79,7 @@
 
                 <div class="preview">
                     {% if blogPost.meta.illustration is not empty %}
-                        <a href="{{ blogPost.path }}"><img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.meta.illustration }}"  title="{{ blogPost.title }}"></a>
+                        <a href="{{ blogPost.path }}"><img src="{{ application.resourcePath }}/img/post-illustration-placeholder.jpg" data-src="{{ blogPost.meta.illustration }}"  alt="{{ blogPost.title }}"></a>
                     {% endif %}
                     <h1><a href="{{ blogPost.path }}" title="{{ blogPost.title }}">{{ blogPost.title }}</a></h1>
                     <p>{{ blogPost.contentLead }}</p>

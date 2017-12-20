@@ -1,5 +1,12 @@
 # Change log
 
+## Version 1.0.0 ##
+* First production version
+* Bug fixes:
+  * Better feature detect for incompatible browsers
+  * Fix Safari desktop header and navigation position issues
+* Temporarily the admin is turned off due it will get the Material-less layout (for form elements will still use Material Design Lite)
+
 ## Version 0.0.5 ##
 * Refactor Form rendering and partial templates.
 * Add separated support for MDL Checkbox (`inputCheckboxElement.twig`) and MDL Switch (`inputSwitchElement.twig`).

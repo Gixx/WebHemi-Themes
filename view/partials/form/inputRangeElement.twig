@@ -4,7 +4,7 @@
         <label for="{{ formElement.getId() }}" class="mdl-slider__label"><span>{{ formElement.getLabel() }}</span></label>
         {% set value = formElement.getValues() %}
         {% set range = formElement.getValueRange() %}
-        <input class="mdl-slider mdl-js-slider" type="range" id="{{ formElement.getId() }}" name="{{ formElement.getName() }}" value="{{ value[0] }}"{% if range[0] %} min="{{ range[0] }}"{% endif %}{% if range[1] %} max="{{ range[1] }}"{% endif %}{% if range[2] %} step="{{ range[2] }}"{% endif %} />
+        <input class="mdl-slider mdl-js-slider" type="range" id="{{ formElement.getId() }}" name="{{ formElement.getName() }}" value="{{ value[0] }}"{% if range[0] %} min="{{ range[0] }}"{% endif %}{% if range[1] %} max="{{ range[1] }}"{% endif %}{% if range[2] %} step="{{ range[2] }}"{% endif %}>
     </div>
     {% if formElement.getErrors() %}
         {{ _FORM.renderErrorBlock(formElement.getErrors()) }}

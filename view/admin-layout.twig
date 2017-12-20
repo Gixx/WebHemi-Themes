@@ -8,8 +8,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <base href="{% if application.baseUri != '/' %}{{ application.baseUri }}{% endif %}/" />
-        <meta charset="utf-8" />
+        <base href="{% if application.baseUri != '/' %}{{ application.baseUri }}{% endif %}/">
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,15 +32,15 @@
 
         <link rel="shortcut icon" href="{{ application.resourcePath }}/img/favicon.png">
 
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.min.css" />
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.font.css" />
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.min.css">
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.font.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.components.ext.min.css" />
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.color.theme.blue-grey-red.min.css" />
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.components.ext.min.css">
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/material.design.lite/material.color.theme.blue-grey-red.min.css">
         {% block additionalHeadElements %}
             {# add or include <link rel="stylesheet"> or <style> elements. #}
         {% endblock %}
-        <link rel="stylesheet" href="{{ application.resourcePath }}/css/admin.css" />
+        <link rel="stylesheet" href="{{ application.resourcePath }}/css/admin.css">
     </head>
     <body>
         <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">

@@ -11,8 +11,8 @@
                 <div class="toggle-list">
                     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="{{ formElement.getId() ~ '-' ~ option }}">
                         <span class="mdl-switch__label">{{ label }}</span>
-                        <input type="hidden" name="{{ formElement.getName() }}[{{ option }}]" value="0" />
-                        <input type="checkbox" name="{{ formElement.getName() }}[{{ option }}]" id="{{ formElement.getId() ~ '-' ~ option }}" class="mdl-switch__input" value="1"{% if selected %}checked="checked"{% endif %} />
+                        <input type="hidden" name="{{ formElement.getName() }}[{{ option }}]" value="0">
+                        <input type="checkbox" name="{{ formElement.getName() }}[{{ option }}]" id="{{ formElement.getId() ~ '-' ~ option }}" class="mdl-switch__input" value="1"{% if selected %}checked="checked"{% endif %}>
                     </label>
                 </div>
             {% endfor %}
@@ -21,7 +21,7 @@
         {% if options.addSelectAll|default(false) %}
         <div class="select_all">
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" id="{{ formElement.getId() }}-select-all" for="{{ formElement.getId() }}-select-all-check">
-                <input type="checkbox" name="{{ formElement.getName() }}[all]" id="{{ formElement.getId() }}-select-all-check" class="mdl-switch__input" value="1" />
+                <input type="checkbox" name="{{ formElement.getName() }}[all]" id="{{ formElement.getId() }}-select-all-check" class="mdl-switch__input" value="1">
                 <span class="mdl-switch__label">Select all / none</span>
             </label>
         </div>
@@ -61,8 +61,8 @@
     {% else %}
         {% set value = formElement.getValues() %}
         <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="{{ formElement.getId() }}">
-            <input type="hidden" name="{{ formElement.getName() }}" value="0" />
-            <input type="checkbox" name="{{ formElement.getName() }}" id="{{ formElement.getId() }}" class="mdl-switch__input" value="1"{% if value[0] %} checked="checked"{% endif %} />
+            <input type="hidden" name="{{ formElement.getName() }}" value="0">
+            <input type="checkbox" name="{{ formElement.getName() }}" id="{{ formElement.getId() }}" class="mdl-switch__input" value="1"{% if value[0] %} checked="checked"{% endif %}>
             <span class="mdl-switch__label">{{ formElement.getLabel() }}</span>
         </label>
     {% endif %}

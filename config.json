@@ -3,7 +3,7 @@
     "name": "thomas",
     "title": "Thomas Theme",
     "description": "A complete Website / Admin / Admin Login eyecandy, responsive theme for the WebHemi application.",
-    "version": "0.0.3",
+    "version": "1.0.0",
     "author": "Gabor Ivan",
     "homepage": "https://github.com/Gixx/WebHemi-Themes/tree/Thomas",
     "preview": "img/preview.png",
@@ -18,7 +18,7 @@
     }
   },
   "features": {
-    "admin_support": true,
+    "admin_support": false,
     "admin_login_support": true,
     "website_support": true
   },

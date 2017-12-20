@@ -247,8 +247,11 @@ body > header {
     position: fixed;
     width: 100%;
     z-index: 1000;
+    margin: 0;
+    padding: 0;
     height: var(--header-height);
     min-height: var(--header-height);
+    max-height: var(--header-height);
     color: var(--thomasbook-white);
     background-color: var(--thomasbook-blue);
     border-bottom: 0.1rem solid var(--thomasbook-dark-blue);
@@ -269,7 +272,6 @@ body > header > .container > h1 > .thomas {
     height: var(--header-height);
     letter-spacing: var(--size-letter-spacing-shrink);
     overflow: hidden;
-    vertical-align: -1.4rem;
     text-decoration: none;
     color: white;
 }
@@ -540,7 +542,7 @@ body > main > section.post > article div.table {
 
 body > main > section.post > article div.table > table {
     border-collapse: collapse;
-    border: 1px solid transparent;
+    border: 0.1rem solid transparent;
 }
 
 body > main > section.post > article div.table > table th,
@@ -604,8 +606,8 @@ body.user-list > div.cover {
     grid-area: cover;
     background-size: cover;
     background-position: 0 50%;
-    margin-top: -10px;
-    margin-bottom: 43px;
+    margin-top: -1rem;
+    margin-bottom: 4.3rem;
     position: relative;
 }
 
@@ -614,7 +616,6 @@ body.user-list > div.cover {
  */
 body.user-list > div.info {
     grid-area: info;
-    background: red;
 }
 
 /**
@@ -640,6 +641,17 @@ body > footer {
                 "footer";
     }
 
+    body.user-list {
+        grid-template-columns: 100%;
+        grid-template-rows: var(--header-height) 25rem max-content auto 5rem;
+        grid-template-areas:
+                "."
+                "cover"
+                "info"
+                "main"
+                "footer";
+    }
+
     /* HEADER */
     body > header {
         position: fixed;
@@ -657,7 +669,7 @@ body > footer {
         grid-template-rows: 100%;
         grid-template-areas:
                 "title menu";
-        grid-gap: 10px;
+        grid-gap: 1rem;
     }
 
     body > header > .container > a.nav {
@@ -696,6 +708,62 @@ body > footer {
         width: 2.2rem;
     }
 
+    /**
+     * User list cover
+     */
+    body.user-list > div.cover {
+        margin-bottom: 12rem;
+        background-color: var(--thomasbook-white);
+    }
+
+    body.user-list > div.cover > img {
+        display: block;
+        position: absolute;
+        z-index: 800;
+        left: 50%;
+        margin-top: 10rem;
+        margin-left: -5rem;
+        background-color: var(--thomasbook-white);
+        border: 0.1rem solid var(--thomasbook-grey);
+        padding: 0.4rem;
+        width: 10rem;
+        height: 10rem;
+    }
+
+    body.user-list > div.cover > div.navbar {
+        display: none;
+    }
+
+    body.user-list > div.cover > h1 {
+        position: absolute;
+        z-index: 700;
+        padding-top: 6rem;
+        display: block;
+        bottom: -11rem;
+        left: 0;
+        width: 100%;
+        background-color: var(--thomasbook-white);
+        /*border: 0.1rem solid var(--thomasbook-grey);*/
+        /*border-radius: 0 0  0.3rem 0.3rem;*/
+        font-weight: 100;
+        color: var(--thomasbook-ink);
+        font-family: var(--font-sans-serif);
+        line-height: 5rem;
+        text-align: center;
+    }
+
+    body > .info {
+        margin-top: -2rem;
+    }
+
+    body > .info > article {
+        background-color: var(--thomasbook-white);
+        border: 0 0 0.1rem 0 solid var(--thomasbook-grey);
+        border-radius: 0.3rem;
+        margin-bottom: 1rem;
+        padding: 1.2rem;
+    }
+
     /* NAVIGATION */
     body > nav {
         position: fixed;
@@ -703,7 +771,7 @@ body > footer {
         left: 0;
         overflow: auto;
         padding-top: var(--header-height);
-        z-index: 20;
+        z-index: 200;
         width: 100%;
         height: 100%;
         max-height: 100%;
@@ -804,6 +872,36 @@ body > footer {
         padding: 0;
     }
 
+    body.blog-post > main > section.post > article > div.footer {
+        display: block;
+        position: absolute;
+        width: 100%;
+        z-index: 100;
+        background: var(--thomasbook-lighter-grey);
+        border-top: 0.1rem dashed var(--thomasbook-dark-grey);
+        margin: 2rem -1.1rem -1.1rem -1.1rem;
+        padding: 1rem;
+        overflow: visible;
+    }
+
+    body.blog-post > main > section.post > article > div.footer > a.author {
+        display: block;
+        width: 10rem;
+        height: 10rem;
+        background-color: var(--thomasbook-white);
+        border: 0.1rem solid var(--thomasbook-grey);
+        margin: -4.5rem auto 0 auto;
+        padding: 0.4rem;
+    }
+
+    body.blog-post > main > section.post > article > div.footer > h5 {
+        border-bottom: 0.05rem dotted var(--thomasbook-dark-grey);
+    }
+
+    body.blog-post > main > section.post > article > div.footer > div.details {
+
+    }
+
     /* animations */
     body > nav.opening,
     body > nav.open {
@@ -858,10 +956,11 @@ body > footer {
 
     body.user-list {
         grid-template-columns: auto 34rem 50rem 15rem auto;
-        grid-template-rows: var(--header-height) 31.5rem auto 5rem;
+        grid-template-rows: var(--header-height) 31.5rem max-content auto 5rem;
         grid-template-areas:
                 "header header header header header"
                 ". cover cover . . "
+                ". info main . ."
                 ". nav main . ."
                 ". . footer . .";
     }
@@ -893,7 +992,7 @@ body > footer {
         display: block;
         position: absolute;
         z-index: 800;
-        bottom: -22px;
+        bottom: -2.2rem;
         left: 1.5rem;
         background-color: var(--thomasbook-white);
         border: 0.1rem solid var(--thomasbook-grey);
@@ -935,9 +1034,17 @@ body > footer {
         background: linear-gradient(to bottom, rgba(76,76,76,0) 0%,rgba(19,19,19,0.5) 100%);
     }
 
+    body > .info > article {
+        background-color: var(--thomasbook-white);
+        border: 0.1rem solid var(--thomasbook-grey);
+        border-radius: 0.3rem;
+        margin-bottom: 1rem;
+        padding: 1.2rem;
+    }
+
     /* MENU */
     body > nav > .container {
-        margin-top: -10rem;
+        margin-top: -5rem;
         position: sticky;
         z-index: 500;
         top: 6rem;
@@ -950,14 +1057,6 @@ body > footer {
 
     body > nav > .container > section {
         margin-bottom: 0.5rem;
-    }
-
-    body > nav > .info > article {
-        background-color: var(--thomasbook-white);
-        border: 0.1rem solid var(--thomasbook-grey);
-        border-radius: 0.3rem;
-        margin-bottom: 1rem;
-        padding: 1.2rem;
     }
 
     /* CONTENT */
@@ -1158,7 +1257,7 @@ body > footer {
     }
 
     body:not(.blog-post) > footer .container {
-        margin-top: -10rem;
+        margin-top: -6rem;
         position: sticky;
         z-index: 100;
         top: 6rem;
