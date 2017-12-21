@@ -1184,6 +1184,26 @@ body > footer {
         min-height: 5.5rem;
     }
 
+    body.blog-post > main > section.post > article > div.body blockquote.update {
+        background-color: var(--thomasbook-light-grey);
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+        border-radius: 1rem;
+        border: 0.1rem dashed var(--thomasbook-dark-grey);
+        margin: 2rem 0 2rem -10rem;
+    }
+
+    body.blog-post > main > section.post > article > div.body blockquote p {
+        text-indent: 0;
+        font-family: var(--font-serif);
+        font-size: var(--size-middle);
+        line-height: var(--size-large-line);
+        letter-spacing: var(--size-letter-spacing-expand);
+        font-style: italic;
+        padding: 0 12rem 0 2rem;
+        min-height: 10rem;
+    }
+
     body.blog-post > main > section.post > article > div.body blockquote p::before {
         content: '❝';
         width: 12rem;
@@ -1197,14 +1217,16 @@ body > footer {
         color: var(--thomasbook-blue-trans);
     }
 
-    body.blog-post > main > section.post > article > div.body blockquote p {
-        text-indent: 0;
-        font-family: var(--font-serif);
-        font-size: var(--size-middle);
-        line-height: var(--size-large-line);
-        letter-spacing: var(--size-letter-spacing-expand);
-        font-style: italic;
-        padding: 0 12rem 0 2rem;
+    body.blog-post > main > section.post > article > div.body blockquote.update p {
+        font-style: normal;
+        font-size: var(--size-normal);
+        line-height: var(--size-middle-line);
+    }
+
+    body.blog-post > main > section.post > article > div.body blockquote.update p::before {
+        content: 'update';
+        font-feature-settings: 'liga';
+        font-family: var(--font-fantasy);
     }
 
     body.blog-post > main > section.post > article > div.body hr {
