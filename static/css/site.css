@@ -148,8 +148,8 @@ a > img {
     vertical-align: top;
 }
 
-p {
-    text-align: justify;
+p, li {
+    /*text-align: justify;*/
     -moz-hyphens: auto;
     -ms-hyphens: auto;
     hyphens: auto;
@@ -261,8 +261,16 @@ body > header * {
     color: var(--thomasbook-white);
 }
 
-body > header > .container > h1,
-body > header > .container > h1 > .thomas {
+body > header > .container > h1 {
+    margin: 0;
+    padding: 0;
+    display: block;
+    width: 100%;
+    height: var(--header-height);
+}
+
+body > header > .container > h1 > a.thomas,
+body > header > .container > h1 > span {
     margin: 0;
     padding: 0;
     display: inline-block;
@@ -271,26 +279,26 @@ body > header > .container > h1 > .thomas {
     line-height: var(--header-line-height);
     height: var(--header-height);
     letter-spacing: var(--size-letter-spacing-shrink);
-    overflow: hidden;
     text-decoration: none;
     color: white;
+    vertical-align: top;
 }
-body > header > .container > h1 > .thomas {
+
+body > header > .container > h1 > a.thomas {
     text-transform: lowercase;
     background-image: url('../img/icon-invert-28x28.png');
     background-size: 2.1rem;
     background-repeat: no-repeat;
     background-position: 0 0.8rem;
-    padding-left: 0.1rem;
+    padding-left: 1.8rem;
 }
 
-body > header > .container > h1 > .thomas::first-letter {
-    padding: 0 0.6rem;
-    width: 3rem;
-    line-height: 4rem;
-    font-family: var(--font-monospace);
-    vertical-align: middle;
-    color: transparent;
+body > header > .container > h1 > a.thomas::first-letter {
+    color: rgba(0, 0, 0, 0);
+}
+
+body > header > .container > h1 > span {
+    margin-left: 0.5rem;
 }
 
 /**
@@ -395,27 +403,19 @@ body > nav .container > section a.category::before {
     content: 'dns';
 }
 
-body > nav .container > section a.category-posts::before {
+body > nav .container > section a.category-naplo::before {
     content: 'chrome_reader_mode';
 }
 
-body > nav .container > section a.category-posts.current::before {
-    color: dodgerblue;
+body > nav .container > section a.category-naplo.current::before {
+    color: forestgreen;
 }
 
-body > nav .container > section a.category-useful::before {
-    content: 'info';
+body > nav .container > section a.category-hasznos::before {
+    content: 'new_releases';
 }
 
-body > nav .container > section a.category-useful.current::before {
-    color: orangered;
-}
-
-body > nav .container > section a.category-events::before {
-    content: 'date_range';
-}
-
-body > nav .container > section a.category-events.current::before {
+body > nav .container > section a.category-hasznos.current::before {
     color: darkorange;
 }
 
@@ -695,15 +695,18 @@ body > footer {
         overflow: hidden;
     }
 
-    body > header > .container > h1 > .thomas {
+    body > header > .container > h1 > a.thomas,
+    body > header > .container > h1 > span {
         display: inline-block;
         height: var(--header-height);
         line-height: var(--header-height);
         letter-spacing: .02em;
-        text-transform: lowercase;
-        overflow: hidden;
         vertical-align: -1.4rem;
         text-decoration: none;
+    }
+
+    body > header > .container > h1 > a.thomas {
+        overflow: hidden;
         color: transparent;
         width: 2.2rem;
     }
@@ -985,6 +988,11 @@ body > footer {
         display: none;
     }
 
+    body > header > .container > h1 > a.thomas {
+        overflow: unset;
+        text-overflow: unset;
+    }
+
     /**
      * User list cover
      */
@@ -1165,6 +1173,7 @@ body > footer {
         padding-right: 10rem;
     }
 
+    body.blog-post > main > section.post > article > div.body ul,
     body.blog-post > main > section.post > article > div.body figure {
         padding-right: 10rem;
     }
